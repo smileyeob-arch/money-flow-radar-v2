@@ -134,11 +134,24 @@ def build_radar(snapshot_date, stocks, previous, get_bars, record_new=True):
         x for x in (previous.get("events") or [])
         if isinstance(x, dict) and (dt := _d(x.get("date"))) and cutoff <= dt <= today
     ]
-    tracked = {
-        t["ticker"]: dict(t) for t in (previous.get("tracked") or [])
-        if isinstance(t, dict) and isinstance(t.get("ticker"), str)
-        and (dt := _d(t.get("first_seen"))) and cutoff <= dt <= today
-    }
+    tracked = {}
+    for t in (previous.get("tracked") or []):
+        if not isinstance(t, dict) or not isinstance(t.get("ticker"), str):
+            continue
+        first = _d(t.get("first_seen"))
+        if first is None or not (cutoff <= first <= today):
+            continue
+        # Do NOT carry previous quote/MA/status values forward when an API fails.
+        tracked[t["ticker"]] = {
+            "ticker": t["ticker"], "name": str(t.get("name") or t["ticker"]),
+            "market": str(t.get("market") or ""),
+            "first_seen": str(t["first_seen"]),
+            "first_theme": str(t.get("first_theme") or ""),
+            "first_rank": int(t.get("first_rank") or 2),
+            "signals": [x for x in (t.get("signals") or [])
+                        if isinstance(x, dict) and (d := _d(x.get("date")))
+                        and cutoff <= d <= today]
+        }
     current = {s["ticker"]: s for s in stocks}
     new = theme_leaders(stocks) if record_new else []
     if record_new:
@@ -176,6 +189,12 @@ def build_radar(snapshot_date, stocks, previous, get_bars, record_new=True):
             quote = {"status": "시세 조회 실패", "status_key": "unknown"}
         else:
             quote = pullback_state(bars, item["first_seen"])
+            # A quote older than this snapshot must not be labelled current.
+            latest_bar = max((r.get("date", "") for r in bars), default="")
+            expected = snapshot_date.replace("-", "")
+            if latest_bar != expected:
+                quote["status"] = "시세 기준일 불일치"
+                quote["status_key"] = "unknown"
             # Keep the last 95 trading sessions for a chart and auditability.
             quote["bars"] = [
                 {"date": b.get("date"),
