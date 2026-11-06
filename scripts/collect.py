@@ -230,33 +230,43 @@ def main():
     ranking = rank_stocks(client, universe)
     mapping = load_mapping()
     stocks = []
-    errors = 0
+    failures = 0
+    excluded_below_threshold = 0
+    verified_charts = 0
     for i, rank in enumerate(ranking, 1):
         try:
             bars = daily_bars(client, rank["ticker"], date.date())
             s = analyze(rank, bars, mapping)
-            if s and s["amount_eok"] >= MIN_AMOUNT_EOK:
-                stocks.append(s)
-            elif s:
-                errors += 1
-                print("Below 500억원 at daily chart: " + rank["ticker"], flush=True)
-            else:
-                errors += 1
+            if s is None:
+                failures += 1
                 print(f"Insufficient daily history: {rank['ticker']}", flush=True)
+            else:
+                verified_charts += 1
+                if s["amount_eok"] >= MIN_AMOUNT_EOK:
+                    stocks.append(s)
+                else:
+                    excluded_below_threshold += 1
+                    print(f"Below 500억원 at daily chart: {rank['ticker']}", flush=True)
         except Exception as exc:
-            errors += 1
+            failures += 1
             print(f"Skipping {rank['ticker']}: {str(exc)[:170]}", flush=True)
         if i % 20 == 0:
-            print(f"Checked {i}/{len(ranking)}, valid={len(stocks)}", flush=True)
-    if len(stocks) < max(1, int(len(ranking) * .7)):
-        raise RuntimeError(f"Too few valid daily histories: {len(stocks)}/{len(ranking)}; JSON unchanged")
+            print(f"Checked {i}/{len(ranking)}, included={len(stocks)}, below500={excluded_below_threshold}, failures={failures}", flush=True)
 
-    # Prevent incorrectly combining current rank snapshot with stale chart results.
+    # A valid share can legitimately fall below the threshold between ranking
+    # and chart endpoints; it must not be counted as a fetch failure.
+    if verified_charts < max(1, math.ceil(len(ranking) * 0.7)):
+        raise RuntimeError(f"Too few chart responses: {verified_charts}/{len(ranking)}; JSON unchanged")
+    if not stocks:
+        raise RuntimeError("No ordinary shares with verified daily turnover >=500억원; JSON unchanged")
+
+    # Market session should be consistent across included charts.
     from collections import Counter
     day, count = Counter(s["session"] for s in stocks).most_common(1)[0]
+    if count < max(1, math.ceil(len(stocks) * 0.9)):
+        raise RuntimeError("Daily chart sessions inconsistent; JSON unchanged")
     stocks = [s for s in stocks if s["session"] == day]
-    if len(stocks) < max(1, int(len(ranking) * .7)):
-        raise RuntimeError("Daily chart dates inconsistent; JSON unchanged")
+    print(f"Filter result: {len(stocks)} included >=500억원, {excluded_below_threshold} below, {failures} failed queries", flush=True)
     # Reject old snapshots instead of silently publishing old quotes as current.
     actual = datetime.strptime(day, "%Y%m%d").date()
     if (date.date() - actual).days > 5:
@@ -283,7 +293,7 @@ def main():
     temp = OUT.with_suffix(".json.tmp")
     temp.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
     os.replace(temp, OUT)
-    print(f"Saved {len(stocks)} stocks, session={day}, skipped={errors}", flush=True)
+    print(f"Saved {len(stocks)} stocks, session={day}, failed={failures}, below500={excluded_below_threshold}", flush=True)
 
 
 if __name__ == "__main__":
