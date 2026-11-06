@@ -53,6 +53,12 @@ class RadarTests(unittest.TestCase):
         self.assertEqual(len(active["events"]), 1)
         self.assertEqual(len(active["tracked"]), 2)
         self.assertEqual(active["tracked"][0]["status_key"], "unknown")
+        # The stock must remain in watch history even after it leaves the
+        # next day's 500억원 selection universe.
+        later = build_radar("2026-11-07", [], active, lambda ticker: [], record_new=False)
+        self.assertEqual(len(later["tracked"]), 2)
+        self.assertEqual(len(later["events"]), 1)
+        self.assertNotIn("close", later["tracked"][0])
 
 
 if __name__ == "__main__":
