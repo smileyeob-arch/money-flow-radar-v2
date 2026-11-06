@@ -7,6 +7,8 @@ on:
       - 'scripts/backfill.py'
       - 'scripts/radar_backfill_core.py'
       - 'scripts/test_backfill.py'
+      - 'scripts/export_kiwoom_watchlist.py'
+      - 'scripts/test_watchlist_export.py'
       - 'scripts/test_radar.py'
       - '.github/workflows/test-radar.yml'
   workflow_dispatch:
@@ -24,5 +26,5 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Syntax and offline unit tests
         run: |
-          python -m py_compile scripts/radar.py scripts/collect.py scripts/backfill.py scripts/radar_backfill_core.py scripts/test_radar.py scripts/test_backfill.py
+          python -m py_compile scripts/radar.py scripts/collect.py scripts/backfill.py scripts/radar_backfill_core.py scripts/test_radar.py scripts/test_backfill.py scripts/export_kiwoom_watchlist.py scripts/test_watchlist_export.py
           python -m unittest discover -s scripts -p 'test_*.py' -v
