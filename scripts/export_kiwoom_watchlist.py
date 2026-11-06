@@ -127,8 +127,7 @@ def main():
     groups = watchlist_group_list(client)
     print(f"HTS watchlist group count: {len(groups)}", flush=True)
     if not groups:
-        print("No watchlist groups returned. No export created.", flush=True)
-        return
+        raise RuntimeError("No HTS watchlist groups returned; no export created")
     universe = eligible_individual_stocks(client)
     selected = {}
     group_items = []
