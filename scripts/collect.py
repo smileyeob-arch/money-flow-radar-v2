@@ -9,15 +9,17 @@ import math
 import os
 import re
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time as dt_time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
+from radar import build_radar
 
 ROOT = Path(__file__).resolve().parents[1]
 KST = ZoneInfo("Asia/Seoul")
 OUT = ROOT / "data" / "latest.json"
+RADAR_OUT = ROOT / "data" / "radar-history.json"
 MAPPING = ROOT / "data" / "sectors.csv"
 HOST = "https://api.kiwoom.com"
 DELAY = float(os.getenv("KIWOOM_REQUEST_DELAY", "0.30"))
@@ -191,6 +193,8 @@ def daily_bars(client, code, today):
         amount = positive(r.get("trde_prica"))
         if re.fullmatch(r"\d{8}", dt) and close > 0 and amount > 0:
             bars[dt] = {"date": dt, "close": close, "amount": amount,
+                        "high": positive(r.get("high_pric")),
+                        "low": positive(r.get("low_pric")),
                         "prev_delta": number(r.get("pred_pre"))}
     return [bars[dt] for dt in sorted(bars, reverse=True)]
 
@@ -359,6 +363,7 @@ def main():
     universe = eligible_individual_stocks(client)
     ranking = rank_stocks(client, universe)
     mapping = load_mapping()
+    chart_cache = {}
     stocks = []
     failures = 0
     excluded_below_threshold = 0
@@ -366,6 +371,7 @@ def main():
     for i, rank in enumerate(ranking, 1):
         try:
             bars = daily_bars(client, rank["ticker"], date.date())
+            chart_cache[rank["ticker"]] = bars
             s = analyze(rank, bars, mapping)
             if s is None:
                 failures += 1
@@ -421,10 +427,38 @@ def main():
         "theme_lookup": theme_status,
         "stocks": stocks,
     }
+    # Keep the dated theme leadership journal, including shares that dropped below
+    # the 500억원 daily shortlist after their original leadership event.
+    previous = {}
+    if RADAR_OUT.exists():
+        try:
+            previous = json.loads(RADAR_OUT.read_text(encoding="utf-8"))
+        except (ValueError, OSError) as exc:
+            raise RuntimeError("Cannot parse existing radar-history.json; refusing to overwrite") from exc
+
+    def get_chart(ticker):
+        if ticker not in chart_cache:
+            try:
+                chart_cache[ticker] = daily_bars(client, ticker, date.date())
+            except Exception as exc:
+                print(f"Tracked quote unavailable for {ticker}: {type(exc).__name__}", flush=True)
+                chart_cache[ticker] = []
+        return chart_cache[ticker]
+
+    # Pre-close API quotes are provisional; do not create historical top-theme
+    # events until at least 15:40 KST on that same trading date.
+    record_new = date.time() >= dt_time(15, 40) and output["date"] == date.strftime("%Y-%m-%d")
+    radar = build_radar(output["date"], stocks, previous, get_chart, record_new=record_new)
+    output["radar_history"] = "data/radar-history.json"
+    print(f"3-month tracker: {len(radar['events'])} theme events; {len(radar['tracked'])} tracked shares; recorded_today={record_new}", flush=True)
+
     OUT.parent.mkdir(exist_ok=True)
-    temp = OUT.with_suffix(".json.tmp")
-    temp.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
-    os.replace(temp, OUT)
+    temporary_quote = OUT.with_suffix(".json.tmp")
+    temporary_radar = RADAR_OUT.with_suffix(".json.tmp")
+    temporary_quote.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    temporary_radar.write_text(json.dumps(radar, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(temporary_radar, RADAR_OUT)
+    os.replace(temporary_quote, OUT)
     print(f"Saved {len(stocks)} stocks, session={day}, failed={failures}, below500={excluded_below_threshold}", flush=True)
 
 
