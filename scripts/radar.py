@@ -214,7 +214,8 @@ def build_radar(snapshot_date, stocks, previous, get_bars, record_new=True):
         "window_days": WINDOW_DAYS,
         "ranking_method": "500억원 이상 종목의 테마별 당일 평균 상승률 대용지표; 공식 인포스탁 전체 테마 수익률 아님",
         "history_start": min((e["date"] for e in events), default=None),
-        "backfilled": False,
+        "backfilled": bool(previous.get("backfilled", False)),
+        "backfill_meta": previous.get("backfill_meta") if previous.get("backfilled") else None,
         "events": events,
         "tracked": report,
         "new_today": len(new)
