@@ -117,7 +117,7 @@ def eligible_individual_stocks(client):
                 name = str(item.get("name", "")).strip()
                 if not re.fullmatch(r"\d{6}", code) or kind not in ("0", "10"):
                     continue
-                if re.search(r"스팩|SPAC|리츠|REIT|인프라|투자회사|뮤추얼", name, re.I):
+                if re.search(r"스팩|SPAC|리츠|REIT", name, re.I):
                     continue
                 if re.search(r"우(?:B|C|D|E|F)?$", name, re.I):
                     continue
