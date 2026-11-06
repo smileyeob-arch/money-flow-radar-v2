@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install minimal Python dependencies
+        run: python -m pip install -r requirements.txt
       - name: Syntax and offline unit tests
         run: |
           python -m py_compile scripts/radar.py scripts/collect.py scripts/backfill.py scripts/radar_backfill_core.py scripts/test_radar.py scripts/test_backfill.py
