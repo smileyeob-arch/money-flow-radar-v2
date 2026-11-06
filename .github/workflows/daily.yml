@@ -25,8 +25,17 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Collect market data
-        run: python scripts/collect.py
+        id: collect
+        continue-on-error: true
+        run: python -u scripts/collect.py
+      - name: Report collection status
+        if: steps.collect.outcome == 'failure'
+        run: |
+          echo '::warning::KRX data collection failed. Deploying UI without fabricated quotes; existing data stays unchanged.'
+          echo '## KRX 데이터 수집 실패' >> "$GITHUB_STEP_SUMMARY"
+          echo 'KRX 공급원 조회 실패로 실제 시세가 업데이트되지 않았습니다. 기존 JSON은 유지되며 샘플 시세는 표시하지 않습니다.' >> "$GITHUB_STEP_SUMMARY"
       - name: Save new data to repository
+        if: steps.collect.outcome == 'success'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
