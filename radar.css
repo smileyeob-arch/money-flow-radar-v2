@@ -103,3 +103,16 @@
  .radar-price strong{font-size:12px}
  .radar-chart-hint{font-size:9px}
 }
+
+/* v3.2: private Kiwoom HTS watchlist importer */
+.radar-private-controls{border-bottom:1px solid #e5edf7;padding:12px 15px;background:linear-gradient(90deg,#f4f9fe,#fff)}
+.radar-private-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.radar-private-row>label{font-size:11px;font-weight:800;color:#3d5978}
+.radar-private-row select{border:1px solid #d6e1ed;border-radius:7px;background:#fff;color:#36536e;padding:8px 11px;min-height:36px;font-size:12px}
+.radar-private-tools{display:flex;align-items:center;flex-wrap:wrap;gap:9px;min-width:0}
+.radar-import-label{display:inline-block;border-radius:7px;background:#257bab;color:#fff!important;padding:9px 12px;font-size:11px;cursor:pointer}
+.radar-import-label:hover{background:#16648f}
+.radar-private-tools input[type=file]{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.radar-private-info{margin:8px 0 0;font-size:11px;color:#7188a1;line-height:1.7;overflow-wrap:anywhere}
+.radar-private-info code{background:#e8f1f8;padding:2px 4px;border-radius:3px}
+@media(max-width:760px){.radar-private-row{align-items:flex-start;flex-direction:column}.radar-private-tools{width:100%}.radar-private-tools select{max-width:100%}}
