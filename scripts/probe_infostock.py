@@ -6,7 +6,7 @@ from collect import Kiwoom, _infostock_rows, _infostock_value
 def safe_message(value):
     """Keep brief diagnostic text; hide possible credential-shaped strings."""
     text = str(value or "")[:180]
-    text = re.sub(r"(?i)(bearer|token|appkey|secretkey|password)\\s*[:= ]\\s*\\S+", r"\\1=[REDACTED]", text)
+    text = re.sub(r"(?i)(bearer|token|appkey|secretkey|password)\s*[:= ]\\s*\S+", r"\1=[REDACTED]", text)
     return text
 
 
