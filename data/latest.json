@@ -1,1145 +1,2311 @@
 {
   "date": "2026-11-06",
-  "generated_at_kst": "2026-11-06 13:43 KST",
+  "generated_at_kst": "2026-11-06 15:29 KST",
   "source": "Kiwoom REST (ka10099 + ka10032 + ka10081)",
   "filter_note": "KOSPI/KOSDAQ ordinary shares, no ETF/ETN/REIT/SPAC/preferred shares, turnover >=500억원",
-  "sector_mapping_note": "키움 ka90001 종목 역조회 테마; 조회 실패 시에만 수동 CSV 대체; 다중 테마 거래대금 중복 집계 가능",
+  "sector_mapping_note": "인포스탁 전용 ka10106/ka10107 기반; 미매칭은 미분류; 다중 테마 거래대금 중복 집계 가능",
   "theme_lookup": {
-    "api_id": "ka90001",
-    "lookup_ok": 51,
-    "matched": 33,
-    "lookup_failed": 0,
-    "mode": "stock_reverse_lookup"
+    "api_ids": [
+      "ka10106",
+      "ka10107"
+    ],
+    "theme_count": 264,
+    "matched": 73,
+    "unmatched": 0,
+    "mode": "infostock_exclusive"
   },
   "stocks": [
     {
       "ticker": "000660",
       "name": "SK하이닉스",
       "market": "KOSPI",
-      "sector": "반도체_생산",
+      "sector": "반도체 대표주(생산)",
       "sectors": [
-        "반도체_생산"
+        "반도체 대표주(생산)",
+        "IT 대표주",
+        "시스템반도체",
+        "자율주행차",
+        "아이폰",
+        "전력반도체",
+        "HBM(고대역폭메모리)",
+        "온디바이스 AI",
+        "CXL(컴퓨트익스프레스링크)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "소캠(SOCAMM)",
+        "S7(삼성전자/SK하이닉스 등)"
       ],
-      "close": 1151000,
-      "change_pct": -8.8,
-      "amount_eok": 57923.0,
-      "day_amount_pct": 5.7,
-      "spike5_pct": 19.5,
-      "spike20_pct": 10.3,
-      "ma20_close": 1353700.0,
-      "ma20_gap_pct": -14.97,
-      "theme_source": "kiwoom_ka90001",
+      "close": 1128000,
+      "change_pct": -10.62,
+      "amount_eok": 79022.5,
+      "day_amount_pct": 44.2,
+      "spike5_pct": 63.0,
+      "spike20_pct": 50.4,
+      "ma20_close": 1352550.0,
+      "ma20_gap_pct": -16.6,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "550",
-          "name": "반도체_생산",
-          "change_pct": -4.48
+          "code": "155",
+          "name": "반도체 대표주(생산)"
+        },
+        {
+          "code": "173",
+          "name": "IT 대표주"
+        },
+        {
+          "code": "307",
+          "name": "시스템반도체"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "388",
+          "name": "아이폰"
+        },
+        {
+          "code": "533",
+          "name": "전력반도체"
+        },
+        {
+          "code": "536",
+          "name": "HBM(고대역폭메모리)"
+        },
+        {
+          "code": "545",
+          "name": "온디바이스 AI"
+        },
+        {
+          "code": "547",
+          "name": "CXL(컴퓨트익스프레스링크)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "599",
+          "name": "소캠(SOCAMM)"
+        },
+        {
+          "code": "614",
+          "name": "S7(삼성전자/SK하이닉스 등)"
         }
       ],
-      "score": 43.2
+      "score": 51.7
     },
     {
       "ticker": "005930",
       "name": "삼성전자",
       "market": "KOSPI",
-      "sector": "반도체_생산",
+      "sector": "OLED(유기 발광 다이오드)",
       "sectors": [
-        "반도체_생산"
+        "OLED(유기 발광 다이오드)",
+        "LED",
+        "스마트홈(홈네트워크)",
+        "공기청정기",
+        "반도체 대표주(생산)",
+        "IT 대표주",
+        "의료기기",
+        "스마트폰",
+        "시스템반도체",
+        "고령화 사회(노인복지)",
+        "무선충전기술",
+        "제습기",
+        "삼성페이",
+        "가상현실(VR)",
+        "자율주행차",
+        "5G(5세대 이동통신)",
+        "플렉서블 디스플레이",
+        "아이폰",
+        "마이크로 LED",
+        "갤럭시 부품주",
+        "폴더블폰",
+        "NFT(대체불가토큰)",
+        "전력반도체",
+        "HBM(고대역폭메모리)",
+        "온디바이스 AI",
+        "CXL(컴퓨트익스프레스링크)",
+        "뉴로모픽 반도체",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "피지컬 AI/휴머노이드 로봇",
+        "소캠(SOCAMM)",
+        "S7(삼성전자/SK하이닉스 등)"
       ],
-      "close": 189500,
-      "change_pct": -5.96,
-      "amount_eok": 49851.2,
-      "day_amount_pct": -1.1,
-      "spike5_pct": 21.9,
-      "spike20_pct": 16.1,
-      "ma20_close": 221350.0,
-      "ma20_gap_pct": -14.39,
-      "theme_source": "kiwoom_ka90001",
+      "close": 188700,
+      "change_pct": -6.35,
+      "amount_eok": 60690.5,
+      "day_amount_pct": 20.4,
+      "spike5_pct": 48.4,
+      "spike20_pct": 41.3,
+      "ma20_close": 221310.0,
+      "ma20_gap_pct": -14.73,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "550",
-          "name": "반도체_생산",
-          "change_pct": -4.43
+          "code": "009",
+          "name": "OLED(유기 발광 다이오드)"
+        },
+        {
+          "code": "033",
+          "name": "LED"
+        },
+        {
+          "code": "104",
+          "name": "스마트홈(홈네트워크)"
+        },
+        {
+          "code": "112",
+          "name": "공기청정기"
+        },
+        {
+          "code": "155",
+          "name": "반도체 대표주(생산)"
+        },
+        {
+          "code": "173",
+          "name": "IT 대표주"
+        },
+        {
+          "code": "175",
+          "name": "의료기기"
+        },
+        {
+          "code": "279",
+          "name": "스마트폰"
+        },
+        {
+          "code": "307",
+          "name": "시스템반도체"
+        },
+        {
+          "code": "311",
+          "name": "고령화 사회(노인복지)"
+        },
+        {
+          "code": "321",
+          "name": "무선충전기술"
+        },
+        {
+          "code": "328",
+          "name": "제습기"
+        },
+        {
+          "code": "348",
+          "name": "삼성페이"
+        },
+        {
+          "code": "352",
+          "name": "가상현실(VR)"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "373",
+          "name": "5G(5세대 이동통신)"
+        },
+        {
+          "code": "382",
+          "name": "플렉서블 디스플레이"
+        },
+        {
+          "code": "388",
+          "name": "아이폰"
+        },
+        {
+          "code": "390",
+          "name": "마이크로 LED"
+        },
+        {
+          "code": "393",
+          "name": "갤럭시 부품주"
+        },
+        {
+          "code": "404",
+          "name": "폴더블폰"
+        },
+        {
+          "code": "492",
+          "name": "NFT(대체불가토큰)"
+        },
+        {
+          "code": "533",
+          "name": "전력반도체"
+        },
+        {
+          "code": "536",
+          "name": "HBM(고대역폭메모리)"
+        },
+        {
+          "code": "545",
+          "name": "온디바이스 AI"
+        },
+        {
+          "code": "547",
+          "name": "CXL(컴퓨트익스프레스링크)"
+        },
+        {
+          "code": "556",
+          "name": "뉴로모픽 반도체"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "587",
+          "name": "피지컬 AI/휴머노이드 로봇"
+        },
+        {
+          "code": "599",
+          "name": "소캠(SOCAMM)"
+        },
+        {
+          "code": "614",
+          "name": "S7(삼성전자/SK하이닉스 등)"
         }
       ],
-      "score": 38.4
+      "score": 39.9
     },
     {
       "ticker": "009150",
       "name": "삼성전기",
       "market": "KOSPI",
-      "sector": "스마트폰_삼성전자관련주",
+      "sector": "카메라모듈/부품",
       "sectors": [
-        "스마트폰_삼성전자관련주",
-        "PCB(인쇄회로기판)",
-        "휴대폰_카메라"
+        "카메라모듈/부품",
+        "PCB(FPCB 등)",
+        "자율주행차",
+        "아이폰",
+        "갤럭시 부품주",
+        "폴더블폰",
+        "MLCC(적층세라믹콘덴서)",
+        "2차전지(전고체)",
+        "온디바이스 AI",
+        "유리 기판",
+        "반도체 기판(FC-BGA/PCB/MLB 등)",
+        "S7(삼성전자/SK하이닉스 등)"
       ],
-      "close": 885000,
-      "change_pct": -6.84,
-      "amount_eok": 10548.4,
-      "day_amount_pct": -23.2,
-      "spike5_pct": 10.2,
-      "spike20_pct": 8.2,
-      "ma20_close": 1186800.0,
-      "ma20_gap_pct": -25.43,
-      "theme_source": "kiwoom_ka90001",
+      "close": 862000,
+      "change_pct": -9.26,
+      "amount_eok": 12511.4,
+      "day_amount_pct": -8.9,
+      "spike5_pct": 30.7,
+      "spike20_pct": 28.3,
+      "ma20_close": 1185650.0,
+      "ma20_gap_pct": -27.3,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "515",
-          "name": "스마트폰_삼성전자관련주",
-          "change_pct": -3.69
+          "code": "041",
+          "name": "카메라모듈/부품"
         },
         {
-          "code": "500",
-          "name": "PCB(인쇄회로기판)",
-          "change_pct": -4.01
+          "code": "287",
+          "name": "PCB(FPCB 등)"
         },
         {
-          "code": "514",
-          "name": "휴대폰_카메라",
-          "change_pct": -4.43
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "388",
+          "name": "아이폰"
+        },
+        {
+          "code": "393",
+          "name": "갤럭시 부품주"
+        },
+        {
+          "code": "404",
+          "name": "폴더블폰"
+        },
+        {
+          "code": "405",
+          "name": "MLCC(적층세라믹콘덴서)"
+        },
+        {
+          "code": "472",
+          "name": "2차전지(전고체)"
+        },
+        {
+          "code": "545",
+          "name": "온디바이스 AI"
+        },
+        {
+          "code": "557",
+          "name": "유리 기판"
+        },
+        {
+          "code": "608",
+          "name": "반도체 기판(FC-BGA/PCB/MLB 등)"
+        },
+        {
+          "code": "614",
+          "name": "S7(삼성전자/SK하이닉스 등)"
         }
       ],
-      "score": 9.2
+      "score": 12.3
     },
     {
       "ticker": "402340",
       "name": "SK스퀘어",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "지주사",
       "sectors": [
-        "미분류"
+        "지주사",
+        "모바일콘텐츠(스마트폰/태블릿PC)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "밸류업(25년 기업가치 제고계획 발표)",
+        "S7(삼성전자/SK하이닉스 등)"
       ],
-      "close": 734000,
-      "change_pct": -8.71,
-      "amount_eok": 4015.3,
-      "day_amount_pct": -31.3,
-      "spike5_pct": -30.1,
-      "spike20_pct": -37.0,
-      "ma20_close": 838100.0,
-      "ma20_gap_pct": -12.42,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
+      "close": 720000,
+      "change_pct": -10.45,
+      "amount_eok": 5570.1,
+      "day_amount_pct": -4.6,
+      "spike5_pct": -3.0,
+      "spike20_pct": -12.5,
+      "ma20_close": 837400.0,
+      "ma20_gap_pct": -14.02,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "111",
+          "name": "지주사"
+        },
+        {
+          "code": "270",
+          "name": "모바일콘텐츠(스마트폰/태블릿PC)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "614",
+          "name": "S7(삼성전자/SK하이닉스 등)"
+        }
+      ],
       "score": 2.8
     },
     {
       "ticker": "006400",
       "name": "삼성SDI",
       "market": "KOSPI",
-      "sector": "태양광_잉곳/웨이퍼/셀/모듈",
+      "sector": "2차전지",
       "sectors": [
-        "태양광_잉곳/웨이퍼/셀/모듈",
-        "그린카_하이브리드카/전기차",
-        "2차전지_완제품"
+        "2차전지",
+        "IT 대표주",
+        "전기차",
+        "스마트폰",
+        "전력저장장치(ESS)",
+        "아이폰",
+        "2차전지(생산)",
+        "2차전지(전고체)",
+        "리비안(RIVIAN)",
+        "2차전지(나트륨이온)"
       ],
-      "close": 480000,
-      "change_pct": -5.88,
-      "amount_eok": 2880.6,
-      "day_amount_pct": -43.4,
-      "spike5_pct": -36.9,
-      "spike20_pct": -27.3,
-      "ma20_close": 533150.0,
-      "ma20_gap_pct": -9.97,
-      "theme_source": "kiwoom_ka90001",
+      "close": 466000,
+      "change_pct": -8.63,
+      "amount_eok": 3796.6,
+      "day_amount_pct": -25.5,
+      "spike5_pct": -16.9,
+      "spike20_pct": -4.2,
+      "ma20_close": 532450.0,
+      "ma20_gap_pct": -12.48,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "101",
-          "name": "태양광_잉곳/웨이퍼/셀/모듈",
-          "change_pct": -2.07
+          "code": "064",
+          "name": "2차전지"
         },
         {
-          "code": "245",
-          "name": "그린카_하이브리드카/전기차",
-          "change_pct": -3.47
+          "code": "173",
+          "name": "IT 대표주"
         },
         {
-          "code": "140",
-          "name": "2차전지_완제품",
-          "change_pct": -4.51
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "279",
+          "name": "스마트폰"
+        },
+        {
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "388",
+          "name": "아이폰"
+        },
+        {
+          "code": "449",
+          "name": "2차전지(생산)"
+        },
+        {
+          "code": "472",
+          "name": "2차전지(전고체)"
+        },
+        {
+          "code": "501",
+          "name": "리비안(RIVIAN)"
+        },
+        {
+          "code": "579",
+          "name": "2차전지(나트륨이온)"
         }
       ],
-      "score": 2.0
-    },
-    {
-      "ticker": "180640",
-      "name": "한진칼",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 207000,
-      "change_pct": 13.3,
-      "amount_eok": 2214.5,
-      "day_amount_pct": 9.4,
-      "spike5_pct": 26.7,
-      "spike20_pct": 343.2,
-      "ma20_close": 136765.0,
-      "ma20_gap_pct": 51.35,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 37.6
+      "score": 1.9
     },
     {
       "ticker": "035420",
       "name": "NAVER",
       "market": "KOSPI",
-      "sector": "SNS(Social Network Service)",
+      "sector": "게임",
       "sectors": [
-        "SNS(Social Network Service)",
-        "게임_모바일"
+        "게임",
+        "인터넷 대표주",
+        "모바일게임(스마트폰)",
+        "모바일콘텐츠(스마트폰/태블릿PC)",
+        "클라우드 컴퓨팅",
+        "음성인식",
+        "SNS(소셜네트워크서비스)",
+        "핀테크(FinTech)",
+        "자율주행차",
+        "블록체인",
+        "메타버스(Metaverse)",
+        "웹툰",
+        "NFT(대체불가토큰)",
+        "마이데이터",
+        "AI 챗봇(챗GPT 등)",
+        "스테이블코인"
       ],
-      "close": 191800,
-      "change_pct": 4.3,
-      "amount_eok": 1867.6,
-      "day_amount_pct": -30.5,
-      "spike5_pct": 42.8,
-      "spike20_pct": 56.8,
-      "ma20_close": 177505.0,
-      "ma20_gap_pct": 8.05,
-      "theme_source": "kiwoom_ka90001",
+      "close": 189900,
+      "change_pct": 3.26,
+      "amount_eok": 3479.2,
+      "day_amount_pct": 29.4,
+      "spike5_pct": 166.0,
+      "spike20_pct": 192.1,
+      "ma20_close": 177410.0,
+      "ma20_gap_pct": 7.04,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "452",
-          "name": "SNS(Social Network Service)",
-          "change_pct": 2.74
+          "code": "042",
+          "name": "게임"
         },
         {
-          "code": "471",
-          "name": "게임_모바일",
-          "change_pct": 1.63
+          "code": "049",
+          "name": "인터넷 대표주"
+        },
+        {
+          "code": "265",
+          "name": "모바일게임(스마트폰)"
+        },
+        {
+          "code": "270",
+          "name": "모바일콘텐츠(스마트폰/태블릿PC)"
+        },
+        {
+          "code": "276",
+          "name": "클라우드 컴퓨팅"
+        },
+        {
+          "code": "302",
+          "name": "음성인식"
+        },
+        {
+          "code": "317",
+          "name": "SNS(소셜네트워크서비스)"
+        },
+        {
+          "code": "342",
+          "name": "핀테크(FinTech)"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "387",
+          "name": "블록체인"
+        },
+        {
+          "code": "480",
+          "name": "메타버스(Metaverse)"
+        },
+        {
+          "code": "488",
+          "name": "웹툰"
+        },
+        {
+          "code": "492",
+          "name": "NFT(대체불가토큰)"
+        },
+        {
+          "code": "507",
+          "name": "마이데이터"
+        },
+        {
+          "code": "529",
+          "name": "AI 챗봇(챗GPT 등)"
+        },
+        {
+          "code": "582",
+          "name": "스테이블코인"
         }
       ],
-      "score": 16.6
+      "score": 41.3
+    },
+    {
+      "ticker": "180640",
+      "name": "한진칼",
+      "market": "KOSPI",
+      "sector": "지주사",
+      "sectors": [
+        "지주사",
+        "항공/저가 항공사(LCC)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 196100,
+      "change_pct": 7.33,
+      "amount_eok": 2626.6,
+      "day_amount_pct": 29.8,
+      "spike5_pct": 50.3,
+      "spike20_pct": 425.7,
+      "ma20_close": 136220.0,
+      "ma20_gap_pct": 43.96,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "111",
+          "name": "지주사"
+        },
+        {
+          "code": "166",
+          "name": "항공/저가 항공사(LCC)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 32.4
     },
     {
       "ticker": "009830",
       "name": "한화솔루션",
       "market": "KOSPI",
-      "sector": "태양광_폴리실리콘",
+      "sector": "석유화학",
       "sectors": [
-        "태양광_폴리실리콘",
-        "태양광_발전/설치/운영",
-        "태양광_잉곳/웨이퍼/셀/모듈",
-        "합성수지",
-        "2차전지_소재(양극화물질등)"
+        "석유화학",
+        "태양광에너지",
+        "수소에너지(수소차/연료전지 등)",
+        "日 수출 규제(국산화 등)",
+        "우주태양광(페로브스카이트 등)"
       ],
-      "close": 27000,
-      "change_pct": -0.37,
-      "amount_eok": 1632.6,
-      "day_amount_pct": -60.6,
-      "spike5_pct": -41.3,
-      "spike20_pct": 23.4,
-      "ma20_close": 28492.5,
-      "ma20_gap_pct": -5.24,
-      "theme_source": "kiwoom_ka90001",
+      "close": 26050,
+      "change_pct": -3.87,
+      "amount_eok": 2077.5,
+      "day_amount_pct": -49.9,
+      "spike5_pct": -25.3,
+      "spike20_pct": 57.0,
+      "ma20_close": 28445.0,
+      "ma20_gap_pct": -8.42,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "100",
-          "name": "태양광_폴리실리콘",
-          "change_pct": -0.2
+          "code": "180",
+          "name": "석유화학"
         },
         {
-          "code": "103",
-          "name": "태양광_발전/설치/운영",
-          "change_pct": -0.34
+          "code": "191",
+          "name": "태양광에너지"
         },
         {
-          "code": "101",
-          "name": "태양광_잉곳/웨이퍼/셀/모듈",
-          "change_pct": -2.09
+          "code": "386",
+          "name": "수소에너지(수소차/연료전지 등)"
         },
         {
-          "code": "150",
-          "name": "합성수지",
-          "change_pct": -2.93
+          "code": "422",
+          "name": "日 수출 규제(국산화 등)"
         },
         {
-          "code": "141",
-          "name": "2차전지_소재(양극화물질등)",
-          "change_pct": -5.15
+          "code": "595",
+          "name": "우주태양광(페로브스카이트 등)"
         }
       ],
-      "score": 2.9
-    },
-    {
-      "ticker": "036930",
-      "name": "주성엔지니어링",
-      "market": "KOSDAQ",
-      "sector": "LCD_장비",
-      "sectors": [
-        "LCD_장비",
-        "AMOLED_장비",
-        "태양광_부품/소재/장비",
-        "반도체_전공정장비"
-      ],
-      "close": 135500,
-      "change_pct": -7.51,
-      "amount_eok": 1613.9,
-      "day_amount_pct": -18.2,
-      "spike5_pct": -6.2,
-      "spike20_pct": -50.7,
-      "ma20_close": 189770.0,
-      "ma20_gap_pct": -28.6,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "560",
-          "name": "LCD_장비",
-          "change_pct": -3.38
-        },
-        {
-          "code": "570",
-          "name": "AMOLED_장비",
-          "change_pct": -3.9
-        },
-        {
-          "code": "102",
-          "name": "태양광_부품/소재/장비",
-          "change_pct": -7.08
-        },
-        {
-          "code": "555",
-          "name": "반도체_전공정장비",
-          "change_pct": -7.09
-        }
-      ],
-      "score": 1.1
-    },
-    {
-      "ticker": "353200",
-      "name": "대덕전자",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 72100,
-      "change_pct": -10.66,
-      "amount_eok": 1439.8,
-      "day_amount_pct": -43.3,
-      "spike5_pct": -35.1,
-      "spike20_pct": -15.1,
-      "ma20_close": 122820.0,
-      "ma20_gap_pct": -41.3,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 1.0
-    },
-    {
-      "ticker": "028050",
-      "name": "삼성E&A",
-      "market": "KOSPI",
-      "sector": "건설_해외건설",
-      "sectors": [
-        "건설_해외건설"
-      ],
-      "close": 61800,
-      "change_pct": -4.63,
-      "amount_eok": 1433.5,
-      "day_amount_pct": -28.2,
-      "spike5_pct": -15.4,
-      "spike20_pct": -28.7,
-      "ma20_close": 55090.0,
-      "ma20_gap_pct": 12.18,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "200",
-          "name": "건설_해외건설",
-          "change_pct": -1.8
-        }
-      ],
-      "score": 1.0
+      "score": 5.3
     },
     {
       "ticker": "068270",
       "name": "셀트리온",
       "market": "KOSPI",
-      "sector": "바이오_바이오시밀러/베터",
+      "sector": "바이오시밀러(복제 바이오의약품)",
       "sectors": [
-        "바이오_바이오시밀러/베터"
+        "바이오시밀러(복제 바이오의약품)",
+        "밸류업(25년 기업가치 제고계획 발표)"
       ],
-      "close": 212000,
-      "change_pct": -1.4,
-      "amount_eok": 1421.8,
-      "day_amount_pct": -66.8,
-      "spike5_pct": -17.8,
-      "spike20_pct": 15.8,
-      "ma20_close": 192555.0,
-      "ma20_gap_pct": 10.1,
-      "theme_source": "kiwoom_ka90001",
+      "close": 210500,
+      "change_pct": -2.09,
+      "amount_eok": 2011.2,
+      "day_amount_pct": -53.0,
+      "spike5_pct": 16.3,
+      "spike20_pct": 63.9,
+      "ma20_close": 192480.0,
+      "ma20_gap_pct": 9.36,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "360",
-          "name": "바이오_바이오시밀러/베터",
-          "change_pct": -1.21
-        }
-      ],
-      "score": 2.2
-    },
-    {
-      "ticker": "298040",
-      "name": "효성중공업",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 1587000,
-      "change_pct": -11.39,
-      "amount_eok": 1393.7,
-      "day_amount_pct": -6.1,
-      "spike5_pct": -0.2,
-      "spike20_pct": 11.2,
-      "ma20_close": 1939850.0,
-      "ma20_gap_pct": -18.19,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 1.8
-    },
-    {
-      "ticker": "034020",
-      "name": "두산에너빌리티",
-      "market": "KOSPI",
-      "sector": "온실가스배출저감",
-      "sectors": [
-        "온실가스배출저감",
-        "원자력_기자재"
-      ],
-      "close": 45250,
-      "change_pct": -7.65,
-      "amount_eok": 1392.8,
-      "day_amount_pct": -2.6,
-      "spike5_pct": -7.2,
-      "spike20_pct": -17.6,
-      "ma20_close": 59682.5,
-      "ma20_gap_pct": -24.18,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "800",
-          "name": "온실가스배출저감",
-          "change_pct": -4.52
+          "code": "241",
+          "name": "바이오시밀러(복제 바이오의약품)"
         },
         {
-          "code": "110",
-          "name": "원자력_기자재",
-          "change_pct": -10.89
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
         }
       ],
-      "score": 1.0
+      "score": 7.8
     },
     {
       "ticker": "105560",
       "name": "KB금융",
       "market": "KOSPI",
-      "sector": "은행",
+      "sector": "지주사",
       "sectors": [
-        "은행"
+        "지주사",
+        "은행",
+        "인터넷은행",
+        "카카오뱅크(kakao BANK)",
+        "STO(토큰증권 발행)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
       ],
-      "close": 151500,
-      "change_pct": -4.24,
-      "amount_eok": 1348.5,
-      "day_amount_pct": -14.0,
-      "spike5_pct": -4.6,
-      "spike20_pct": -6.5,
-      "ma20_close": 156420.0,
-      "ma20_gap_pct": -3.15,
-      "theme_source": "kiwoom_ka90001",
+      "close": 151000,
+      "change_pct": -4.55,
+      "amount_eok": 1969.4,
+      "day_amount_pct": 25.6,
+      "spike5_pct": 39.4,
+      "spike20_pct": 36.5,
+      "ma20_close": 156395.0,
+      "ma20_gap_pct": -3.45,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "400",
-          "name": "은행",
-          "change_pct": -1.81
+          "code": "111",
+          "name": "지주사"
+        },
+        {
+          "code": "165",
+          "name": "은행"
+        },
+        {
+          "code": "343",
+          "name": "인터넷은행"
+        },
+        {
+          "code": "489",
+          "name": "카카오뱅크(kakao BANK)"
+        },
+        {
+          "code": "531",
+          "name": "STO(토큰증권 발행)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
         }
       ],
-      "score": 0.9
+      "score": 8.7
+    },
+    {
+      "ticker": "298040",
+      "name": "효성중공업",
+      "market": "KOSPI",
+      "sector": "전력설비",
+      "sectors": [
+        "전력설비",
+        "풍력에너지",
+        "원자력발전",
+        "전력저장장치(ESS)",
+        "수소에너지(수소차/연료전지 등)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
+      ],
+      "close": 1563000,
+      "change_pct": -12.73,
+      "amount_eok": 1939.7,
+      "day_amount_pct": 30.7,
+      "spike5_pct": 38.9,
+      "spike20_pct": 54.8,
+      "ma20_close": 1938650.0,
+      "ma20_gap_pct": -19.38,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "123",
+          "name": "전력설비"
+        },
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        },
+        {
+          "code": "205",
+          "name": "원자력발전"
+        },
+        {
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "386",
+          "name": "수소에너지(수소차/연료전지 등)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        }
+      ],
+      "score": 10.0
+    },
+    {
+      "ticker": "036930",
+      "name": "주성엔지니어링",
+      "market": "KOSDAQ",
+      "sector": "OLED(유기 발광 다이오드)",
+      "sectors": [
+        "OLED(유기 발광 다이오드)",
+        "반도체 장비",
+        "태양광에너지",
+        "LED장비",
+        "플렉서블 디스플레이",
+        "코리아 밸류업 지수(Korea Value-up Index)"
+      ],
+      "close": 132400,
+      "change_pct": -9.62,
+      "amount_eok": 1906.0,
+      "day_amount_pct": -3.4,
+      "spike5_pct": 10.8,
+      "spike20_pct": -41.7,
+      "ma20_close": 189615.0,
+      "ma20_gap_pct": -30.17,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "009",
+          "name": "OLED(유기 발광 다이오드)"
+        },
+        {
+          "code": "012",
+          "name": "반도체 장비"
+        },
+        {
+          "code": "191",
+          "name": "태양광에너지"
+        },
+        {
+          "code": "269",
+          "name": "LED장비"
+        },
+        {
+          "code": "382",
+          "name": "플렉서블 디스플레이"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        }
+      ],
+      "score": 2.3
     },
     {
       "ticker": "042700",
       "name": "한미반도체",
       "market": "KOSPI",
-      "sector": "반도체_후공정장비",
+      "sector": "반도체 장비",
       "sectors": [
-        "반도체_후공정장비"
+        "반도체 장비",
+        "전자파",
+        "시스템반도체",
+        "HBM(고대역폭메모리)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)",
+        "스페이스X(SpaceX)"
       ],
-      "close": 161300,
-      "change_pct": -4.05,
-      "amount_eok": 1248.5,
-      "day_amount_pct": -5.2,
-      "spike5_pct": -7.2,
-      "spike20_pct": -12.5,
-      "ma20_close": 196975.0,
-      "ma20_gap_pct": -18.11,
-      "theme_source": "kiwoom_ka90001",
+      "close": 161600,
+      "change_pct": -3.87,
+      "amount_eok": 1893.7,
+      "day_amount_pct": 43.7,
+      "spike5_pct": 40.8,
+      "spike20_pct": 32.7,
+      "ma20_close": 196990.0,
+      "ma20_gap_pct": -17.97,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "553",
-          "name": "반도체_후공정장비",
-          "change_pct": -4.0
+          "code": "012",
+          "name": "반도체 장비"
+        },
+        {
+          "code": "018",
+          "name": "전자파"
+        },
+        {
+          "code": "307",
+          "name": "시스템반도체"
+        },
+        {
+          "code": "536",
+          "name": "HBM(고대역폭메모리)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "584",
+          "name": "스페이스X(SpaceX)"
         }
       ],
-      "score": 0.9
+      "score": 8.5
+    },
+    {
+      "ticker": "034020",
+      "name": "두산에너빌리티",
+      "market": "KOSPI",
+      "sector": "전력설비",
+      "sectors": [
+        "전력설비",
+        "수자원(양적/질적 개선)",
+        "핵융합에너지",
+        "풍력에너지",
+        "원자력발전",
+        "셰일가스(Shale Gas)",
+        "항공기부품",
+        "원자력발전소 해체"
+      ],
+      "close": 44450,
+      "change_pct": -9.29,
+      "amount_eok": 1883.2,
+      "day_amount_pct": 31.8,
+      "spike5_pct": 25.5,
+      "spike20_pct": 11.3,
+      "ma20_close": 59642.5,
+      "ma20_gap_pct": -25.47,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "123",
+          "name": "전력설비"
+        },
+        {
+          "code": "184",
+          "name": "수자원(양적/질적 개선)"
+        },
+        {
+          "code": "187",
+          "name": "핵융합에너지"
+        },
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        },
+        {
+          "code": "205",
+          "name": "원자력발전"
+        },
+        {
+          "code": "323",
+          "name": "셰일가스(Shale Gas)"
+        },
+        {
+          "code": "379",
+          "name": "항공기부품"
+        },
+        {
+          "code": "401",
+          "name": "원자력발전소 해체"
+        }
+      ],
+      "score": 5.0
+    },
+    {
+      "ticker": "028050",
+      "name": "삼성E&A",
+      "market": "KOSPI",
+      "sector": "수자원(양적/질적 개선)",
+      "sectors": [
+        "수자원(양적/질적 개선)",
+        "전후 재건(우크라/중동 전쟁 등)"
+      ],
+      "close": 60600,
+      "change_pct": -6.48,
+      "amount_eok": 1820.3,
+      "day_amount_pct": -8.8,
+      "spike5_pct": 7.5,
+      "spike20_pct": -9.4,
+      "ma20_close": 55030.0,
+      "ma20_gap_pct": 10.12,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "184",
+          "name": "수자원(양적/질적 개선)"
+        },
+        {
+          "code": "517",
+          "name": "전후 재건(우크라/중동 전쟁 등)"
+        }
+      ],
+      "score": 1.9
+    },
+    {
+      "ticker": "353200",
+      "name": "대덕전자",
+      "market": "KOSPI",
+      "sector": "스마트폰",
+      "sectors": [
+        "스마트폰",
+        "PCB(FPCB 등)",
+        "5G(5세대 이동통신)",
+        "온디바이스 AI",
+        "소캠(SOCAMM)",
+        "반도체 기판(FC-BGA/PCB/MLB 등)"
+      ],
+      "close": 70900,
+      "change_pct": -12.14,
+      "amount_eok": 1717.3,
+      "day_amount_pct": -32.3,
+      "spike5_pct": -22.6,
+      "spike20_pct": 1.3,
+      "ma20_close": 122760.0,
+      "ma20_gap_pct": -42.25,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "279",
+          "name": "스마트폰"
+        },
+        {
+          "code": "287",
+          "name": "PCB(FPCB 등)"
+        },
+        {
+          "code": "373",
+          "name": "5G(5세대 이동통신)"
+        },
+        {
+          "code": "545",
+          "name": "온디바이스 AI"
+        },
+        {
+          "code": "599",
+          "name": "소캠(SOCAMM)"
+        },
+        {
+          "code": "608",
+          "name": "반도체 기판(FC-BGA/PCB/MLB 등)"
+        }
+      ],
+      "score": 1.0
     },
     {
       "ticker": "005380",
       "name": "현대차",
       "market": "KOSPI",
-      "sector": "그린카_하이브리드카/전기차",
+      "sector": "자동차 대표주",
       "sectors": [
-        "그린카_하이브리드카/전기차"
+        "자동차 대표주",
+        "전기차",
+        "자율주행차",
+        "수소에너지(수소차/연료전지 등)",
+        "UAM(도심항공모빌리티)",
+        "메타버스(Metaverse)",
+        "폐배터리",
+        "전기차(충전소/충전기)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "피지컬 AI/휴머노이드 로봇"
       ],
-      "close": 282500,
-      "change_pct": -3.58,
-      "amount_eok": 1237.8,
-      "day_amount_pct": -60.5,
-      "spike5_pct": -31.5,
-      "spike20_pct": -32.8,
-      "ma20_close": 297850.0,
-      "ma20_gap_pct": -5.15,
-      "theme_source": "kiwoom_ka90001",
+      "close": 279500,
+      "change_pct": -4.61,
+      "amount_eok": 1584.6,
+      "day_amount_pct": -49.5,
+      "spike5_pct": -12.3,
+      "spike20_pct": -13.9,
+      "ma20_close": 297700.0,
+      "ma20_gap_pct": -6.11,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "245",
-          "name": "그린카_하이브리드카/전기차",
-          "change_pct": -3.47
-        }
-      ],
-      "score": 0.9
-    },
-    {
-      "ticker": "128940",
-      "name": "한미약품",
-      "market": "KOSPI",
-      "sector": "신약개발/기술수출",
-      "sectors": [
-        "신약개발/기술수출",
-        "바이오_바이오시밀러/베터"
-      ],
-      "close": 469000,
-      "change_pct": 0.86,
-      "amount_eok": 1217.5,
-      "day_amount_pct": -4.7,
-      "spike5_pct": 71.9,
-      "spike20_pct": 122.8,
-      "ma20_close": 401875.0,
-      "ma20_gap_pct": 16.7,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "370",
-          "name": "신약개발/기술수출",
-          "change_pct": -0.93
+          "code": "159",
+          "name": "자동차 대표주"
         },
         {
-          "code": "360",
-          "name": "바이오_바이오시밀러/베터",
-          "change_pct": -1.21
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "386",
+          "name": "수소에너지(수소차/연료전지 등)"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "480",
+          "name": "메타버스(Metaverse)"
+        },
+        {
+          "code": "500",
+          "name": "폐배터리"
+        },
+        {
+          "code": "514",
+          "name": "전기차(충전소/충전기)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "587",
+          "name": "피지컬 AI/휴머노이드 로봇"
         }
       ],
-      "score": 20.2
+      "score": 0.8
     },
     {
       "ticker": "207940",
       "name": "삼성바이오로직스",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "제약업체",
       "sectors": [
-        "미분류"
+        "제약업체",
+        "모더나(MODERNA)",
+        "오가노이드"
       ],
-      "close": 1522000,
-      "change_pct": 0.2,
-      "amount_eok": 1056.3,
-      "day_amount_pct": -21.4,
-      "spike5_pct": 1.5,
-      "spike20_pct": -8.1,
-      "ma20_close": 1375850.0,
-      "ma20_gap_pct": 10.62,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 1.2
-    },
-    {
-      "ticker": "089860",
-      "name": "롯데렌탈",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
+      "close": 1516000,
+      "change_pct": -0.2,
+      "amount_eok": 1490.1,
+      "day_amount_pct": 10.9,
+      "spike5_pct": 43.2,
+      "spike20_pct": 29.6,
+      "ma20_close": 1375550.0,
+      "ma20_gap_pct": 10.21,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "172",
+          "name": "제약업체"
+        },
+        {
+          "code": "467",
+          "name": "모더나(MODERNA)"
+        },
+        {
+          "code": "597",
+          "name": "오가노이드"
+        }
       ],
-      "close": 58400,
-      "change_pct": 9.98,
-      "amount_eok": 1026.0,
-      "day_amount_pct": 1174.3,
-      "spike5_pct": 1216.2,
-      "spike20_pct": 1443.8,
-      "ma20_close": 51315.0,
-      "ma20_gap_pct": 13.81,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 54.0
+      "score": 8.4
     },
     {
       "ticker": "373220",
       "name": "LG에너지솔루션",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "2차전지",
       "sectors": [
-        "미분류"
+        "2차전지",
+        "전기차",
+        "전력저장장치(ESS)",
+        "2차전지(생산)",
+        "2차전지(전고체)",
+        "폐배터리",
+        "2차전지(LFP/리튬인산철)",
+        "니켈",
+        "리튬",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "2차전지(나트륨이온)",
+        "스페이스X(SpaceX)"
       ],
-      "close": 342500,
-      "change_pct": -1.44,
-      "amount_eok": 1021.0,
-      "day_amount_pct": -40.2,
-      "spike5_pct": -48.0,
-      "spike20_pct": -50.8,
-      "ma20_close": 382125.0,
-      "ma20_gap_pct": -10.37,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
+      "close": 335500,
+      "change_pct": -3.45,
+      "amount_eok": 1461.7,
+      "day_amount_pct": -14.3,
+      "spike5_pct": -25.6,
+      "spike20_pct": -29.6,
+      "ma20_close": 381775.0,
+      "ma20_gap_pct": -12.12,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "449",
+          "name": "2차전지(생산)"
+        },
+        {
+          "code": "472",
+          "name": "2차전지(전고체)"
+        },
+        {
+          "code": "500",
+          "name": "폐배터리"
+        },
+        {
+          "code": "503",
+          "name": "2차전지(LFP/리튬인산철)"
+        },
+        {
+          "code": "511",
+          "name": "니켈"
+        },
+        {
+          "code": "523",
+          "name": "리튬"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "579",
+          "name": "2차전지(나트륨이온)"
+        },
+        {
+          "code": "584",
+          "name": "스페이스X(SpaceX)"
+        }
+      ],
       "score": 0.7
     },
     {
       "ticker": "028260",
       "name": "삼성물산",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "패션/의류",
       "sectors": [
-        "미분류"
+        "패션/의류",
+        "자원개발",
+        "지주사",
+        "건설 대표주",
+        "태양광에너지",
+        "종합상사",
+        "전후 재건(우크라/중동 전쟁 등)",
+        "모듈러주택",
+        "S7(삼성전자/SK하이닉스 등)"
       ],
-      "close": 272500,
-      "change_pct": -6.03,
-      "amount_eok": 1001.3,
-      "day_amount_pct": -0.5,
-      "spike5_pct": 11.1,
-      "spike20_pct": -11.2,
-      "ma20_close": 296625.0,
-      "ma20_gap_pct": -8.13,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 2.1
-    },
-    {
-      "ticker": "030530",
-      "name": "원익홀딩스",
-      "market": "KOSDAQ",
-      "sector": "LCD_장비",
-      "sectors": [
-        "LCD_장비",
-        "코스닥_히든챔피언",
-        "AMOLED_장비",
-        "코스닥_라이징스타",
-        "반도체_전공정장비"
-      ],
-      "close": 28400,
-      "change_pct": 6.97,
-      "amount_eok": 986.9,
-      "day_amount_pct": 9.0,
-      "spike5_pct": -42.6,
-      "spike20_pct": 41.0,
-      "ma20_close": 26035.0,
-      "ma20_gap_pct": 9.08,
-      "theme_source": "kiwoom_ka90001",
+      "close": 273500,
+      "change_pct": -5.69,
+      "amount_eok": 1415.6,
+      "day_amount_pct": 40.7,
+      "spike5_pct": 57.1,
+      "spike20_pct": 25.5,
+      "ma20_close": 296675.0,
+      "ma20_gap_pct": -7.81,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "560",
-          "name": "LCD_장비",
-          "change_pct": -3.38
+          "code": "032",
+          "name": "패션/의류"
         },
         {
-          "code": "900",
-          "name": "코스닥_히든챔피언",
-          "change_pct": -3.57
+          "code": "079",
+          "name": "자원개발"
         },
         {
-          "code": "570",
-          "name": "AMOLED_장비",
-          "change_pct": -3.9
+          "code": "111",
+          "name": "지주사"
         },
         {
-          "code": "920",
-          "name": "코스닥_라이징스타",
-          "change_pct": -5.09
+          "code": "154",
+          "name": "건설 대표주"
         },
         {
-          "code": "555",
-          "name": "반도체_전공정장비",
-          "change_pct": -7.1
+          "code": "191",
+          "name": "태양광에너지"
+        },
+        {
+          "code": "325",
+          "name": "종합상사"
+        },
+        {
+          "code": "517",
+          "name": "전후 재건(우크라/중동 전쟁 등)"
+        },
+        {
+          "code": "524",
+          "name": "모듈러주택"
+        },
+        {
+          "code": "614",
+          "name": "S7(삼성전자/SK하이닉스 등)"
         }
       ],
-      "score": 13.0
+      "score": 9.8
     },
     {
       "ticker": "010120",
       "name": "LS ELECTRIC",
       "market": "KOSPI",
-      "sector": "그린카_하이브리드카/전기차",
+      "sector": "전력설비",
       "sectors": [
-        "그린카_하이브리드카/전기차",
-        "스마트 그리드"
+        "전력설비",
+        "태양광에너지",
+        "원자력발전",
+        "전기차",
+        "스마트그리드(지능형전력망)",
+        "전력저장장치(ESS)",
+        "수소에너지(수소차/연료전지 등)",
+        "스마트팩토리(스마트공장)",
+        "초전도체",
+        "코리아 밸류업 지수(Korea Value-up Index)"
       ],
       "close": 116500,
       "change_pct": -10.38,
-      "amount_eok": 959.9,
-      "day_amount_pct": -45.6,
-      "spike5_pct": -16.9,
-      "spike20_pct": -10.3,
+      "amount_eok": 1407.3,
+      "day_amount_pct": -20.3,
+      "spike5_pct": 21.8,
+      "spike20_pct": 31.5,
       "ma20_close": 157260.0,
       "ma20_gap_pct": -25.92,
-      "theme_source": "kiwoom_ka90001",
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "245",
-          "name": "그린카_하이브리드카/전기차",
-          "change_pct": -3.45
+          "code": "123",
+          "name": "전력설비"
         },
         {
-          "code": "810",
-          "name": "스마트 그리드",
-          "change_pct": -5.43
+          "code": "191",
+          "name": "태양광에너지"
+        },
+        {
+          "code": "205",
+          "name": "원자력발전"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "229",
+          "name": "스마트그리드(지능형전력망)"
+        },
+        {
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "386",
+          "name": "수소에너지(수소차/연료전지 등)"
+        },
+        {
+          "code": "392",
+          "name": "스마트팩토리(스마트공장)"
+        },
+        {
+          "code": "537",
+          "name": "초전도체"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
         }
       ],
-      "score": 0.7
+      "score": 5.8
     },
     {
-      "ticker": "222800",
-      "name": "심텍",
-      "market": "KOSDAQ",
-      "sector": "미분류",
+      "ticker": "128940",
+      "name": "한미약품",
+      "market": "KOSPI",
+      "sector": "백신/진단시약/방역(신종플루, AI 등)",
       "sectors": [
-        "미분류"
+        "백신/진단시약/방역(신종플루, AI 등)",
+        "제약업체",
+        "바이오시밀러(복제 바이오의약품)",
+        "겨울",
+        "mRNA(메신저 리보핵산)",
+        "비만치료제",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
       ],
-      "close": 95600,
-      "change_pct": -5.91,
-      "amount_eok": 951.5,
-      "day_amount_pct": -40.2,
-      "spike5_pct": -25.8,
-      "spike20_pct": -18.6,
-      "ma20_close": 122795.0,
-      "ma20_gap_pct": -22.15,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 0.7
+      "close": 468500,
+      "change_pct": 0.75,
+      "amount_eok": 1402.1,
+      "day_amount_pct": 9.7,
+      "spike5_pct": 98.0,
+      "spike20_pct": 156.6,
+      "ma20_close": 401850.0,
+      "ma20_gap_pct": 16.59,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "108",
+          "name": "백신/진단시약/방역(신종플루, AI 등)"
+        },
+        {
+          "code": "172",
+          "name": "제약업체"
+        },
+        {
+          "code": "241",
+          "name": "바이오시밀러(복제 바이오의약품)"
+        },
+        {
+          "code": "266",
+          "name": "겨울"
+        },
+        {
+          "code": "493",
+          "name": "mRNA(메신저 리보핵산)"
+        },
+        {
+          "code": "540",
+          "name": "비만치료제"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 25.7
+    },
+    {
+      "ticker": "089860",
+      "name": "롯데렌탈",
+      "market": "KOSPI",
+      "sector": "렌터카",
+      "sectors": [
+        "렌터카",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
+      ],
+      "close": 58400,
+      "change_pct": 9.98,
+      "amount_eok": 1395.8,
+      "day_amount_pct": 1633.6,
+      "spike5_pct": 1690.7,
+      "spike20_pct": 2000.3,
+      "ma20_close": 51315.0,
+      "ma20_gap_pct": 13.81,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "525",
+          "name": "렌터카"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        }
+      ],
+      "score": 54.0
     },
     {
       "ticker": "000150",
       "name": "두산",
       "market": "KOSPI",
-      "sector": "기계_건설기계",
+      "sector": "반도체 재료/부품",
       "sectors": [
-        "기계_건설기계"
+        "반도체 재료/부품",
+        "지주사",
+        "로봇(산업용/협동로봇 등)"
       ],
-      "close": 636000,
-      "change_pct": -12.52,
-      "amount_eok": 946.2,
-      "day_amount_pct": -18.3,
-      "spike5_pct": 19.3,
-      "spike20_pct": -9.3,
-      "ma20_close": 965950.0,
-      "ma20_gap_pct": -34.16,
-      "theme_source": "kiwoom_ka90001",
+      "close": 633000,
+      "change_pct": -12.93,
+      "amount_eok": 1259.7,
+      "day_amount_pct": 8.7,
+      "spike5_pct": 58.8,
+      "spike20_pct": 20.8,
+      "ma20_close": 965800.0,
+      "ma20_gap_pct": -34.46,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "210",
-          "name": "기계_건설기계",
-          "change_pct": -0.81
+          "code": "014",
+          "name": "반도체 재료/부품"
+        },
+        {
+          "code": "111",
+          "name": "지주사"
+        },
+        {
+          "code": "505",
+          "name": "로봇(산업용/협동로봇 등)"
         }
       ],
-      "score": 3.1
+      "score": 9.5
+    },
+    {
+      "ticker": "222800",
+      "name": "심텍",
+      "market": "KOSDAQ",
+      "sector": "PCB(FPCB 등)",
+      "sectors": [
+        "PCB(FPCB 등)",
+        "온디바이스 AI",
+        "소캠(SOCAMM)",
+        "반도체 기판(FC-BGA/PCB/MLB 등)"
+      ],
+      "close": 93400,
+      "change_pct": -8.07,
+      "amount_eok": 1243.8,
+      "day_amount_pct": -21.8,
+      "spike5_pct": -3.0,
+      "spike20_pct": 6.4,
+      "ma20_close": 122685.0,
+      "ma20_gap_pct": -23.87,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "287",
+          "name": "PCB(FPCB 등)"
+        },
+        {
+          "code": "545",
+          "name": "온디바이스 AI"
+        },
+        {
+          "code": "599",
+          "name": "소캠(SOCAMM)"
+        },
+        {
+          "code": "608",
+          "name": "반도체 기판(FC-BGA/PCB/MLB 등)"
+        }
+      ],
+      "score": 1.1
     },
     {
       "ticker": "000270",
       "name": "기아",
       "market": "KOSPI",
-      "sector": "그린카_하이브리드카/전기차",
+      "sector": "방위산업/전쟁 및 테러",
       "sectors": [
-        "그린카_하이브리드카/전기차"
+        "방위산업/전쟁 및 테러",
+        "자동차 대표주",
+        "전기차",
+        "자율주행차",
+        "수소에너지(수소차/연료전지 등)",
+        "전기차(충전소/충전기)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "피지컬 AI/휴머노이드 로봇"
       ],
-      "close": 101200,
-      "change_pct": 0.1,
-      "amount_eok": 844.3,
-      "day_amount_pct": -45.5,
-      "spike5_pct": -42.4,
-      "spike20_pct": -16.6,
-      "ma20_close": 105300.0,
-      "ma20_gap_pct": -3.89,
-      "theme_source": "kiwoom_ka90001",
+      "close": 99600,
+      "change_pct": -1.48,
+      "amount_eok": 1229.2,
+      "day_amount_pct": -20.6,
+      "spike5_pct": -16.1,
+      "spike20_pct": 21.3,
+      "ma20_close": 105220.0,
+      "ma20_gap_pct": -5.34,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "245",
-          "name": "그린카_하이브리드카/전기차",
-          "change_pct": -3.43
-        }
-      ],
-      "score": 0.7
-    },
-    {
-      "ticker": "035720",
-      "name": "카카오",
-      "market": "KOSPI",
-      "sector": "SNS(Social Network Service)",
-      "sectors": [
-        "SNS(Social Network Service)",
-        "게임_모바일"
-      ],
-      "close": 32850,
-      "change_pct": 1.39,
-      "amount_eok": 765.2,
-      "day_amount_pct": -52.0,
-      "spike5_pct": 30.0,
-      "spike20_pct": 58.0,
-      "ma20_close": 30647.5,
-      "ma20_gap_pct": 7.19,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "452",
-          "name": "SNS(Social Network Service)",
-          "change_pct": 2.65
+          "code": "144",
+          "name": "방위산업/전쟁 및 테러"
         },
         {
-          "code": "471",
-          "name": "게임_모바일",
-          "change_pct": 1.59
+          "code": "159",
+          "name": "자동차 대표주"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "386",
+          "name": "수소에너지(수소차/연료전지 등)"
+        },
+        {
+          "code": "514",
+          "name": "전기차(충전소/충전기)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "587",
+          "name": "피지컬 AI/휴머노이드 로봇"
         }
       ],
-      "score": 10.5
+      "score": 2.2
     },
     {
-      "ticker": "012450",
-      "name": "한화에어로스페이스",
-      "market": "KOSPI",
-      "sector": "미분류",
+      "ticker": "030530",
+      "name": "원익홀딩스",
+      "market": "KOSDAQ",
+      "sector": "반도체 장비",
       "sectors": [
-        "미분류"
+        "반도체 장비",
+        "지주사",
+        "로봇(산업용/협동로봇 등)"
       ],
-      "close": 654000,
-      "change_pct": -4.25,
-      "amount_eok": 751.7,
-      "day_amount_pct": -47.7,
-      "spike5_pct": -55.9,
-      "spike20_pct": -52.2,
-      "ma20_close": 781750.0,
-      "ma20_gap_pct": -16.34,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 0.5
+      "close": 28350,
+      "change_pct": 6.78,
+      "amount_eok": 1206.0,
+      "day_amount_pct": 33.2,
+      "spike5_pct": -29.8,
+      "spike20_pct": 72.3,
+      "ma20_close": 26032.5,
+      "ma20_gap_pct": 8.9,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "012",
+          "name": "반도체 장비"
+        },
+        {
+          "code": "111",
+          "name": "지주사"
+        },
+        {
+          "code": "505",
+          "name": "로봇(산업용/협동로봇 등)"
+        }
+      ],
+      "score": 15.1
+    },
+    {
+      "ticker": "017670",
+      "name": "SK텔레콤",
+      "market": "KOSPI",
+      "sector": "스마트홈(홈네트워크)",
+      "sectors": [
+        "스마트홈(홈네트워크)",
+        "통신",
+        "클라우드 컴퓨팅",
+        "자율주행차",
+        "5G(5세대 이동통신)",
+        "블록체인",
+        "양자암호/양자컴퓨팅",
+        "UAM(도심항공모빌리티)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
+      ],
+      "close": 77900,
+      "change_pct": -0.13,
+      "amount_eok": 1204.8,
+      "day_amount_pct": 104.2,
+      "spike5_pct": 152.9,
+      "spike20_pct": 113.7,
+      "ma20_close": 77050.0,
+      "ma20_gap_pct": 1.1,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "104",
+          "name": "스마트홈(홈네트워크)"
+        },
+        {
+          "code": "126",
+          "name": "통신"
+        },
+        {
+          "code": "276",
+          "name": "클라우드 컴퓨팅"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "373",
+          "name": "5G(5세대 이동통신)"
+        },
+        {
+          "code": "387",
+          "name": "블록체인"
+        },
+        {
+          "code": "426",
+          "name": "양자암호/양자컴퓨팅"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        }
+      ],
+      "score": 28.2
     },
     {
       "ticker": "033780",
       "name": "KT&G",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "건강기능식품",
       "sectors": [
-        "미분류"
+        "건강기능식품",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
       ],
-      "close": 189600,
-      "change_pct": -3.71,
-      "amount_eok": 730.4,
-      "day_amount_pct": 5.5,
-      "spike5_pct": 37.2,
-      "spike20_pct": 39.3,
-      "ma20_close": 190260.0,
-      "ma20_gap_pct": -0.35,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 8.1
-    },
-    {
-      "ticker": "034730",
-      "name": "SK",
-      "market": "KOSPI",
-      "sector": "클라우드 컴퓨팅",
-      "sectors": [
-        "클라우드 컴퓨팅",
-        "전자결제",
-        "SI(시스템통합)"
-      ],
-      "close": 445000,
-      "change_pct": -8.44,
-      "amount_eok": 697.6,
-      "day_amount_pct": -16.9,
-      "spike5_pct": -8.3,
-      "spike20_pct": -48.9,
-      "ma20_close": 487175.0,
-      "ma20_gap_pct": -8.66,
-      "theme_source": "kiwoom_ka90001",
+      "close": 189700,
+      "change_pct": -3.66,
+      "amount_eok": 1090.7,
+      "day_amount_pct": 57.5,
+      "spike5_pct": 104.9,
+      "spike20_pct": 108.1,
+      "ma20_close": 190265.0,
+      "ma20_gap_pct": -0.3,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "457",
-          "name": "클라우드 컴퓨팅",
-          "change_pct": -1.98
+          "code": "487",
+          "name": "건강기능식품"
         },
         {
-          "code": "454",
-          "name": "전자결제",
-          "change_pct": -2.7
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
         },
         {
-          "code": "458",
-          "name": "SI(시스템통합)",
-          "change_pct": -3.31
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        }
+      ],
+      "score": 21.8
+    },
+    {
+      "ticker": "012450",
+      "name": "한화에어로스페이스",
+      "market": "KOSPI",
+      "sector": "지능형로봇/인공지능(AI)",
+      "sectors": [
+        "지능형로봇/인공지능(AI)",
+        "방위산업/전쟁 및 테러",
+        "우주항공산업(누리호/인공위성 등)",
+        "드론(Drone)",
+        "항공기부품",
+        "냉각시스템(액침냉각 등)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 659000,
+      "change_pct": -3.51,
+      "amount_eok": 1065.6,
+      "day_amount_pct": -25.9,
+      "spike5_pct": -37.5,
+      "spike20_pct": -32.2,
+      "ma20_close": 782000.0,
+      "ma20_gap_pct": -15.73,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "099",
+          "name": "지능형로봇/인공지능(AI)"
+        },
+        {
+          "code": "144",
+          "name": "방위산업/전쟁 및 테러"
+        },
+        {
+          "code": "200",
+          "name": "우주항공산업(누리호/인공위성 등)"
+        },
+        {
+          "code": "349",
+          "name": "드론(Drone)"
+        },
+        {
+          "code": "379",
+          "name": "항공기부품"
+        },
+        {
+          "code": "560",
+          "name": "냉각시스템(액침냉각 등)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
         }
       ],
       "score": 0.5
     },
     {
+      "ticker": "035720",
+      "name": "카카오",
+      "market": "KOSPI",
+      "sector": "인터넷 대표주",
+      "sectors": [
+        "인터넷 대표주",
+        "음원/음반",
+        "엔터테인먼트",
+        "모바일콘텐츠(스마트폰/태블릿PC)",
+        "음성인식",
+        "SNS(소셜네트워크서비스)",
+        "가상화폐(비트코인 등)",
+        "핀테크(FinTech)",
+        "인터넷은행",
+        "블록체인",
+        "UAM(도심항공모빌리티)",
+        "메타버스(Metaverse)",
+        "두나무(Dunamu)",
+        "웹툰",
+        "카카오뱅크(kakao BANK)",
+        "NFT(대체불가토큰)",
+        "AI 챗봇(챗GPT 등)"
+      ],
+      "close": 32100,
+      "change_pct": -0.93,
+      "amount_eok": 1054.7,
+      "day_amount_pct": -33.8,
+      "spike5_pct": 79.2,
+      "spike20_pct": 117.8,
+      "ma20_close": 30610.0,
+      "ma20_gap_pct": 4.87,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "049",
+          "name": "인터넷 대표주"
+        },
+        {
+          "code": "098",
+          "name": "음원/음반"
+        },
+        {
+          "code": "128",
+          "name": "엔터테인먼트"
+        },
+        {
+          "code": "270",
+          "name": "모바일콘텐츠(스마트폰/태블릿PC)"
+        },
+        {
+          "code": "302",
+          "name": "음성인식"
+        },
+        {
+          "code": "317",
+          "name": "SNS(소셜네트워크서비스)"
+        },
+        {
+          "code": "331",
+          "name": "가상화폐(비트코인 등)"
+        },
+        {
+          "code": "342",
+          "name": "핀테크(FinTech)"
+        },
+        {
+          "code": "343",
+          "name": "인터넷은행"
+        },
+        {
+          "code": "387",
+          "name": "블록체인"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "480",
+          "name": "메타버스(Metaverse)"
+        },
+        {
+          "code": "482",
+          "name": "두나무(Dunamu)"
+        },
+        {
+          "code": "488",
+          "name": "웹툰"
+        },
+        {
+          "code": "489",
+          "name": "카카오뱅크(kakao BANK)"
+        },
+        {
+          "code": "492",
+          "name": "NFT(대체불가토큰)"
+        },
+        {
+          "code": "529",
+          "name": "AI 챗봇(챗GPT 등)"
+        }
+      ],
+      "score": 19.3
+    },
+    {
       "ticker": "010060",
       "name": "OCI홀딩스",
       "market": "KOSPI",
-      "sector": "태양광_폴리실리콘",
+      "sector": "지주사",
       "sectors": [
-        "태양광_폴리실리콘"
+        "지주사",
+        "태양광에너지"
       ],
-      "close": 209000,
-      "change_pct": 1.21,
-      "amount_eok": 680.0,
-      "day_amount_pct": -45.8,
-      "spike5_pct": -34.0,
-      "spike20_pct": 17.3,
-      "ma20_close": 197285.0,
-      "ma20_gap_pct": 5.94,
-      "theme_source": "kiwoom_ka90001",
+      "close": 200500,
+      "change_pct": -2.91,
+      "amount_eok": 1002.0,
+      "day_amount_pct": -20.1,
+      "spike5_pct": -2.7,
+      "spike20_pct": 72.9,
+      "ma20_close": 196860.0,
+      "ma20_gap_pct": 1.85,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "100",
-          "name": "태양광_폴리실리콘",
-          "change_pct": -0.16
-        }
-      ],
-      "score": 3.4
-    },
-    {
-      "ticker": "071050",
-      "name": "한국금융지주",
-      "market": "KOSPI",
-      "sector": "창투",
-      "sectors": [
-        "창투",
-        "증권"
-      ],
-      "close": 122100,
-      "change_pct": -14.56,
-      "amount_eok": 676.5,
-      "day_amount_pct": 270.9,
-      "spike5_pct": 238.4,
-      "spike20_pct": 134.8,
-      "ma20_close": 150105.0,
-      "ma20_gap_pct": -18.66,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "410",
-          "name": "창투",
-          "change_pct": -4.67
+          "code": "111",
+          "name": "지주사"
         },
         {
-          "code": "430",
-          "name": "증권",
-          "change_pct": -4.83
+          "code": "191",
+          "name": "태양광에너지"
         }
       ],
-      "score": 35.6
-    },
-    {
-      "ticker": "066570",
-      "name": "LG전자",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 139800,
-      "change_pct": -1.55,
-      "amount_eok": 640.1,
-      "day_amount_pct": -39.5,
-      "spike5_pct": -31.7,
-      "spike20_pct": -48.5,
-      "ma20_close": 160050.0,
-      "ma20_gap_pct": -12.65,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 0.4
+      "score": 6.0
     },
     {
       "ticker": "000810",
       "name": "삼성화재",
       "market": "KOSPI",
-      "sector": "보험_손해보험",
+      "sector": "손해보험",
       "sectors": [
-        "보험_손해보험"
+        "손해보험",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
       ],
-      "close": 601000,
-      "change_pct": -8.66,
-      "amount_eok": 626.9,
-      "day_amount_pct": 5.5,
-      "spike5_pct": 15.0,
-      "spike20_pct": 6.8,
-      "ma20_close": 617500.0,
-      "ma20_gap_pct": -2.67,
-      "theme_source": "kiwoom_ka90001",
+      "close": 603000,
+      "change_pct": -8.36,
+      "amount_eok": 1000.5,
+      "day_amount_pct": 68.3,
+      "spike5_pct": 83.5,
+      "spike20_pct": 70.5,
+      "ma20_close": 617600.0,
+      "ma20_gap_pct": -2.36,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "421",
-          "name": "보험_손해보험",
-          "change_pct": -3.27
+          "code": "164",
+          "name": "손해보험"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
         }
       ],
-      "score": 2.8
+      "score": 16.2
     },
     {
-      "ticker": "196170",
-      "name": "알테오젠",
-      "market": "KOSDAQ",
-      "sector": "미분류",
+      "ticker": "018260",
+      "name": "삼성에스디에스",
+      "market": "KOSPI",
+      "sector": "SI(시스템통합)",
       "sectors": [
-        "미분류"
+        "SI(시스템통합)",
+        "지능형로봇/인공지능(AI)",
+        "IT 대표주",
+        "클라우드 컴퓨팅",
+        "블록체인",
+        "스마트팩토리(스마트공장)",
+        "AI 챗봇(챗GPT 등)"
       ],
-      "close": 201000,
-      "change_pct": -4.96,
-      "amount_eok": 625.2,
-      "day_amount_pct": -44.2,
-      "spike5_pct": -28.3,
-      "spike20_pct": -17.5,
-      "ma20_close": 220725.0,
-      "ma20_gap_pct": -8.94,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 0.4
+      "close": 218000,
+      "change_pct": 6.34,
+      "amount_eok": 970.6,
+      "day_amount_pct": 243.6,
+      "spike5_pct": 286.4,
+      "spike20_pct": 139.2,
+      "ma20_close": 205145.0,
+      "ma20_gap_pct": 6.27,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "017",
+          "name": "SI(시스템통합)"
+        },
+        {
+          "code": "099",
+          "name": "지능형로봇/인공지능(AI)"
+        },
+        {
+          "code": "173",
+          "name": "IT 대표주"
+        },
+        {
+          "code": "276",
+          "name": "클라우드 컴퓨팅"
+        },
+        {
+          "code": "387",
+          "name": "블록체인"
+        },
+        {
+          "code": "392",
+          "name": "스마트팩토리(스마트공장)"
+        },
+        {
+          "code": "529",
+          "name": "AI 챗봇(챗GPT 등)"
+        }
+      ],
+      "score": 44.4
+    },
+    {
+      "ticker": "034730",
+      "name": "SK",
+      "market": "KOSPI",
+      "sector": "SI(시스템통합)",
+      "sectors": [
+        "SI(시스템통합)",
+        "지주사",
+        "클라우드 컴퓨팅",
+        "핀테크(FinTech)",
+        "LNG(액화천연가스)",
+        "수소에너지(수소차/연료전지 등)",
+        "블록체인",
+        "스마트팩토리(스마트공장)",
+        "조림사업",
+        "전기차(충전소/충전기)",
+        "냉각시스템(액침냉각 등)",
+        "밸류업(24년 기업가치 제고계획 발표)"
+      ],
+      "close": 443500,
+      "change_pct": -8.74,
+      "amount_eok": 944.2,
+      "day_amount_pct": 12.5,
+      "spike5_pct": 24.2,
+      "spike20_pct": -30.8,
+      "ma20_close": 487100.0,
+      "ma20_gap_pct": -8.95,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "017",
+          "name": "SI(시스템통합)"
+        },
+        {
+          "code": "111",
+          "name": "지주사"
+        },
+        {
+          "code": "276",
+          "name": "클라우드 컴퓨팅"
+        },
+        {
+          "code": "342",
+          "name": "핀테크(FinTech)"
+        },
+        {
+          "code": "381",
+          "name": "LNG(액화천연가스)"
+        },
+        {
+          "code": "386",
+          "name": "수소에너지(수소차/연료전지 등)"
+        },
+        {
+          "code": "387",
+          "name": "블록체인"
+        },
+        {
+          "code": "392",
+          "name": "스마트팩토리(스마트공장)"
+        },
+        {
+          "code": "400",
+          "name": "조림사업"
+        },
+        {
+          "code": "514",
+          "name": "전기차(충전소/충전기)"
+        },
+        {
+          "code": "560",
+          "name": "냉각시스템(액침냉각 등)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 3.5
     },
     {
       "ticker": "055550",
       "name": "신한지주",
       "market": "KOSPI",
-      "sector": "은행",
+      "sector": "지주사",
       "sectors": [
-        "은행"
+        "지주사",
+        "은행",
+        "STO(토큰증권 발행)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
       ],
-      "close": 86800,
-      "change_pct": -2.8,
-      "amount_eok": 620.8,
-      "day_amount_pct": -34.1,
-      "spike5_pct": -27.3,
-      "spike20_pct": -39.5,
-      "ma20_close": 90670.0,
-      "ma20_gap_pct": -4.27,
-      "theme_source": "kiwoom_ka90001",
+      "close": 86600,
+      "change_pct": -3.02,
+      "amount_eok": 909.6,
+      "day_amount_pct": -3.4,
+      "spike5_pct": 6.5,
+      "spike20_pct": -11.3,
+      "ma20_close": 90660.0,
+      "ma20_gap_pct": -4.48,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "400",
-          "name": "은행",
-          "change_pct": -1.84
-        }
-      ],
-      "score": 0.4
-    },
-    {
-      "ticker": "109610",
-      "name": "에스와이",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 2285,
-      "change_pct": 1.11,
-      "amount_eok": 607.5,
-      "day_amount_pct": 52.1,
-      "spike5_pct": 484.9,
-      "spike20_pct": 2162.7,
-      "ma20_close": 1789.5,
-      "ma20_gap_pct": 27.69,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 41.9
-    },
-    {
-      "ticker": "032830",
-      "name": "삼성생명",
-      "market": "KOSPI",
-      "sector": "보험_생명보험",
-      "sectors": [
-        "보험_생명보험"
-      ],
-      "close": 233500,
-      "change_pct": -5.08,
-      "amount_eok": 602.6,
-      "day_amount_pct": 14.9,
-      "spike5_pct": -6.7,
-      "spike20_pct": -19.0,
-      "ma20_close": 252175.0,
-      "ma20_gap_pct": -7.41,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
+          "code": "111",
+          "name": "지주사"
+        },
         {
-          "code": "420",
-          "name": "보험_생명보험",
-          "change_pct": -4.5
-        }
-      ],
-      "score": 0.4
-    },
-    {
-      "ticker": "010170",
-      "name": "대한광통신",
-      "market": "KOSDAQ",
-      "sector": "네트워크/광통신",
-      "sectors": [
-        "네트워크/광통신"
-      ],
-      "close": 10960,
-      "change_pct": -5.92,
-      "amount_eok": 587.4,
-      "day_amount_pct": 3.6,
-      "spike5_pct": 7.5,
-      "spike20_pct": -32.2,
-      "ma20_close": 13643.5,
-      "ma20_gap_pct": -19.67,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
+          "code": "165",
+          "name": "은행"
+        },
         {
-          "code": "480",
-          "name": "네트워크/광통신",
-          "change_pct": -3.49
+          "code": "531",
+          "name": "STO(토큰증권 발행)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
         }
       ],
       "score": 1.3
     },
     {
-      "ticker": "012330",
-      "name": "현대모비스",
+      "ticker": "071050",
+      "name": "한국금융지주",
       "market": "KOSPI",
-      "sector": "자동차_차량용 반도체",
+      "sector": "지주사",
       "sectors": [
-        "자동차_차량용 반도체",
-        "자동차_전장화 수혜",
-        "그린카_하이브리드카/전기차"
+        "지주사",
+        "증권",
+        "인터넷은행",
+        "카카오뱅크(kakao BANK)",
+        "STO(토큰증권 발행)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
       ],
-      "close": 356500,
-      "change_pct": -1.93,
-      "amount_eok": 584.7,
-      "day_amount_pct": -62.2,
-      "spike5_pct": -34.4,
-      "spike20_pct": -37.6,
-      "ma20_close": 346950.0,
-      "ma20_gap_pct": 2.75,
-      "theme_source": "kiwoom_ka90001",
+      "close": 121200,
+      "change_pct": -15.19,
+      "amount_eok": 901.6,
+      "day_amount_pct": 394.2,
+      "spike5_pct": 351.0,
+      "spike20_pct": 213.0,
+      "ma20_close": 150060.0,
+      "ma20_gap_pct": -19.23,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "243",
-          "name": "자동차_차량용 반도체",
-          "change_pct": -1.63
+          "code": "111",
+          "name": "지주사"
         },
         {
-          "code": "241",
-          "name": "자동차_전장화 수혜",
-          "change_pct": -3.23
+          "code": "151",
+          "name": "증권"
         },
         {
-          "code": "245",
-          "name": "그린카_하이브리드카/전기차",
-          "change_pct": -3.43
+          "code": "343",
+          "name": "인터넷은행"
+        },
+        {
+          "code": "489",
+          "name": "카카오뱅크(kakao BANK)"
+        },
+        {
+          "code": "531",
+          "name": "STO(토큰증권 발행)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 40.5
+    },
+    {
+      "ticker": "066570",
+      "name": "LG전자",
+      "market": "KOSPI",
+      "sector": "OLED(유기 발광 다이오드)",
+      "sectors": [
+        "OLED(유기 발광 다이오드)",
+        "LED",
+        "지능형로봇/인공지능(AI)",
+        "스마트홈(홈네트워크)",
+        "공기청정기",
+        "IT 대표주",
+        "전기차",
+        "무선충전기술",
+        "제습기",
+        "전력저장장치(ESS)",
+        "가상현실(VR)",
+        "자율주행차",
+        "5G(5세대 이동통신)",
+        "마이크로 LED",
+        "냉각시스템(액침냉각 등)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "피지컬 AI/휴머노이드 로봇"
+      ],
+      "close": 138600,
+      "change_pct": -2.39,
+      "amount_eok": 858.0,
+      "day_amount_pct": -18.9,
+      "spike5_pct": -8.4,
+      "spike20_pct": -31.0,
+      "ma20_close": 159990.0,
+      "ma20_gap_pct": -13.37,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "009",
+          "name": "OLED(유기 발광 다이오드)"
+        },
+        {
+          "code": "033",
+          "name": "LED"
+        },
+        {
+          "code": "099",
+          "name": "지능형로봇/인공지능(AI)"
+        },
+        {
+          "code": "104",
+          "name": "스마트홈(홈네트워크)"
+        },
+        {
+          "code": "112",
+          "name": "공기청정기"
+        },
+        {
+          "code": "173",
+          "name": "IT 대표주"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "321",
+          "name": "무선충전기술"
+        },
+        {
+          "code": "328",
+          "name": "제습기"
+        },
+        {
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "352",
+          "name": "가상현실(VR)"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "373",
+          "name": "5G(5세대 이동통신)"
+        },
+        {
+          "code": "390",
+          "name": "마이크로 LED"
+        },
+        {
+          "code": "560",
+          "name": "냉각시스템(액침냉각 등)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "587",
+          "name": "피지컬 AI/휴머노이드 로봇"
         }
       ],
       "score": 0.4
@@ -1148,114 +2314,168 @@
       "ticker": "086790",
       "name": "하나금융지주",
       "market": "KOSPI",
-      "sector": "은행",
+      "sector": "지주사",
       "sectors": [
-        "은행"
+        "지주사",
+        "은행",
+        "토스(toss)",
+        "STO(토큰증권 발행)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
       ],
-      "close": 117500,
-      "change_pct": -3.69,
-      "amount_eok": 554.7,
-      "day_amount_pct": -33.6,
-      "spike5_pct": -4.1,
-      "spike20_pct": -34.7,
-      "ma20_close": 119720.0,
-      "ma20_gap_pct": -1.85,
-      "theme_source": "kiwoom_ka90001",
+      "close": 117900,
+      "change_pct": -3.36,
+      "amount_eok": 828.3,
+      "day_amount_pct": -0.9,
+      "spike5_pct": 43.3,
+      "spike20_pct": -2.4,
+      "ma20_close": 119740.0,
+      "ma20_gap_pct": -1.54,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "400",
-          "name": "은행",
-          "change_pct": -1.82
-        }
-      ],
-      "score": 0.4
-    },
-    {
-      "ticker": "003490",
-      "name": "대한항공",
-      "market": "KOSPI",
-      "sector": "운송_항공",
-      "sectors": [
-        "운송_항공"
-      ],
-      "close": 29650,
-      "change_pct": -2.15,
-      "amount_eok": 551.9,
-      "day_amount_pct": -54.4,
-      "spike5_pct": -47.3,
-      "spike20_pct": -29.9,
-      "ma20_close": 27855.0,
-      "ma20_gap_pct": 6.44,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "230",
-          "name": "운송_항공",
-          "change_pct": -2.17
-        }
-      ],
-      "score": 0.4
-    },
-    {
-      "ticker": "161890",
-      "name": "한국콜마",
-      "market": "KOSPI",
-      "sector": "중국_내수소비 확대",
-      "sectors": [
-        "중국_내수소비 확대",
-        "화장품",
-        "Cheap-Chic_저가실용품"
-      ],
-      "close": 110400,
-      "change_pct": -10.02,
-      "amount_eok": 551.5,
-      "day_amount_pct": 54.3,
-      "spike5_pct": 148.1,
-      "spike20_pct": 125.4,
-      "ma20_close": 120575.0,
-      "ma20_gap_pct": -8.44,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "910",
-          "name": "중국_내수소비 확대",
-          "change_pct": -2.52
+          "code": "111",
+          "name": "지주사"
         },
         {
-          "code": "330",
-          "name": "화장품",
-          "change_pct": -2.72
+          "code": "165",
+          "name": "은행"
         },
         {
-          "code": "830",
-          "name": "Cheap-Chic_저가실용품",
-          "change_pct": -3.04
+          "code": "497",
+          "name": "토스(toss)"
+        },
+        {
+          "code": "531",
+          "name": "STO(토큰증권 발행)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
         }
       ],
-      "score": 28.3
+      "score": 5.8
     },
     {
-      "ticker": "086520",
-      "name": "에코프로",
+      "ticker": "196170",
+      "name": "알테오젠",
       "market": "KOSDAQ",
-      "sector": "온실가스배출저감",
+      "sector": "바이오시밀러(복제 바이오의약품)",
       "sectors": [
-        "온실가스배출저감"
+        "바이오시밀러(복제 바이오의약품)"
       ],
-      "close": 68200,
-      "change_pct": -4.75,
-      "amount_eok": 545.1,
-      "day_amount_pct": -44.7,
-      "spike5_pct": -14.3,
-      "spike20_pct": -20.6,
-      "ma20_close": 77695.0,
-      "ma20_gap_pct": -12.22,
-      "theme_source": "kiwoom_ka90001",
+      "close": 200500,
+      "change_pct": -5.2,
+      "amount_eok": 825.5,
+      "day_amount_pct": -26.3,
+      "spike5_pct": -5.4,
+      "spike20_pct": 9.0,
+      "ma20_close": 220700.0,
+      "ma20_gap_pct": -9.15,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "800",
-          "name": "온실가스배출저감",
-          "change_pct": -4.51
+          "code": "241",
+          "name": "바이오시밀러(복제 바이오의약품)"
+        }
+      ],
+      "score": 1.1
+    },
+    {
+      "ticker": "032830",
+      "name": "삼성생명",
+      "market": "KOSPI",
+      "sector": "생명보험",
+      "sectors": [
+        "생명보험",
+        "S7(삼성전자/SK하이닉스 등)"
+      ],
+      "close": 234000,
+      "change_pct": -4.88,
+      "amount_eok": 808.9,
+      "day_amount_pct": 54.3,
+      "spike5_pct": 25.3,
+      "spike20_pct": 8.8,
+      "ma20_close": 252200.0,
+      "ma20_gap_pct": -7.22,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "283",
+          "name": "생명보험"
+        },
+        {
+          "code": "614",
+          "name": "S7(삼성전자/SK하이닉스 등)"
+        }
+      ],
+      "score": 4.2
+    },
+    {
+      "ticker": "012330",
+      "name": "현대모비스",
+      "market": "KOSPI",
+      "sector": "자동차부품",
+      "sectors": [
+        "자동차부품",
+        "자동차 대표주",
+        "전기차",
+        "음성인식",
+        "스마트카(SMART CAR)",
+        "자율주행차",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "피지컬 AI/휴머노이드 로봇"
+      ],
+      "close": 349500,
+      "change_pct": -3.85,
+      "amount_eok": 807.6,
+      "day_amount_pct": -47.8,
+      "spike5_pct": -9.4,
+      "spike20_pct": -13.8,
+      "ma20_close": 346600.0,
+      "ma20_gap_pct": 0.84,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "027",
+          "name": "자동차부품"
+        },
+        {
+          "code": "159",
+          "name": "자동차 대표주"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "302",
+          "name": "음성인식"
+        },
+        {
+          "code": "332",
+          "name": "스마트카(SMART CAR)"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "587",
+          "name": "피지컬 AI/휴머노이드 로봇"
         }
       ],
       "score": 0.4
@@ -1264,139 +2484,1406 @@
       "ticker": "267260",
       "name": "HD현대일렉트릭",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "전력설비",
       "sectors": [
-        "미분류"
+        "전력설비",
+        "전력저장장치(ESS)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
       ],
-      "close": 369250,
-      "change_pct": -7.46,
-      "amount_eok": 544.6,
-      "day_amount_pct": -38.0,
-      "spike5_pct": -40.5,
-      "spike20_pct": -40.0,
-      "ma20_close": 472362.5,
-      "ma20_gap_pct": -21.83,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 0.4
-    },
-    {
-      "ticker": "017670",
-      "name": "SK텔레콤",
-      "market": "KOSPI",
-      "sector": "클라우드 컴퓨팅",
-      "sectors": [
-        "클라우드 컴퓨팅"
-      ],
-      "close": 76400,
-      "change_pct": -2.05,
-      "amount_eok": 533.0,
-      "day_amount_pct": -9.7,
-      "spike5_pct": 11.9,
-      "spike20_pct": -5.4,
-      "ma20_close": 76975.0,
-      "ma20_gap_pct": -0.75,
-      "theme_source": "kiwoom_ka90001",
+      "close": 365000,
+      "change_pct": -8.52,
+      "amount_eok": 804.0,
+      "day_amount_pct": -8.5,
+      "spike5_pct": -12.1,
+      "spike20_pct": -11.4,
+      "ma20_close": 472150.0,
+      "ma20_gap_pct": -22.69,
+      "theme_source": "infostock_ka10106_ka10107",
       "theme_details": [
         {
-          "code": "457",
-          "name": "클라우드 컴퓨팅",
-          "change_pct": -1.94
-        }
-      ],
-      "score": 1.9
-    },
-    {
-      "ticker": "329180",
-      "name": "HD현대중공업",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 264000,
-      "change_pct": -2.04,
-      "amount_eok": 530.7,
-      "day_amount_pct": -31.0,
-      "spike5_pct": -45.0,
-      "spike20_pct": -54.1,
-      "ma20_close": 309675.0,
-      "ma20_gap_pct": -14.75,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 0.4
-    },
-    {
-      "ticker": "010140",
-      "name": "삼성중공업",
-      "market": "KOSPI",
-      "sector": "조선_Eco선",
-      "sectors": [
-        "조선_Eco선",
-        "조선_해양플랜트"
-      ],
-      "close": 16400,
-      "change_pct": -3.59,
-      "amount_eok": 520.5,
-      "day_amount_pct": 1.0,
-      "spike5_pct": -34.0,
-      "spike20_pct": -23.9,
-      "ma20_close": 17271.5,
-      "ma20_gap_pct": -5.05,
-      "theme_source": "kiwoom_ka90001",
-      "theme_details": [
-        {
-          "code": "223",
-          "name": "조선_Eco선",
-          "change_pct": -3.18
+          "code": "123",
+          "name": "전력설비"
         },
         {
-          "code": "222",
-          "name": "조선_해양플랜트",
-          "change_pct": -3.66
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
         }
       ],
       "score": 0.4
-    },
-    {
-      "ticker": "389260",
-      "name": "대명에너지",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 14540,
-      "change_pct": 3.19,
-      "amount_eok": 517.2,
-      "day_amount_pct": -64.8,
-      "spike5_pct": 19.4,
-      "spike20_pct": 353.8,
-      "ma20_close": 11709.5,
-      "ma20_gap_pct": 24.17,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
-      "score": 22.0
     },
     {
       "ticker": "005490",
       "name": "POSCO홀딩스",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "환율하락 수혜",
       "sectors": [
-        "미분류"
+        "환율하락 수혜",
+        "철강 주요종목",
+        "2차전지",
+        "풍력에너지",
+        "희귀금속(희토류 등)",
+        "LNG(액화천연가스)",
+        "2차전지(소재/부품)",
+        "폐배터리",
+        "니켈",
+        "리튬",
+        "모듈러주택",
+        "밸류업(24년 기업가치 제고계획 발표)"
       ],
-      "close": 268500,
-      "change_pct": -2.01,
-      "amount_eok": 511.2,
-      "day_amount_pct": -16.3,
-      "spike5_pct": -29.2,
-      "spike20_pct": -30.6,
-      "ma20_close": 285625.0,
-      "ma20_gap_pct": -6.0,
-      "theme_source": "kiwoom_empty",
-      "theme_details": [],
+      "close": 264000,
+      "change_pct": -3.65,
+      "amount_eok": 746.1,
+      "day_amount_pct": 22.2,
+      "spike5_pct": 3.3,
+      "spike20_pct": 1.2,
+      "ma20_close": 285400.0,
+      "ma20_gap_pct": -7.5,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "031",
+          "name": "환율하락 수혜"
+        },
+        {
+          "code": "062",
+          "name": "철강 주요종목"
+        },
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        },
+        {
+          "code": "298",
+          "name": "희귀금속(희토류 등)"
+        },
+        {
+          "code": "381",
+          "name": "LNG(액화천연가스)"
+        },
+        {
+          "code": "446",
+          "name": "2차전지(소재/부품)"
+        },
+        {
+          "code": "500",
+          "name": "폐배터리"
+        },
+        {
+          "code": "511",
+          "name": "니켈"
+        },
+        {
+          "code": "523",
+          "name": "리튬"
+        },
+        {
+          "code": "524",
+          "name": "모듈러주택"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 0.9
+    },
+    {
+      "ticker": "003490",
+      "name": "대한항공",
+      "market": "KOSPI",
+      "sector": "환율하락 수혜",
+      "sectors": [
+        "환율하락 수혜",
+        "방위산업/전쟁 및 테러",
+        "항공/저가 항공사(LCC)",
+        "우주항공산업(누리호/인공위성 등)",
+        "드론(Drone)",
+        "항공기부품",
+        "UAM(도심항공모빌리티)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 29400,
+      "change_pct": -2.97,
+      "amount_eok": 739.6,
+      "day_amount_pct": -38.9,
+      "spike5_pct": -29.4,
+      "spike20_pct": -6.0,
+      "ma20_close": 27842.5,
+      "ma20_gap_pct": 5.59,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "031",
+          "name": "환율하락 수혜"
+        },
+        {
+          "code": "144",
+          "name": "방위산업/전쟁 및 테러"
+        },
+        {
+          "code": "166",
+          "name": "항공/저가 항공사(LCC)"
+        },
+        {
+          "code": "200",
+          "name": "우주항공산업(누리호/인공위성 등)"
+        },
+        {
+          "code": "349",
+          "name": "드론(Drone)"
+        },
+        {
+          "code": "379",
+          "name": "항공기부품"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
       "score": 0.4
+    },
+    {
+      "ticker": "086520",
+      "name": "에코프로",
+      "market": "KOSDAQ",
+      "sector": "2차전지",
+      "sectors": [
+        "2차전지",
+        "온실가스(탄소배출권)/탄소 포집·활용·저장(CCUS)",
+        "2차전지(소재/부품)",
+        "폐배터리",
+        "리튬",
+        "2차전지(나트륨이온)"
+      ],
+      "close": 66200,
+      "change_pct": -7.54,
+      "amount_eok": 736.7,
+      "day_amount_pct": -25.3,
+      "spike5_pct": 15.8,
+      "spike20_pct": 7.3,
+      "ma20_close": 77595.0,
+      "ma20_gap_pct": -14.69,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "152",
+          "name": "온실가스(탄소배출권)/탄소 포집·활용·저장(CCUS)"
+        },
+        {
+          "code": "446",
+          "name": "2차전지(소재/부품)"
+        },
+        {
+          "code": "500",
+          "name": "폐배터리"
+        },
+        {
+          "code": "523",
+          "name": "리튬"
+        },
+        {
+          "code": "579",
+          "name": "2차전지(나트륨이온)"
+        }
+      ],
+      "score": 2.9
+    },
+    {
+      "ticker": "064400",
+      "name": "LG씨엔에스",
+      "market": "KOSPI",
+      "sector": "SI(시스템통합)",
+      "sectors": [
+        "SI(시스템통합)",
+        "클라우드 컴퓨팅",
+        "스마트팩토리(스마트공장)",
+        "스테이블코인"
+      ],
+      "close": 74100,
+      "change_pct": 1.79,
+      "amount_eok": 723.5,
+      "day_amount_pct": 29.4,
+      "spike5_pct": 6.3,
+      "spike20_pct": 18.4,
+      "ma20_close": 71520.0,
+      "ma20_gap_pct": 3.61,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "017",
+          "name": "SI(시스템통합)"
+        },
+        {
+          "code": "276",
+          "name": "클라우드 컴퓨팅"
+        },
+        {
+          "code": "392",
+          "name": "스마트팩토리(스마트공장)"
+        },
+        {
+          "code": "582",
+          "name": "스테이블코인"
+        }
+      ],
+      "score": 4.9
+    },
+    {
+      "ticker": "329180",
+      "name": "HD현대중공업",
+      "market": "KOSPI",
+      "sector": "조선",
+      "sectors": [
+        "조선",
+        "LNG(액화천연가스)",
+        "밸류업(24년 기업가치 제고계획 발표)"
+      ],
+      "close": 262500,
+      "change_pct": -2.6,
+      "amount_eok": 720.1,
+      "day_amount_pct": -6.4,
+      "spike5_pct": -25.4,
+      "spike20_pct": -37.8,
+      "ma20_close": 309600.0,
+      "ma20_gap_pct": -15.21,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "030",
+          "name": "조선"
+        },
+        {
+          "code": "381",
+          "name": "LNG(액화천연가스)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 0.4
+    },
+    {
+      "ticker": "161890",
+      "name": "한국콜마",
+      "market": "KOSPI",
+      "sector": "화장품",
+      "sectors": [
+        "화장품"
+      ],
+      "close": 108900,
+      "change_pct": -11.25,
+      "amount_eok": 712.1,
+      "day_amount_pct": 99.3,
+      "spike5_pct": 220.4,
+      "spike20_pct": 191.0,
+      "ma20_close": 120500.0,
+      "ma20_gap_pct": -9.63,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "110",
+          "name": "화장품"
+        }
+      ],
+      "score": 39.7
+    },
+    {
+      "ticker": "010140",
+      "name": "삼성중공업",
+      "market": "KOSPI",
+      "sector": "조선",
+      "sectors": [
+        "조선",
+        "LNG(액화천연가스)"
+      ],
+      "close": 16200,
+      "change_pct": -4.76,
+      "amount_eok": 710.1,
+      "day_amount_pct": 37.7,
+      "spike5_pct": -10.0,
+      "spike20_pct": 3.8,
+      "ma20_close": 17261.5,
+      "ma20_gap_pct": -6.15,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "030",
+          "name": "조선"
+        },
+        {
+          "code": "381",
+          "name": "LNG(액화천연가스)"
+        }
+      ],
+      "score": 0.6
+    },
+    {
+      "ticker": "112610",
+      "name": "씨에스윈드",
+      "market": "KOSPI",
+      "sector": "풍력에너지",
+      "sectors": [
+        "풍력에너지"
+      ],
+      "close": 48950,
+      "change_pct": 3.05,
+      "amount_eok": 684.7,
+      "day_amount_pct": -42.4,
+      "spike5_pct": 19.8,
+      "spike20_pct": 126.6,
+      "ma20_close": 45970.0,
+      "ma20_gap_pct": 6.48,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        }
+      ],
+      "score": 16.4
+    },
+    {
+      "ticker": "010170",
+      "name": "대한광통신",
+      "market": "KOSDAQ",
+      "sector": "방위산업/전쟁 및 테러",
+      "sectors": [
+        "방위산업/전쟁 및 테러",
+        "5G(5세대 이동통신)",
+        "광통신(광케이블/광섬유 등)"
+      ],
+      "close": 10590,
+      "change_pct": -9.1,
+      "amount_eok": 674.2,
+      "day_amount_pct": 19.0,
+      "spike5_pct": 23.4,
+      "spike20_pct": -22.2,
+      "ma20_close": 13625.0,
+      "ma20_gap_pct": -22.28,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "144",
+          "name": "방위산업/전쟁 및 테러"
+        },
+        {
+          "code": "373",
+          "name": "5G(5세대 이동통신)"
+        },
+        {
+          "code": "586",
+          "name": "광통신(광케이블/광섬유 등)"
+        }
+      ],
+      "score": 3.3
+    },
+    {
+      "ticker": "003670",
+      "name": "포스코퓨처엠",
+      "market": "KOSPI",
+      "sector": "2차전지",
+      "sectors": [
+        "2차전지",
+        "2차전지(소재/부품)",
+        "리튬",
+        "밸류업(24년 기업가치 제고계획 발표)"
+      ],
+      "close": 161600,
+      "change_pct": -7.97,
+      "amount_eok": 672.4,
+      "day_amount_pct": -22.0,
+      "spike5_pct": -15.3,
+      "spike20_pct": -4.4,
+      "ma20_close": 170845.0,
+      "ma20_gap_pct": -5.41,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "446",
+          "name": "2차전지(소재/부품)"
+        },
+        {
+          "code": "523",
+          "name": "리튬"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 0.3
+    },
+    {
+      "ticker": "109610",
+      "name": "에스와이",
+      "market": "KOSDAQ",
+      "sector": "태양광에너지",
+      "sectors": [
+        "태양광에너지",
+        "코로나19(음압병실/음압구급차)",
+        "전후 재건(우크라/중동 전쟁 등)",
+        "모듈러주택"
+      ],
+      "close": 2150,
+      "change_pct": -4.87,
+      "amount_eok": 650.8,
+      "day_amount_pct": 62.9,
+      "spike5_pct": 526.7,
+      "spike20_pct": 2324.1,
+      "ma20_close": 1782.75,
+      "ma20_gap_pct": 20.6,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "191",
+          "name": "태양광에너지"
+        },
+        {
+          "code": "452",
+          "name": "코로나19(음압병실/음압구급차)"
+        },
+        {
+          "code": "517",
+          "name": "전후 재건(우크라/중동 전쟁 등)"
+        },
+        {
+          "code": "524",
+          "name": "모듈러주택"
+        }
+      ],
+      "score": 40.3
+    },
+    {
+      "ticker": "278470",
+      "name": "에이피알",
+      "market": "KOSPI",
+      "sector": "패션/의류",
+      "sectors": [
+        "패션/의류",
+        "화장품",
+        "미용기기"
+      ],
+      "close": 255000,
+      "change_pct": -4.85,
+      "amount_eok": 644.4,
+      "day_amount_pct": -47.4,
+      "spike5_pct": -56.3,
+      "spike20_pct": -46.3,
+      "ma20_close": 287025.0,
+      "ma20_gap_pct": -11.16,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "032",
+          "name": "패션/의류"
+        },
+        {
+          "code": "110",
+          "name": "화장품"
+        },
+        {
+          "code": "513",
+          "name": "미용기기"
+        }
+      ],
+      "score": 0.3
+    },
+    {
+      "ticker": "240810",
+      "name": "원익IPS",
+      "market": "KOSDAQ",
+      "sector": "OLED(유기 발광 다이오드)",
+      "sectors": [
+        "OLED(유기 발광 다이오드)",
+        "반도체 장비",
+        "태양광에너지"
+      ],
+      "close": 66400,
+      "change_pct": -9.91,
+      "amount_eok": 638.9,
+      "day_amount_pct": 1.8,
+      "spike5_pct": 34.4,
+      "spike20_pct": -26.6,
+      "ma20_close": 98525.0,
+      "ma20_gap_pct": -32.61,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "009",
+          "name": "OLED(유기 발광 다이오드)"
+        },
+        {
+          "code": "012",
+          "name": "반도체 장비"
+        },
+        {
+          "code": "191",
+          "name": "태양광에너지"
+        }
+      ],
+      "score": 4.6
+    },
+    {
+      "ticker": "003230",
+      "name": "삼양식품",
+      "market": "KOSPI",
+      "sector": "음식료업종",
+      "sectors": [
+        "음식료업종",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 1212000,
+      "change_pct": -1.54,
+      "amount_eok": 638.4,
+      "day_amount_pct": -32.5,
+      "spike5_pct": 26.8,
+      "spike20_pct": 31.1,
+      "ma20_close": 1185250.0,
+      "ma20_gap_pct": 2.26,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "113",
+          "name": "음식료업종"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 6.0
+    },
+    {
+      "ticker": "316140",
+      "name": "우리금융지주",
+      "market": "KOSPI",
+      "sector": "은행",
+      "sectors": [
+        "은행",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 31550,
+      "change_pct": -1.87,
+      "amount_eok": 636.4,
+      "day_amount_pct": -33.2,
+      "spike5_pct": -0.5,
+      "spike20_pct": -1.8,
+      "ma20_close": 30977.5,
+      "ma20_gap_pct": 1.85,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "165",
+          "name": "은행"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 0.3
+    },
+    {
+      "ticker": "066970",
+      "name": "엘앤에프",
+      "market": "KOSPI",
+      "sector": "2차전지",
+      "sectors": [
+        "2차전지",
+        "전기차",
+        "2차전지(소재/부품)",
+        "2차전지(LFP/리튬인산철)"
+      ],
+      "close": 75000,
+      "change_pct": -11.03,
+      "amount_eok": 622.6,
+      "day_amount_pct": 4.9,
+      "spike5_pct": 35.9,
+      "spike20_pct": 25.4,
+      "ma20_close": 92310.0,
+      "ma20_gap_pct": -18.75,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "446",
+          "name": "2차전지(소재/부품)"
+        },
+        {
+          "code": "503",
+          "name": "2차전지(LFP/리튬인산철)"
+        }
+      ],
+      "score": 6.7
+    },
+    {
+      "ticker": "000720",
+      "name": "현대건설",
+      "market": "KOSPI",
+      "sector": "남북경협",
+      "sectors": [
+        "남북경협",
+        "건설 대표주",
+        "테마파크",
+        "풍력에너지",
+        "원자력발전",
+        "GTX(수도권 광역급행철도)",
+        "원자력발전소 해체",
+        "UAM(도심항공모빌리티)",
+        "전후 재건(우크라/중동 전쟁 등)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 77800,
+      "change_pct": -7.16,
+      "amount_eok": 609.8,
+      "day_amount_pct": 29.1,
+      "spike5_pct": 23.0,
+      "spike20_pct": 5.8,
+      "ma20_close": 91015.0,
+      "ma20_gap_pct": -14.52,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "121",
+          "name": "남북경협"
+        },
+        {
+          "code": "154",
+          "name": "건설 대표주"
+        },
+        {
+          "code": "181",
+          "name": "테마파크"
+        },
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        },
+        {
+          "code": "205",
+          "name": "원자력발전"
+        },
+        {
+          "code": "237",
+          "name": "GTX(수도권 광역급행철도)"
+        },
+        {
+          "code": "401",
+          "name": "원자력발전소 해체"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "517",
+          "name": "전후 재건(우크라/중동 전쟁 등)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 3.6
+    },
+    {
+      "ticker": "030200",
+      "name": "KT",
+      "market": "KOSPI",
+      "sector": "스마트홈(홈네트워크)",
+      "sectors": [
+        "스마트홈(홈네트워크)",
+        "통신",
+        "모바일콘텐츠(스마트폰/태블릿PC)",
+        "클라우드 컴퓨팅",
+        "핀테크(FinTech)",
+        "인터넷은행",
+        "드론(Drone)",
+        "자율주행차",
+        "5G(5세대 이동통신)",
+        "블록체인",
+        "양자암호/양자컴퓨팅",
+        "UAM(도심항공모빌리티)",
+        "메타버스(Metaverse)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 53100,
+      "change_pct": 3.11,
+      "amount_eok": 596.2,
+      "day_amount_pct": 93.3,
+      "spike5_pct": 167.8,
+      "spike20_pct": 177.5,
+      "ma20_close": 48597.5,
+      "ma20_gap_pct": 9.26,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "104",
+          "name": "스마트홈(홈네트워크)"
+        },
+        {
+          "code": "126",
+          "name": "통신"
+        },
+        {
+          "code": "270",
+          "name": "모바일콘텐츠(스마트폰/태블릿PC)"
+        },
+        {
+          "code": "276",
+          "name": "클라우드 컴퓨팅"
+        },
+        {
+          "code": "342",
+          "name": "핀테크(FinTech)"
+        },
+        {
+          "code": "343",
+          "name": "인터넷은행"
+        },
+        {
+          "code": "349",
+          "name": "드론(Drone)"
+        },
+        {
+          "code": "362",
+          "name": "자율주행차"
+        },
+        {
+          "code": "373",
+          "name": "5G(5세대 이동통신)"
+        },
+        {
+          "code": "387",
+          "name": "블록체인"
+        },
+        {
+          "code": "426",
+          "name": "양자암호/양자컴퓨팅"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "480",
+          "name": "메타버스(Metaverse)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 38.7
+    },
+    {
+      "ticker": "006360",
+      "name": "GS건설",
+      "market": "KOSPI",
+      "sector": "건설 대표주",
+      "sectors": [
+        "건설 대표주",
+        "수자원(양적/질적 개선)",
+        "원자력발전",
+        "GTX(수도권 광역급행철도)",
+        "전후 재건(우크라/중동 전쟁 등)",
+        "모듈러주택"
+      ],
+      "close": 29650,
+      "change_pct": 4.22,
+      "amount_eok": 584.2,
+      "day_amount_pct": 184.5,
+      "spike5_pct": 101.5,
+      "spike20_pct": 133.3,
+      "ma20_close": 28807.5,
+      "ma20_gap_pct": 2.92,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "154",
+          "name": "건설 대표주"
+        },
+        {
+          "code": "184",
+          "name": "수자원(양적/질적 개선)"
+        },
+        {
+          "code": "205",
+          "name": "원자력발전"
+        },
+        {
+          "code": "237",
+          "name": "GTX(수도권 광역급행철도)"
+        },
+        {
+          "code": "517",
+          "name": "전후 재건(우크라/중동 전쟁 등)"
+        },
+        {
+          "code": "524",
+          "name": "모듈러주택"
+        }
+      ],
+      "score": 28.6
+    },
+    {
+      "ticker": "096770",
+      "name": "SK이노베이션",
+      "market": "KOSPI",
+      "sector": "2차전지",
+      "sectors": [
+        "2차전지",
+        "자원개발",
+        "LPG(액화석유가스)",
+        "석유화학",
+        "정유",
+        "전기차",
+        "전력저장장치(ESS)",
+        "2차전지(생산)",
+        "2차전지(전고체)",
+        "폐배터리",
+        "2차전지(LFP/리튬인산철)",
+        "윤활유",
+        "냉각시스템(액침냉각 등)",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "주유소"
+      ],
+      "close": 108600,
+      "change_pct": -5.81,
+      "amount_eok": 570.8,
+      "day_amount_pct": -53.3,
+      "spike5_pct": -41.6,
+      "spike20_pct": -51.4,
+      "ma20_close": 139715.0,
+      "ma20_gap_pct": -22.27,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "079",
+          "name": "자원개발"
+        },
+        {
+          "code": "177",
+          "name": "LPG(액화석유가스)"
+        },
+        {
+          "code": "180",
+          "name": "석유화학"
+        },
+        {
+          "code": "185",
+          "name": "정유"
+        },
+        {
+          "code": "227",
+          "name": "전기차"
+        },
+        {
+          "code": "329",
+          "name": "전력저장장치(ESS)"
+        },
+        {
+          "code": "449",
+          "name": "2차전지(생산)"
+        },
+        {
+          "code": "472",
+          "name": "2차전지(전고체)"
+        },
+        {
+          "code": "500",
+          "name": "폐배터리"
+        },
+        {
+          "code": "503",
+          "name": "2차전지(LFP/리튬인산철)"
+        },
+        {
+          "code": "527",
+          "name": "윤활유"
+        },
+        {
+          "code": "560",
+          "name": "냉각시스템(액침냉각 등)"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "600",
+          "name": "주유소"
+        }
+      ],
+      "score": 0.3
+    },
+    {
+      "ticker": "389260",
+      "name": "대명에너지",
+      "market": "KOSDAQ",
+      "sector": "풍력에너지",
+      "sectors": [
+        "풍력에너지",
+        "태양광에너지"
+      ],
+      "close": 13600,
+      "change_pct": -3.48,
+      "amount_eok": 570.8,
+      "day_amount_pct": -61.1,
+      "spike5_pct": 31.7,
+      "spike20_pct": 400.8,
+      "ma20_close": 11662.5,
+      "ma20_gap_pct": 16.61,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        },
+        {
+          "code": "191",
+          "name": "태양광에너지"
+        }
+      ],
+      "score": 19.3
+    },
+    {
+      "ticker": "108490",
+      "name": "로보티즈",
+      "market": "KOSDAQ",
+      "sector": "지능형로봇/인공지능(AI)",
+      "sectors": [
+        "지능형로봇/인공지능(AI)",
+        "로봇(산업용/협동로봇 등)",
+        "피지컬 AI/휴머노이드 로봇"
+      ],
+      "close": 223500,
+      "change_pct": 1.82,
+      "amount_eok": 565.6,
+      "day_amount_pct": 68.5,
+      "spike5_pct": 28.7,
+      "spike20_pct": -4.2,
+      "ma20_close": 242550.0,
+      "ma20_gap_pct": -7.85,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "099",
+          "name": "지능형로봇/인공지능(AI)"
+        },
+        {
+          "code": "505",
+          "name": "로봇(산업용/협동로봇 등)"
+        },
+        {
+          "code": "587",
+          "name": "피지컬 AI/휴머노이드 로봇"
+        }
+      ],
+      "score": 6.3
+    },
+    {
+      "ticker": "062040",
+      "name": "산일전기",
+      "market": "KOSPI",
+      "sector": "전력설비",
+      "sectors": [
+        "전력설비"
+      ],
+      "close": 116000,
+      "change_pct": -10.08,
+      "amount_eok": 560.5,
+      "day_amount_pct": -19.5,
+      "spike5_pct": 36.9,
+      "spike20_pct": 22.6,
+      "ma20_close": 168025.0,
+      "ma20_gap_pct": -30.96,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "123",
+          "name": "전력설비"
+        }
+      ],
+      "score": 6.6
+    },
+    {
+      "ticker": "247540",
+      "name": "에코프로비엠",
+      "market": "KOSDAQ",
+      "sector": "2차전지",
+      "sectors": [
+        "2차전지",
+        "2차전지(소재/부품)",
+        "2차전지(나트륨이온)"
+      ],
+      "close": 82700,
+      "change_pct": -8.42,
+      "amount_eok": 534.7,
+      "day_amount_pct": -25.2,
+      "spike5_pct": 11.5,
+      "spike20_pct": 3.3,
+      "ma20_close": 99490.0,
+      "ma20_gap_pct": -16.88,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "064",
+          "name": "2차전지"
+        },
+        {
+          "code": "446",
+          "name": "2차전지(소재/부품)"
+        },
+        {
+          "code": "579",
+          "name": "2차전지(나트륨이온)"
+        }
+      ],
+      "score": 2.0
+    },
+    {
+      "ticker": "015760",
+      "name": "한국전력",
+      "market": "KOSPI",
+      "sector": "환율하락 수혜",
+      "sectors": [
+        "환율하락 수혜",
+        "남북경협",
+        "전력설비",
+        "풍력에너지",
+        "태양광에너지",
+        "원자력발전",
+        "셰일가스(Shale Gas)",
+        "LNG(액화천연가스)",
+        "우주태양광(페로브스카이트 등)"
+      ],
+      "close": 30500,
+      "change_pct": -2.24,
+      "amount_eok": 525.0,
+      "day_amount_pct": -38.8,
+      "spike5_pct": 2.2,
+      "spike20_pct": 43.9,
+      "ma20_close": 28910.0,
+      "ma20_gap_pct": 5.5,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "031",
+          "name": "환율하락 수혜"
+        },
+        {
+          "code": "121",
+          "name": "남북경협"
+        },
+        {
+          "code": "123",
+          "name": "전력설비"
+        },
+        {
+          "code": "188",
+          "name": "풍력에너지"
+        },
+        {
+          "code": "191",
+          "name": "태양광에너지"
+        },
+        {
+          "code": "205",
+          "name": "원자력발전"
+        },
+        {
+          "code": "323",
+          "name": "셰일가스(Shale Gas)"
+        },
+        {
+          "code": "381",
+          "name": "LNG(액화천연가스)"
+        },
+        {
+          "code": "595",
+          "name": "우주태양광(페로브스카이트 등)"
+        }
+      ],
+      "score": 3.8
+    },
+    {
+      "ticker": "328130",
+      "name": "루닛",
+      "market": "KOSDAQ",
+      "sector": "의료기기",
+      "sectors": [
+        "의료기기",
+        "의료AI"
+      ],
+      "close": 15420,
+      "change_pct": 4.83,
+      "amount_eok": 523.1,
+      "day_amount_pct": 45.5,
+      "spike5_pct": 43.5,
+      "spike20_pct": 86.7,
+      "ma20_close": 13378.5,
+      "ma20_gap_pct": 15.26,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "175",
+          "name": "의료기기"
+        },
+        {
+          "code": "543",
+          "name": "의료AI"
+        }
+      ],
+      "score": 18.6
+    },
+    {
+      "ticker": "008830",
+      "name": "대동기어",
+      "market": "KOSDAQ",
+      "sector": "농업",
+      "sectors": [
+        "농업",
+        "로봇(산업용/협동로봇 등)",
+        "전후 재건(우크라/중동 전쟁 등)"
+      ],
+      "close": 6770,
+      "change_pct": 4.15,
+      "amount_eok": 520.2,
+      "day_amount_pct": -55.9,
+      "spike5_pct": 26.0,
+      "spike20_pct": 363.3,
+      "ma20_close": 5680.0,
+      "ma20_gap_pct": 19.19,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "206",
+          "name": "농업"
+        },
+        {
+          "code": "505",
+          "name": "로봇(산업용/협동로봇 등)"
+        },
+        {
+          "code": "517",
+          "name": "전후 재건(우크라/중동 전쟁 등)"
+        }
+      ],
+      "score": 24.0
+    },
+    {
+      "ticker": "042660",
+      "name": "한화오션",
+      "market": "KOSPI",
+      "sector": "조선",
+      "sectors": [
+        "조선",
+        "방위산업/전쟁 및 테러"
+      ],
+      "close": 47300,
+      "change_pct": -3.86,
+      "amount_eok": 509.8,
+      "day_amount_pct": -8.5,
+      "spike5_pct": -33.8,
+      "spike20_pct": -62.8,
+      "ma20_close": 56950.0,
+      "ma20_gap_pct": -16.94,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "030",
+          "name": "조선"
+        },
+        {
+          "code": "144",
+          "name": "방위산업/전쟁 및 테러"
+        }
+      ],
+      "score": 0.3
+    },
+    {
+      "ticker": "079550",
+      "name": "LIG디펜스앤에어로스페이스",
+      "market": "KOSPI",
+      "sector": "방위산업/전쟁 및 테러",
+      "sectors": [
+        "방위산업/전쟁 및 테러",
+        "우주항공산업(누리호/인공위성 등)",
+        "드론(Drone)",
+        "항공기부품",
+        "UAM(도심항공모빌리티)",
+        "로봇(산업용/협동로봇 등)",
+        "코리아 밸류업 지수(Korea Value-up Index)"
+      ],
+      "close": 326000,
+      "change_pct": -9.07,
+      "amount_eok": 507.3,
+      "day_amount_pct": -57.5,
+      "spike5_pct": -7.5,
+      "spike20_pct": -38.0,
+      "ma20_close": 475800.0,
+      "ma20_gap_pct": -31.48,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "144",
+          "name": "방위산업/전쟁 및 테러"
+        },
+        {
+          "code": "200",
+          "name": "우주항공산업(누리호/인공위성 등)"
+        },
+        {
+          "code": "349",
+          "name": "드론(Drone)"
+        },
+        {
+          "code": "379",
+          "name": "항공기부품"
+        },
+        {
+          "code": "462",
+          "name": "UAM(도심항공모빌리티)"
+        },
+        {
+          "code": "505",
+          "name": "로봇(산업용/협동로봇 등)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        }
+      ],
+      "score": 0.3
+    },
+    {
+      "ticker": "000990",
+      "name": "DB하이텍",
+      "market": "KOSPI",
+      "sector": "반도체 대표주(생산)",
+      "sectors": [
+        "반도체 대표주(생산)",
+        "시스템반도체",
+        "스마트카(SMART CAR)",
+        "전력반도체",
+        "밸류업(24년 기업가치 제고계획 발표)",
+        "코리아 밸류업 지수(Korea Value-up Index)",
+        "밸류업(25년 기업가치 제고계획 발표)"
+      ],
+      "close": 83900,
+      "change_pct": -1.18,
+      "amount_eok": 503.7,
+      "day_amount_pct": 10.8,
+      "spike5_pct": 7.8,
+      "spike20_pct": 5.4,
+      "ma20_close": 101440.0,
+      "ma20_gap_pct": -17.29,
+      "theme_source": "infostock_ka10106_ka10107",
+      "theme_details": [
+        {
+          "code": "155",
+          "name": "반도체 대표주(생산)"
+        },
+        {
+          "code": "307",
+          "name": "시스템반도체"
+        },
+        {
+          "code": "332",
+          "name": "스마트카(SMART CAR)"
+        },
+        {
+          "code": "533",
+          "name": "전력반도체"
+        },
+        {
+          "code": "567",
+          "name": "밸류업(24년 기업가치 제고계획 발표)"
+        },
+        {
+          "code": "568",
+          "name": "코리아 밸류업 지수(Korea Value-up Index)"
+        },
+        {
+          "code": "571",
+          "name": "밸류업(25년 기업가치 제고계획 발표)"
+        }
+      ],
+      "score": 1.6
     }
   ]
 }
