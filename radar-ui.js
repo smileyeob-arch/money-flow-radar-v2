@@ -23,6 +23,16 @@
   $('radarStatusFilter').addEventListener('change',e=>{filter=e.target.value;render();});
   $('radarRefresh').addEventListener('click',()=>loadRadar());
   $('radarEventOrder').addEventListener('change',()=>renderEvents());
+  // The candidate rows are rebuilt when filters and data change. Delegate the
+  // click to their stable parent so every stock always updates the detail.
+  $('radarCandidates').addEventListener('click',event=>{
+    const row=event.target.closest('button[data-radar-ticker]');
+    if(!row || !$('radarCandidates').contains(row))return;
+    const ticker=row.dataset.radarTicker;
+    if(!data || !(data.tracked||[]).some(item=>item.ticker===ticker))return;
+    chosen=ticker;
+    renderList();
+  });
   function renderEvents() {
     const events = [...(Array.isArray(data.events)?data.events:[])];
     const area = $('radarEvents');
@@ -50,16 +60,16 @@
     const chosenStocks=stocks.filter(x=>filter==='all'||x.status_key===filter)
       .sort((a,b)=>(priority[a.status_key]??6)-(priority[b.status_key]??6)||b.first_seen.localeCompare(a.first_seen));
     $('radarCount').textContent=stocks.length+'종목';
+    if(!chosenStocks.some(x=>x.ticker===chosen))
+      chosen=chosenStocks[0]?.ticker||null;
     $('radarCandidates').innerHTML=chosenStocks.length?chosenStocks.map(x=>
       '<button type="button" class="radar-candidate'+(chosen===x.ticker?' selected':'')+
-      '" data-radar-ticker="'+safe(x.ticker)+'"><span class="radar-candidate-title"><strong>'+
+      '" data-radar-ticker="'+safe(x.ticker)+'" aria-pressed="'+(chosen===x.ticker)+'"><span class="radar-candidate-title"><strong>'+
       safe(x.name)+'</strong>'+statusPill(x)+'</span><span class="radar-sub">'+
       safe(x.ticker)+' · '+safe(x.first_theme)+' ('+fmt(x.first_rank)+'위) · 최초 '+safe(x.first_seen)+
       '</span><span class="radar-sub">종가 '+fmt(x.close)+'원 · MA20 '+fmt(x.ma20)+
       '원 · 피보 0.382 '+fmt(x.fib?.['0.382'])+'원</span></button>').join(''):
       '<p class="radar-empty">조건에 맞는 관심종목이 없습니다.</p>';
-    const exists=stocks.some(x=>x.ticker===chosen);
-    if(!exists)chosen=stocks[0]?.ticker||null;
     renderDetail();
   }
   function svgChart(bars, fib) {
