@@ -53,3 +53,53 @@
 .radar-proxy,.radar-live{font-size:9px;border-radius:4px;padding:3px 5px;white-space:nowrap;font-weight:700}
 .radar-proxy{background:#fff2e1;color:#9b6c21}
 .radar-live{background:#e7f3ec;color:#2c8150}
+
+/* v3.1: clearer selected rows and premium interactive financial chart */
+.radar-candidate{border-left:3px solid transparent;transition:background .15s,border-color .15s}
+.radar-candidate.selected,.radar-candidate[aria-pressed="true"]{border-left-color:#1d89ba;background:linear-gradient(90deg,#e5f5ff,#f2f8ff)}
+.radar-candidate:focus-visible{outline:2px solid #178cce;outline-offset:-3px}
+.radar-detail-heading{border-bottom:1px solid #edf2f8;padding-bottom:12px}
+.radar-detail-heading h3{font-size:21px;letter-spacing:-.4px}
+.radar-prices{gap:8px;margin:14px 0}
+.radar-price{background:linear-gradient(135deg,#f8fbff,#eef4fa);border:1px solid #e8eff7;border-radius:9px;padding:12px 10px}
+.radar-price strong{font-variant-numeric:tabular-nums;font-size:14px;color:#244d70}
+.radar-price:first-child{background:linear-gradient(135deg,#e8f7fb,#eaf4ff);border-color:#bfdfef}
+.radar-price:first-child strong{color:#126f99}
+.radar-chart-shell{position:relative;margin:8px 0 4px;padding:14px 11px 5px;border:1px solid #e4edf6;border-radius:13px;background:linear-gradient(180deg,#fcfeff 0%,#f4f8fd 100%);box-shadow:0 5px 18px rgba(23,66,113,.05)}
+.radar-chart-summary{display:flex;align-items:center;justify-content:space-between;padding:2px 10px 10px;gap:10px;color:#678098;font-size:11px}
+.radar-chart-summary strong{font-size:16px;color:#24637f;font-variant-numeric:tabular-nums}
+.radar-chart-pulse{display:inline-block;width:8px;height:8px;border-radius:100%;background:#18adad;margin-right:7px;box-shadow:0 0 0 3px rgba(24,173,173,.13)}
+.radar-svg{display:block;width:100%;height:auto;max-height:none;min-height:0;background:transparent;border:none;border-radius:8px;overflow:visible;touch-action:pan-y}
+.radar-svg .radar-plot-bg{fill:#fcfeff;stroke:#edf2f7;stroke-width:1}
+.radar-svg .radar-gridline{stroke:#e5edf4;stroke-width:1;stroke-dasharray:2 5}
+.radar-svg .radar-axis{font-size:10px;fill:#879bb0;font-variant-numeric:tabular-nums}
+.radar-svg .radar-axis-tick{stroke:#a8bbce;stroke-width:1}
+.radar-svg .radar-fib-zone{fill:#eaf5f0;opacity:.65}
+.radar-svg .radar-fib-line{stroke:#9cb5c5;stroke-width:1;stroke-dasharray:5 4;opacity:.82}
+.radar-svg .radar-fib-line.focus{stroke:#299b87;stroke-width:1.6;stroke-dasharray:6 4}
+.radar-svg .radar-fib-label{font-size:9px;fill:#7b93a8;font-weight:600;font-variant-numeric:tabular-nums}
+.radar-svg .radar-fib-label.focus{fill:#168878;font-weight:800}
+.radar-svg .radar-price-area{fill:url(#radarAreaGradient);stroke:none}
+.radar-svg .radar-price-glow{fill:none;stroke:#2c94c4;stroke-opacity:.10;stroke-width:8;stroke-linejoin:round;stroke-linecap:round}
+.radar-svg .radar-price-curve{fill:none;stroke:url(#radarLineGradient);stroke-width:2.8;stroke-linejoin:round;stroke-linecap:round}
+.radar-svg .radar-ma-curve{fill:none;stroke:#e4a247;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.radar-svg .radar-last-halo{fill:#0ca7b0;fill-opacity:.13}
+.radar-svg .radar-last-dot{fill:#0ba0ad;stroke:white;stroke-width:2}
+.radar-svg .radar-crosshair{stroke:#528c9e;stroke-width:1;stroke-dasharray:4 4;opacity:.85}
+.radar-svg .radar-cursor-dot{fill:#099aab;stroke:white;stroke-width:2.5}
+.radar-hover-card{position:absolute;z-index:3;pointer-events:none;min-width:146px;max-width:185px;padding:10px 11px;border:1px solid #d8e5f0;border-radius:9px;background:rgba(255,255,255,.98);box-shadow:0 8px 24px rgba(25,62,98,.16);color:#526c82;font-size:11px;line-height:1.6;transform:translateY(-100%)}
+.radar-hover-card[hidden]{display:none!important}
+.radar-hover-card strong{display:block;font-size:11px;color:#1b456d;margin-bottom:3px}
+.radar-hover-card span{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.radar-hover-card span b{color:#174e6e}
+.radar-chart-hint{font-size:10px;color:#9aabc0;text-align:right;padding:3px 8px 6px}
+.radar-chart-legend .legend-close:before{background:linear-gradient(90deg,#4677d5,#0aadb5)}
+.radar-chart-legend .legend-ma:before{background:#e4a247}
+.radar-chart-legend .legend-fib:before{background:#299b87}
+@media(max-width:760px){
+ .radar-chart-shell{padding:8px 4px 3px}
+ .radar-chart-summary{padding:5px 9px}
+ .radar-price{padding:10px 9px}
+ .radar-price strong{font-size:12px}
+ .radar-chart-hint{font-size:9px}
+}
