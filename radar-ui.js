@@ -22,17 +22,28 @@
   document.querySelectorAll('.nav-btn').forEach(b => b.addEventListener('click',()=>showMarket(b.dataset.view)));
   $('radarStatusFilter').addEventListener('change',e=>{filter=e.target.value;render();});
   $('radarRefresh').addEventListener('click',()=>loadRadar());
+  $('radarEventOrder').addEventListener('change',()=>renderEvents());
   function renderEvents() {
-    const events = Array.isArray(data.events)?data.events:[];
+    const events = [...(Array.isArray(data.events)?data.events:[])];
     const area = $('radarEvents');
-    if(!events.length) {area.innerHTML='<p class="radar-empty">아직 확정된 주도 테마 기록이 없습니다. 장 마감 후 로컬 수집을 실행하면 누적됩니다.</p>';return;}
-    area.innerHTML=events.slice(0,45).map(e=>{
+    if (!events.length) {
+      area.innerHTML='<p class="radar-empty">과거 주도 테마 데이터가 없습니다. IP 등록된 PC에서 3개월 복원 수집을 실행하면 날짜별 목록이 나타납니다.</p>';
+      return;
+    }
+    const mode=$('radarEventOrder').value;
+    const visible=mode==='backfill' ? events.filter(e=>Boolean(e.backfill)) : events;
+    visible.sort((a,b)=>mode==='oldest' ? a.date.localeCompare(b.date)||a.rank-b.rank
+      : b.date.localeCompare(a.date)||a.rank-b.rank);
+    area.innerHTML=visible.length?visible.slice(0,200).map(e=>{
       const names=(e.picks||[]).map(x=>safe(x.name)).join(' · ');
+      const tag=e.backfill?'<span class="radar-proxy">과거 추정</span>':
+        '<span class="radar-live">당일 기록</span>';
       return '<article class="radar-event"><div class="radar-event-main"><b>'+safe(koreanDate(e.date))+
-      '</b><span class="radar-rank">'+fmt(e.rank)+'위</span><strong>'+safe(e.theme)+
-      '</strong></div><div class="radar-event-sub">감시종목 평균 '+pc(e.avg_change_pct)+
-      ' · 상승 '+fmt(e.up_count)+'/'+fmt(e.member_count)+' · 종목: '+(names||'없음')+'</div></article>';
-    }).join('');
+      '</b><span class="radar-rank">'+fmt(e.rank)+'위</span>'+tag+'<strong>'+
+      safe(e.theme)+'</strong></div><div class="radar-event-sub">당시 500억 이상 감시종목 평균 '+
+      pc(e.avg_change_pct)+' · 상승 '+fmt(e.up_count)+'/'+fmt(e.member_count)+
+      ' · 관심: '+(names||'없음')+'</div></article>';
+    }).join(''):'<p class="radar-empty">선택한 기간에 기록된 테마가 없습니다.</p>';
   }
   function renderList() {
     const stocks=Array.isArray(data.tracked)?data.tracked:[];
@@ -101,10 +112,15 @@
     if(!data)return;
     const events=Array.isArray(data.events)?data.events:[];
     const tracked=Array.isArray(data.tracked)?data.tracked:[];
-    $('radarDateInfo').textContent='기준 '+safe(data.as_of||'—')+
-      ' · 관측 시작 '+safe(data.history_start||'아직 없음')+' · 과거 순위 소급 복원 없음';
+    const meta=data.backfill_meta||{};
+    $('radarDateInfo').textContent=data.backfilled
+      ? '기준 '+safe(data.as_of||'—')+' · 과거복원 '+safe(meta.from||'—')+' ~ '+safe(meta.to||'—')+
+        ' · 공식 인포스탁 당시 테마순위 아님 (과거 시세 + 현재 테마 구성으로 추정)'
+      : '기준 '+safe(data.as_of||'—')+' · 누적 시작 '+safe(data.history_start||'아직 없음')+
+        ' · 과거 3개월 복원은 아직 수행되지 않았습니다.';
     $('radarStats').innerHTML=[
-      ['기록된 테마 사건',events.length+'건'],
+      [data.backfilled ? '복원 거래일' : '기록된 테마 사건',
+       data.backfilled ? String(data.backfill_meta?.trading_sessions_covered||'—')+'일' : events.length+'건'],
       ['추적 종목',tracked.length+'개'],
       ['중첩 관심',tracked.filter(x=>x.status_key==='confluence').length+'개'],
       ['MA20 관심',tracked.filter(x=>x.status_key==='ma20').length+'개']
