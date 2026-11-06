@@ -7,6 +7,8 @@ on:
       - 'data/radar-history.json'
       - 'index.html'
       - 'app.js'
+      - 'radar-ui.js'
+      - 'radar.css'
       - 'style.css'
       - '.github/workflows/daily.yml'
   workflow_dispatch:
