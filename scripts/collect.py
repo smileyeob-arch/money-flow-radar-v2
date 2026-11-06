@@ -47,8 +47,8 @@ def load_mapping():
 
 class Kiwoom:
     def __init__(self):
-        key = os.environ.get("KIWOOM_APP_KEY")
-        secret = os.environ.get("KIWOOM_APP_SECRET")
+        key = (os.environ.get("KIWOOM_APP_KEY") or "").strip()
+        secret = (os.environ.get("KIWOOM_APP_SECRET") or os.environ.get("KIWOOM_SECRET_KEY") or "").strip()
         if not key or not secret:
             raise RuntimeError("Missing KIWOOM_APP_KEY / KIWOOM_APP_SECRET in GitHub Actions Secrets")
         self.session = requests.Session()
@@ -62,7 +62,12 @@ class Kiwoom:
         r.raise_for_status()
         data = r.json()
         if str(data.get("return_code", 0)) != "0" or not data.get("token"):
-            raise RuntimeError(f"Kiwoom OAuth failed: code={data.get('return_code')} (check key/secret and API authorization)")
+            import re
+            message = str(data.get("return_msg", ""))
+            embedded = re.search(r"\[(\d{3,5}):", message)
+            detail = embedded.group(1) if embedded else "unknown"
+            print(f"Kiwoom OAuth diagnostic: return_code={data.get('return_code')}, embedded_code={detail}", flush=True)
+            raise RuntimeError("Kiwoom OAuth rejected credentials: inspect embedded code; verify production/mock keys, secret values, and permissions")
         self.token = data["token"]
         print("Kiwoom OAuth authenticated", flush=True)
 
