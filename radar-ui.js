@@ -8,7 +8,7 @@
   const pc = v => v == null ? '—' : (v>0?'+':'')+fmt(v,2)+'%';
   const koreanDate = v => v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.slice(5).replace('-','/') : (v||'—');
   let data = null, chosen = null, filter = 'all';
-  let personalData = null, currentSource = 'theme', selectedGroup = 'all';
+  let personalData = null, currentSource = 'theme', selectedGroup = 'all', personalError = null;
   const activeStocks = () => currentSource === 'kiwoom' ? (personalData?.stocks || []) : (data?.tracked || []);
   const priority = {confluence:0,ma20:1,fib:2,fib_watch:3,waiting:4,risk:5,unknown:6};
   const keyLabel = {confluence:'중첩 관심',ma20:'20일선 관심',fib:'0.382 관심',
@@ -50,6 +50,7 @@
   });
   $('radarWatchClear').addEventListener('click',()=>{
     personalData=null;
+    personalError=null;
     selectedGroup='all';
     $('radarWatchFile').value='';
     $('radarWatchGroup').innerHTML='<option value="all">모든 관심그룹</option>';
@@ -60,7 +61,7 @@
     const file=e.target.files?.[0];
     if(!file)return;
     try{
-      if(file.size>5*1024*1024)throw Error('파일 크기는 최대 5MB까지 허용합니다.');
+      if(file.size>30*1024*1024)throw Error('파일 크기는 최대 30MB까지 허용합니다.');
       const payload=JSON.parse(await file.text());
       if(payload?.kind!=='kiwoom_watchlist_local' ||
          !Array.isArray(payload.groups) || !Array.isArray(payload.stocks) ||
@@ -85,12 +86,11 @@
       $('radarWatchGroup').innerHTML='<option value="all">모든 관심그룹</option>'+
         payload.groups.filter(g=>g && g.id!=null).map(g=>
           '<option value="'+safe(g.id)+'">'+safe(g.name||g.id)+'</option>').join('');
-      selectedGroup='all';chosen=null;
+      personalError=null;selectedGroup='all';chosen=null;
       render();
     }catch(err){
       personalData=null;chosen=null;
-      $('radarWatchInfo').textContent='가져오기 실패: '+String(err.message||err)+
-        ' · 키움 개인 데이터는 GitHub로 업로드되지 않습니다.';
+      personalError='가져오기 실패: '+String(err.message||err);
       render();
     }
   });
@@ -288,8 +288,8 @@
     target.innerHTML=
       '<div class="radar-detail-heading"><div><h3>'+safe(s.name)+'</h3><span>'+safe(s.ticker)+' · '+safe(s.market)+' · '+(personal?'내 키움 관심종목':('최초 '+safe(s.first_seen)))+'</span></div>'+statusPill(s)+'</div>'+
       '<div class="radar-prices">'+
-      [['현재 종가',fmt(s.close)+'원'],['20일선',fmt(s.ma20)+'원'],['20일선 이격',pc(s.ma20_gap_pct)],
-      ['상승 전 저점',fmt(s.low_anchor)+'원'],['상승 후 최고가',fmt(s.peak_high)+'원'],
+      [[personal?'조회일 종가':'현재 종가',fmt(s.close)+'원'],['20일선',fmt(s.ma20)+'원'],['20일선 이격',pc(s.ma20_gap_pct)],
+      [personal?'최근 구간 저점':'상승 전 저점',fmt(s.low_anchor)+'원'],[personal?'최근 구간 고점':'상승 후 최고가',fmt(s.peak_high)+'원'],
       ['피보 0.236',fmt(s.fib?.['0.236'])+'원'],['피보 0.382',fmt(s.fib?.['0.382'])+'원'],
       ['피보 0.5',fmt(s.fib?.['0.5'])+'원'],['피보 0.618',fmt(s.fib?.['0.618'])+'원'],
       ['최고가 대비 되돌림',pc(s.retracement_pct)]].map(k=>'<div class="radar-price"><small>'+safe(k[0])+'</small><strong>'+safe(k[1])+'</strong></div>').join('')+'</div>'+
@@ -309,10 +309,10 @@
         '내 키움 관심종목 · 로컬 가져오기 '+String(personalData.exported_at_kst||'')+
         ' · 실시간 연동 아님 · 개인 파일은 GitHub 미전송':
         '내 키움 관심종목 · 개인 파일을 아직 가져오지 않았습니다.';
-      $('radarWatchInfo').textContent=personalData
+      $('radarWatchInfo').textContent=personalError || (personalData
         ? '개인 관심그룹 '+groups.length+'개, 일반주 '+stocks.length+
           '종목. 이 정보는 현재 브라우저에서만 읽으며 새로고침하면 사라집니다.'
-        : '키움 PC에서 windows/export-watchlist.ps1 실행 후, %LOCALAPPDATA%\\MoneyFlowRadar\\watchlist-export.json 파일을 선택하세요. 개인 파일은 GitHub에 업로드하지 않습니다.';
+        : '키움 PC에서 windows/export-watchlist.ps1 실행 후, %LOCALAPPDATA%\\MoneyFlowRadar\\watchlist-export.json 파일을 선택하세요. 개인 파일은 GitHub에 업로드하지 않습니다.');
       $('radarStats').innerHTML=[
         ['관심그룹',groups.length+'개'],['내 관심종목',stocks.length+'개'],
         ['중첩 관심',stocks.filter(x=>x.status_key==='confluence').length+'개'],
