@@ -72,32 +72,141 @@
       '<p class="radar-empty">조건에 맞는 관심종목이 없습니다.</p>';
     renderDetail();
   }
+  function chartSeries(bars) {
+    const all=(Array.isArray(bars)?bars:[]).filter(x=>x && x.date && Number(x.close)>0 &&
+      Number.isFinite(Number(x.close))).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    const series=all.slice(-78);
+    const offset=all.length-series.length;
+    const closes=all.map(x=>Number(x.close));
+    const ma=series.map((_,i)=>{
+      const p=offset+i;
+      if(p<19)return null;
+      return closes.slice(p-19,p+1).reduce((a,b)=>a+b,0)/20;
+    });
+    return {series,ma};
+  }
   function svgChart(bars, fib) {
-    const good=(bars||[]).filter(x=>Number(x.close)>0&&x.date).slice(-70);
-    if(good.length<2)return '<p class="radar-empty">차트 데이터를 확보하지 못했습니다.</p>';
-    const x0=47,x1=738,y0=20,y1=224;
-    const points=good.map(x=>Number(x.close));
-    const ma=good.map((_,i)=>i>=19?points.slice(i-19,i+1).reduce((a,b)=>a+b,0)/20:null);
-    // At least 70 bars were supplied by Python; rolling averages are calculated only
-    // from those available bars. No extrapolation across missing historical days.
-    const guides=['0.236','0.382','0.618'].map(key=>({key,val:Number(fib?.[key])}))
-      .filter(x=>Number.isFinite(x.val)&&x.val>0);
-    const vals=[...points,...ma.filter(Boolean),...guides.map(x=>x.val)];
-    const lower=Math.min(...vals)*.975, upper=Math.max(...vals)*1.025;
-    const X=i=>x0+(good.length===1?0:i/(good.length-1))*(x1-x0);
-    const Y=v=>y1-(v-lower)/Math.max(1,upper-lower)*(y1-y0);
-    const polyline=vals=>vals.map((v,i)=>v==null?null:X(i).toFixed(1)+','+Y(v).toFixed(1)).filter(Boolean).join(' ');
-    const maLine=ma.map((v,i)=>v==null?null:X(i).toFixed(1)+','+Y(v).toFixed(1)).filter(Boolean).join(' ');
-    const lines=guides.map(x=>'<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(x.val)+'" y2="'+Y(x.val)+'" class="fib-guide"/>'+
-    '<text x="744" y="'+(Y(x.val)+3)+'" class="svg-label">F'+x.key+'</text>').join('');
-    const topTick=fmt(upper),bottomTick=fmt(lower);
-    return '<svg class="radar-svg" viewBox="0 0 795 260" role="img" aria-label="종가, 20일선, 피보나치 수준을 표시한 70거래일 가격 차트">'+
-    '<line x1="'+x0+'" x2="'+x1+'" y1="'+y1+'" y2="'+y1+'" stroke="#dfe6ef"/>'+
-    '<text x="4" y="26" class="svg-label">'+topTick+'</text><text x="4" y="226" class="svg-label">'+bottomTick+'</text>'+
-    lines+'<polyline points="'+polyline(points)+'" class="close-line"/>'+
-    (maLine?'<polyline points="'+maLine+'" class="ma-line"/>':'')+
-    '<text x="'+x0+'" y="247" class="svg-label">'+safe(good[0].date)+'</text>'+
-    '<text x="'+(x1-80)+'" y="247" class="svg-label">'+safe(good.at(-1).date)+'</text></svg>';
+    const {series,ma}=chartSeries(bars);
+    if(series.length<2)return '<p class="radar-empty">차트 데이터가 없습니다.</p>';
+    const W=840,H=318,x0=70,x1=724,y0=30,y1=260;
+    const closes=series.map(x=>Number(x.close));
+    const levels=['0.236','0.382','0.5','0.618'].map(key=>({
+      key,price:Number(fib?.[key])
+    })).filter(x=>Number.isFinite(x.price)&&x.price>0);
+    const allValues=[...closes,...ma.filter(v=>v!=null),...levels.map(x=>x.price)];
+    const baseMin=Math.min(...allValues),baseMax=Math.max(...allValues);
+    const margin=Math.max(1,(baseMax-baseMin)*.08);
+    const min=baseMin-margin,max=baseMax+margin,scale=Math.max(1,max-min);
+    const X=i=>x0+(i/(series.length-1))*(x1-x0);
+    const Y=v=>y1-(v-min)/scale*(y1-y0);
+    const pathFor=arr=>{
+      let path='',drawing=false;
+      arr.forEach((v,i)=>{
+        if(v==null||!Number.isFinite(v)){drawing=false;return;}
+        path+=(drawing?' L ':' M ')+X(i).toFixed(2)+' '+Y(v).toFixed(2);
+        drawing=true;
+      });
+      return path.trim();
+    };
+    const curve=pathFor(closes),maCurve=pathFor(ma);
+    const area=curve+' L '+x1+' '+y1+' L '+x0+' '+y1+' Z';
+    const yGrid=Array.from({length:5},(_,i)=>{
+      const v=max-i*scale/4,y=Y(v);
+      return '<line x1="'+x0+'" y1="'+y.toFixed(1)+'" x2="'+x1+'" y2="'+y.toFixed(1)+
+        '" class="radar-gridline"/><text x="'+(x0-10)+'" y="'+(y+4).toFixed(1)+
+        '" text-anchor="end" class="radar-axis">'+fmt(v)+'</text>';
+    }).join('');
+    const tickIndexes=[0,.25,.5,.75,1].map(v=>Math.round(v*(series.length-1)));
+    const xTicks=[...new Set(tickIndexes)].map(i=>{
+      const label=String(series[i].date);
+      const date=label.slice(4,6)+'.'+label.slice(6,8);
+      const x=X(i);
+      return '<line x1="'+x.toFixed(1)+'" y1="'+y1+'" x2="'+x.toFixed(1)+
+        '" y2="'+(y1+5)+'" class="radar-axis-tick"/><text x="'+x.toFixed(1)+
+        '" y="'+(y1+23)+'" text-anchor="middle" class="radar-axis">'+safe(date)+'</text>';
+    }).join('');
+    const levelLines=levels.map(v=>{
+      const y=Y(v.price),highlight=v.key==='0.382';
+      return '<line x1="'+x0+'" y1="'+y.toFixed(1)+'" x2="'+x1+'" y2="'+y.toFixed(1)+
+        '" class="radar-fib-line'+(highlight?' focus':'')+'"/><text x="'+(x1+11)+
+        '" y="'+(y+3.5).toFixed(1)+'" class="radar-fib-label'+(highlight?' focus':'')+'">F'+
+        v.key+'  '+fmt(v.price)+'</text>';
+    }).join('');
+    const topFib=levels.find(x=>x.key==='0.236'),lowerFib=levels.find(x=>x.key==='0.382');
+    let zone='';
+    if(topFib&&lowerFib){
+      const ya=Y(topFib.price),yb=Y(lowerFib.price);
+      const top=Math.min(ya,yb);
+      zone='<rect x="'+x0+'" y="'+top.toFixed(1)+'" width="'+(x1-x0)+
+        '" height="'+Math.abs(yb-ya).toFixed(1)+'" class="radar-fib-zone"/>';
+    }
+    const last=closes.at(-1),lastX=X(series.length-1),lastY=Y(last);
+    return '<div id="radarChartShell" class="radar-chart-shell">'+
+      '<div class="radar-chart-summary"><span><i class="radar-chart-pulse"></i> 최근 '+series.length+
+      '거래일 가격 흐름</span><strong>'+fmt(last)+'원</strong></div>'+
+      '<svg id="radarPriceSvg" class="radar-svg" viewBox="0 0 '+W+' '+H+
+      '" role="img" aria-label="종가와 20일 이동평균, 피보나치 네 구간을 표시하는 가격 그래프"'+
+      ' data-min="'+min+'" data-max="'+max+'">'+
+      '<defs><linearGradient id="radarAreaGradient" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#2b9cc3" stop-opacity=".23"/>'+
+      '<stop offset="75%" stop-color="#2b9cc3" stop-opacity=".055"/>'+
+      '<stop offset="100%" stop-color="#2b9cc3" stop-opacity="0"/></linearGradient>'+
+      '<linearGradient id="radarLineGradient" x1="0" y1="0" x2="1" y2="0">'+
+      '<stop offset="0%" stop-color="#4677d5"/><stop offset="100%" stop-color="#0aadb5"/>'+
+      '</linearGradient></defs>'+
+      '<rect x="'+x0+'" y="'+y0+'" width="'+(x1-x0)+'" height="'+(y1-y0)+
+      '" rx="5" class="radar-plot-bg"/>'+yGrid+zone+levelLines+
+      '<path d="'+area+'" class="radar-price-area"/>'+
+      '<path d="'+curve+'" class="radar-price-glow"/>'+
+      '<path d="'+curve+'" class="radar-price-curve"/>'+
+      (maCurve?'<path d="'+maCurve+'" class="radar-ma-curve"/>':'')+
+      '<circle cx="'+lastX.toFixed(2)+'" cy="'+lastY.toFixed(2)+'" r="7" class="radar-last-halo"/>'+
+      '<circle cx="'+lastX.toFixed(2)+'" cy="'+lastY.toFixed(2)+'" r="3.8" class="radar-last-dot"/>'+
+      '<g id="radarCursor" visibility="hidden">'+
+      '<line id="radarCrossV" x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+y1+
+      '" class="radar-crosshair"/>'+
+      '<line id="radarCrossH" x1="'+x0+'" y1="'+y0+'" x2="'+x1+'" y2="'+y0+
+      '" class="radar-crosshair"/>'+
+      '<circle id="radarCrossDot" cx="'+x0+'" cy="'+y0+'" r="5" class="radar-cursor-dot"/>'+
+      '</g>'+xTicks+'</svg>'+
+      '<div class="radar-hover-card" id="radarHoverCard" hidden></div>'+
+      '<div class="radar-chart-hint">차트에 마우스를 올리면 날짜별 종가와 20일선을 확인할 수 있어요.</div></div>';
+  }
+  function bindChartHover(bars) {
+    const svg=$('radarPriceSvg'),cursor=$('radarCursor'),card=$('radarHoverCard');
+    const shell=$('radarChartShell');
+    if(!svg||!cursor||!card||!shell)return;
+    const {series,ma}=chartSeries(bars);
+    if(series.length<2)return;
+    const W=840,x0=70,x1=724,y0=30,y1=260;
+    const min=Number(svg.dataset.min),max=Number(svg.dataset.max);
+    if(!Number.isFinite(min)||!Number.isFinite(max)||max<=min)return;
+    const X=i=>x0+(i/(series.length-1))*(x1-x0);
+    const Y=v=>y1-(v-min)/(max-min)*(y1-y0);
+    const cursorV=$('radarCrossV'),cursorH=$('radarCrossH'),dot=$('radarCrossDot');
+    const hide=()=>{cursor.setAttribute('visibility','hidden');card.hidden=true;};
+    svg.addEventListener('pointermove',event=>{
+      const rect=svg.getBoundingClientRect();
+      if(!rect.width||!rect.height)return;
+      const sx=(event.clientX-rect.left)/rect.width*W;
+      if(sx<x0||sx>x1){hide();return;}
+      const i=Math.max(0,Math.min(series.length-1,
+        Math.round((sx-x0)/(x1-x0)*(series.length-1))));
+      const price=Number(series[i].close),x=X(i),y=Y(price);
+      cursor.setAttribute('visibility','visible');
+      cursorV.setAttribute('x1',x.toFixed(1));cursorV.setAttribute('x2',x.toFixed(1));
+      cursorH.setAttribute('y1',y.toFixed(1));cursorH.setAttribute('y2',y.toFixed(1));
+      dot.setAttribute('cx',x.toFixed(1));dot.setAttribute('cy',y.toFixed(1));
+      const rawDate=String(series[i].date);
+      const date=rawDate.slice(0,4)+'-'+rawDate.slice(4,6)+'-'+rawDate.slice(6,8);
+      card.innerHTML='<strong>'+safe(date)+'</strong><span>종가 <b>'+fmt(price)+'원</b></span>'+
+        '<span>20일선 <b>'+fmt(ma[i])+'원</b></span>';
+      const pixelX=x/W*rect.width;
+      card.style.left=Math.min(Math.max(12,pixelX+16),Math.max(12,shell.clientWidth-164))+'px';
+      card.style.top=Math.max(45,y/318*rect.height-18)+'px';
+      card.hidden=false;
+    });
+    svg.addEventListener('pointerleave',hide);
   }
   function renderDetail() {
     const stocks=Array.isArray(data?.tracked)?data.tracked:[];
@@ -117,6 +226,7 @@
       '<div class="radar-chart-legend"><span class="legend-close">종가</span><span class="legend-ma">20일선</span><span class="legend-fib">피보나치</span></div>'+
       svgChart(s.bars,s.fib)+
       '<p class="radar-footnote">기준 저점은 최초 관심일 이전 최대 20거래일의 최저가, 고점은 그날부터 현재까지 최고가. 0.382 값은 고점에서 상승폭의 38.2%를 되돌린 가격입니다. 관심은 매수 신호가 아니며 지지 여부를 확인해야 합니다.</p>';
+    bindChartHover(s.bars);
   }
   function render() {
     if(!data)return;
