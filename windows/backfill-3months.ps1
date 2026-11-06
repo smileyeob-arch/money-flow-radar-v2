@@ -31,6 +31,9 @@ try {
     try {
         python -m pip install -q -r requirements.txt
         if ($LASTEXITCODE -ne 0) { throw "Dependency installation failed" }
+        Write-Host "Checking historical rank and Fibonacci calculations before API requests..."
+        python -m unittest discover -s scripts -p "test_*.py" -v
+        if ($LASTEXITCODE -ne 0) { throw "Offline analytics checks failed. No API history requests sent." }
         Write-Host "Historical scan uses local Kiwoom API. Progress is checkpointed under LOCALAPPDATA."
         python -u scripts/backfill.py
         if ($LASTEXITCODE -ne 0) { throw "Historical reconstruction failed; GitHub data unchanged. Re-run this command to resume." }
