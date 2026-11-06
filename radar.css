@@ -1,0 +1,50 @@
+.radar-panel{margin:0 18px 14px;min-width:0}
+.radar-blurb{padding:12px 15px;font-size:12px;color:#647991;line-height:1.8;background:#f7faff;border-bottom:1px solid #e7edf5}
+.radar-subtitle{font-size:11px;color:#7d8da3}
+.radar-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:12px 14px}
+.radar-stat{padding:13px 14px;background:#f4f8fc;border:1px solid #e9eff6;border-radius:7px}
+.radar-stat small{display:block;color:#889cb1;font-size:10px}
+.radar-stat strong{display:block;margin-top:6px;font-size:20px;color:#294c77}
+.radar-layout{display:grid;grid-template-columns:minmax(290px,33%) minmax(0,67%);gap:12px;padding:0 13px 14px}
+.radar-box{border:1px solid #e5ebf3;border-radius:9px;min-width:0;overflow:hidden}
+.radar-box-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 12px;border-bottom:1px solid #e9eef5}
+.radar-box-head h3{margin:0;font-size:12px;color:#395577}
+.radar-candidates{max-height:595px;overflow:auto}
+.radar-candidate{display:block;text-align:left;width:100%;background:#fff;color:#354c6b;padding:11px 12px;border:none;border-bottom:1px solid #eff3f6;cursor:pointer}
+.radar-candidate:hover,.radar-candidate.selected{background:#eaf3ff}
+.radar-candidate-title{display:flex;align-items:center;justify-content:space-between;gap:7px;font-size:12px}
+.radar-sub{display:block;font-size:10px;color:#8697aa;margin-top:5px;line-height:1.5}
+.radar-pill{white-space:nowrap;font-size:10px;font-weight:800;background:#eef2f6;color:#728397;padding:4px 7px;border-radius:14px}
+.radar-confluence{background:#ffe4d7;color:#b65631}
+.radar-ma20{background:#e4f1e7;color:#267744}
+.radar-fib{background:#e5efff;color:#2862ad}
+.radar-fib_watch{background:#ebf3ff;color:#507bb7}
+.radar-risk{background:#ffe9e8;color:#ad4444}
+.radar-detail{padding:14px}
+.radar-detail-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.radar-detail-heading h3{margin:0 0 4px;font-size:19px}
+.radar-detail-heading span{color:#8898aa;font-size:11px}
+.radar-prices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:12px 0}
+.radar-price{background:#f7f9fc;border:1px solid #edf0f5;padding:9px;border-radius:5px;min-width:0}
+.radar-price small{font-size:10px;color:#8c99ab;display:block}
+.radar-price strong{font-size:12px;display:block;margin-top:6px;word-break:break-all}
+.radar-history-line{font-size:10px;color:#647b9b;line-height:1.7;padding:7px 0}
+.radar-chart-legend{display:flex;gap:16px;justify-content:flex-end;margin:5px 6px;color:#778ca4;font-size:11px}
+.radar-chart-legend span:before{content:"";display:inline-block;width:14px;height:3px;margin:0 5px 3px 0;background:#416cb3}
+.radar-chart-legend .legend-ma:before{background:#d59139}
+.radar-chart-legend .legend-fib:before{background:#94a0b8}
+.radar-svg{width:100%;height:auto;max-height:280px;background:#fbfcff;border:1px solid #edf1f6;border-radius:6px}
+.radar-svg .close-line{stroke:#286fb1;stroke-width:2.3;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.radar-svg .ma-line{stroke:#d59139;stroke-width:2;fill:none;stroke-linecap:round}
+.radar-svg .fib-guide{stroke:#9da9ba;stroke-width:1;stroke-dasharray:5 4}
+.radar-svg .svg-label{font-size:10px;fill:#7f8fa4}
+.radar-footnote{font-size:10px;color:#8a99a9;line-height:1.75}
+.radar-events{max-height:290px;overflow:auto;padding:0 13px 13px}
+.radar-event{border-bottom:1px solid #ebeff5;padding:11px 1px}
+.radar-event-main{display:flex;align-items:center;gap:9px;font-size:12px}
+.radar-event-main b{color:#4a709d;font-size:11px}
+.radar-rank{background:#e6f0ff;border-radius:4px;color:#3164a2;font-size:10px;padding:3px 6px}
+.radar-event-sub{font-size:10px;color:#8798a9;margin-top:6px;line-height:1.7}
+.radar-empty{padding:22px;color:#8999aa;font-size:11px;text-align:center}
+@media(max-width:1100px){.radar-prices{grid-template-columns:repeat(3,1fr)}.radar-layout{grid-template-columns:35% minmax(0,65%)}}
+@media(max-width:760px){.radar-panel{margin:0 9px 12px}.radar-stats{grid-template-columns:repeat(2,1fr)}.radar-layout{display:flex;flex-direction:column}.radar-candidates{max-height:300px}.radar-prices{grid-template-columns:repeat(2,1fr)}}
