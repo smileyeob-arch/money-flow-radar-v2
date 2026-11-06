@@ -1,134 +1,232 @@
-"""KRX end-of-day turnover collector. Does not write output on upstream failure."""
+"""Kiwoom REST read-only end-of-day collector for Money Flow Radar v2.
+
+Requires KIWOOM_APP_KEY and KIWOOM_APP_SECRET in environment/GitHub Secrets.
+No credentials or access tokens are written to logs, JSON or repository.
+"""
 import csv
 import json
 import math
 import os
-from datetime import datetime, timedelta, timezone
+import re
+import time
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
-import pandas as pd
-from pykrx import stock
+
+import requests
 
 ROOT = Path(__file__).resolve().parents[1]
-KST = ZoneInfo('Asia/Seoul')
-OUT = ROOT / 'data' / 'latest.json'
-MAPPING = ROOT / 'data' / 'sectors.csv'
+KST = ZoneInfo("Asia/Seoul")
+OUT = ROOT / "data" / "latest.json"
+MAPPING = ROOT / "data" / "sectors.csv"
+HOST = "https://api.kiwoom.com"
+DELAY = float(os.getenv("KIWOOM_REQUEST_DELAY", "0.30"))
+LIMIT = min(100, max(1, int(os.getenv("KIWOOM_TOP_N", "100"))))
 
 
-def clean(v):
+def number(value, default=None):
     try:
-        n = float(v)
-        return n if math.isfinite(n) else None
-    except (ValueError, TypeError):
-        return None
+        v = float(str(value).replace(",", "").strip())
+        return v if math.isfinite(v) else default
+    except (TypeError, ValueError):
+        return default
+
+
+def positive(value, default=0):
+    v = number(value, default)
+    return abs(v) if v is not None else default
 
 
 def load_mapping():
-    with MAPPING.open(encoding='utf-8-sig', newline='') as f:
-        return {r['ticker'].strip().zfill(6): [v.strip() for v in r['sector'].split('|') if v.strip()] for r in csv.DictReader(f) if r.get('ticker') and r.get('sector')}
+    with MAPPING.open(encoding="utf-8-sig", newline="") as f:
+        return {
+            r["ticker"].strip().zfill(6): [t.strip() for t in r["sector"].split("|") if t.strip()]
+            for r in csv.DictReader(f) if r.get("ticker") and r.get("sector")
+        }
 
 
-def market_snapshot(day):
-    # Fetch KOSPI and KOSDAQ separately to avoid ETFs and other instruments.
-    frames=[]
-    for market in ('KOSPI','KOSDAQ'):
-        df=stock.get_market_ohlcv_by_ticker(day, market=market)
-        if df is None or df.empty or '거래대금' not in df.columns:
-            continue
-        df=df.copy()
-        df['market']=market
-        frames.append(df)
-    if not frames:
-        raise RuntimeError(f'No KRX data for {day}')
-    return pd.concat(frames)
+class Kiwoom:
+    def __init__(self):
+        key = os.environ.get("KIWOOM_APP_KEY")
+        secret = os.environ.get("KIWOOM_APP_SECRET")
+        if not key or not secret:
+            raise RuntimeError("Missing KIWOOM_APP_KEY / KIWOOM_APP_SECRET in GitHub Actions Secrets")
+        self.session = requests.Session()
+        self.last_call = 0.0
+        r = self.session.post(
+            HOST + "/oauth2/token",
+            headers={"Content-Type": "application/json;charset=UTF-8"},
+            json={"grant_type": "client_credentials", "appkey": key, "secretkey": secret},
+            timeout=25,
+        )
+        r.raise_for_status()
+        data = r.json()
+        if str(data.get("return_code", 0)) != "0" or not data.get("token"):
+            raise RuntimeError(f"Kiwoom OAuth failed: code={data.get('return_code')} (check key/secret and API authorization)")
+        self.token = data["token"]
+        print("Kiwoom OAuth authenticated", flush=True)
+
+    def call(self, api_id, path, body, cont="N", next_key=""):
+        since = time.monotonic() - self.last_call
+        if since < DELAY:
+            time.sleep(DELAY - since)
+        headers = {
+            "Content-Type": "application/json;charset=UTF-8",
+            "authorization": "Bearer " + self.token,
+            "api-id": api_id,
+        }
+        if cont == "Y":
+            headers["cont-yn"] = "Y"
+            headers["next-key"] = next_key
+        self.last_call = time.monotonic()
+        try:
+            response = self.session.post(HOST + path, headers=headers, json=body, timeout=30)
+            response.raise_for_status()
+            payload = response.json()
+        except requests.RequestException as exc:
+            raise RuntimeError(f"{api_id} transport error: {type(exc).__name__}") from exc
+        if str(payload.get("return_code", 0)) != "0":
+            code = payload.get("return_code")
+            msg = str(payload.get("return_msg", ""))[:160]
+            raise RuntimeError(f"{api_id} API error {code}: {msg}")
+        return payload, response.headers.get("cont-yn", "N").upper(), response.headers.get("next-key", "")
+
+
+def rank_stocks(client):
+    """Get ranking for each market, deduplicate ticker, and rank by traded value (million KRW)."""
+    result = {}
+    for market, market_name in (("001", "KOSPI"), ("101", "KOSDAQ")):
+        cont, next_key = "N", ""
+        for page in range(4):
+            payload, ncont, nkey = client.call(
+                "ka10032", "/api/dostk/rkinfo",
+                {"mrkt_tp": market, "mang_stk_incls": "0", "stex_tp": "3"},
+                cont, next_key,
+            )
+            rows = payload.get("trde_prica_upper") or []
+            print(f"ka10032 {market_name} page={page+1}: {len(rows)} rows", flush=True)
+            for row in rows:
+                code = str(row.get("stk_cd", "")).strip().split("_")[0]
+                if not re.fullmatch(r"\d{6}", code):
+                    continue
+                amount = positive(row.get("trde_prica"))
+                if not amount:
+                    continue
+                item = dict(ticker=code, name=str(row.get("stk_nm") or code),
+                            market=market_name, rank_amount_million=amount)
+                if code not in result or amount > result[code]["rank_amount_million"]:
+                    result[code] = item
+            if ncont != "Y" or not nkey:
+                break
+            cont, next_key = "Y", nkey
+    stocks = sorted(result.values(), key=lambda r: -r["rank_amount_million"])[:LIMIT]
+    if len(stocks) < 30:
+        raise RuntimeError(f"Only {len(stocks)} ranked stocks returned; no output written")
+    return stocks
+
+
+def daily_bars(client, code, today):
+    payload, _, _ = client.call(
+        "ka10081", "/api/dostk/chart",
+        {"stk_cd": code, "base_dt": today.strftime("%Y%m%d"), "upd_stkpc_tp": "1"},
+    )
+    data = payload.get("stk_dt_pole_chart_qry") or []
+    bars = {}
+    for r in data:
+        dt = str(r.get("dt", ""))
+        close = positive(r.get("cur_prc"))
+        amount = positive(r.get("trde_prica"))
+        if re.fullmatch(r"\d{8}", dt) and close > 0 and amount > 0:
+            bars[dt] = {"date": dt, "close": close, "amount": amount,
+                        "prev_delta": number(r.get("pred_pre"))}
+    return [bars[dt] for dt in sorted(bars, reverse=True)]
+
+
+def analyze(rank, bars, mapping):
+    if len(bars) < 21:
+        return None
+    today = bars[0]
+    previous = bars[1:21]
+    if not previous[0]["close"] or not all(x["amount"] > 0 for x in previous):
+        return None
+    amount = today["amount"]
+    def pct(base):
+        return round((amount / base - 1) * 100, 1) if base > 0 else None
+    close = today["close"]
+    avg20 = sum(x["close"] for x in bars[:20]) / 20
+    change = (close / previous[0]["close"] - 1) * 100
+    ticker = rank["ticker"]
+    themes = mapping.get(ticker, ["미분류"])
+    return dict(
+        ticker=ticker, name=rank["name"], market=rank["market"], sector=themes[0],
+        sectors=themes, close=int(close), change_pct=round(change, 2),
+        amount_eok=round(amount / 100, 1),  # Kiwoom ka10081 trde_prica is in million KRW
+        day_amount_pct=pct(previous[0]["amount"]),
+        spike5_pct=pct(sum(x["amount"] for x in previous[:5]) / 5),
+        spike20_pct=pct(sum(x["amount"] for x in previous) / 20),
+        ma20_close=round(avg20, 2),
+        ma20_gap_pct=round((close / avg20 - 1) * 100, 2),
+        session=today["date"],
+    )
 
 
 def main():
-    today=datetime.now(KST).date()
-    # End-of-day run after close; if market is closed, use the most recent session.
-    latest=None
-    for offset in range(0, 11):
-        day=(today-timedelta(days=offset)).strftime('%Y%m%d')
+    date = datetime.now(KST)
+    client = Kiwoom()
+    ranking = rank_stocks(client)
+    mapping = load_mapping()
+    stocks = []
+    errors = 0
+    for i, rank in enumerate(ranking, 1):
         try:
-            frame=market_snapshot(day)
-            active=int((frame['거래대금']>0).sum())
-            print(f'Snapshot {day}: {len(frame)} rows, {active} active stocks', flush=True)
-            if active>100:
-                latest=(day,frame)
-                break
-            print(f'Skip {day}: only {active} active stocks, expected >100', flush=True)
+            bars = daily_bars(client, rank["ticker"], date.date())
+            s = analyze(rank, bars, mapping)
+            if s:
+                stocks.append(s)
+            else:
+                errors += 1
+                print(f"Insufficient daily history: {rank['ticker']}", flush=True)
         except Exception as exc:
-            print(f'Skip {day}: {exc}')
-    if latest is None:
-        raise RuntimeError('Unable to fetch a valid recent market session. Previous JSON preserved.')
-    date, current=latest
-    current=current[current['거래대금']>0].sort_values('거래대금',ascending=False).head(100)
-    if len(current)<50:
-        raise RuntimeError('Suspiciously small result; previous JSON preserved.')
-    mapping=load_mapping()
-    # Retrieve preceding 20 market sessions (not 20 calendar days).
-    history=[]
-    cursor=datetime.strptime(date,'%Y%m%d').date()-timedelta(days=1)
-    attempts=0
-    while len(history)<20 and attempts<48:
-        d=cursor.strftime('%Y%m%d')
-        try:
-            f=market_snapshot(d)
-            if (f['거래대금']>0).sum()>100:
-                history.append(f[['거래대금','종가']])
-                print('History',d)
-        except Exception as exc:
-            print('Skip history',d,str(exc))
-        cursor-=timedelta(days=1)
-        attempts+=1
-    if len(history)<20:
-        raise RuntimeError(f'Only {len(history)} prior sessions found; previous JSON preserved.')
-    hist_amount=pd.concat([h['거래대금'] for h in history],axis=1)
-    hist_close=pd.concat([h['종가'] for h in history],axis=1)
-    stocks=[]
-    for ticker,r in current.iterrows():
-        ticker=str(ticker).zfill(6)
-        amount=float(r['거래대금'])
-        prior=hist_amount.loc[ticker].astype(float) if ticker in hist_amount.index else pd.Series(dtype=float)
-        # Missing historic rows are excluded from that stock's comparison window.
-        prior=prior[prior>0]
-        def pct(base):
-            return round((amount/base-1)*100,1) if base and base>0 else None
-        try:
-            name=stock.get_market_ticker_name(ticker) or ticker
-        except Exception:
-            name=ticker
-        close=clean(r.get('종가')) or 0
-        prev=clean(r.get('시가')) or 0
-        # pykrx '등락률' is close-to-previous-close, not open-to-close.
-        change=clean(r.get('등락률'))
-        if change is None:
-            change=0.0
-        d1=pct(float(prior.iloc[0])) if len(prior)>=1 else None
-        p5=pct(float(prior.iloc[:5].mean())) if len(prior)>=5 else None
-        p20=pct(float(prior.iloc[:20].mean())) if len(prior)>=20 else None
-        close_history=hist_close.loc[ticker].astype(float) if ticker in hist_close.index else pd.Series(dtype=float)
-        close_history=close_history[close_history>0]
-        # Current close + preceding 19 sessions = 20-session moving average.
-        ma20=round((close+float(close_history.iloc[:19].sum()))/20,2) if close>0 and len(close_history)>=19 else None
-        gap20=round((close/ma20-1)*100,2) if ma20 and ma20>0 else None
-        themes=mapping.get(ticker,['미분류'])
-        stocks.append(dict(ticker=ticker,name=name,market=r['market'],sector=themes[0],sectors=themes,close=int(close),change_pct=round(change,2),amount_eok=round(amount/1e8,1),day_amount_pct=d1,spike5_pct=p5,spike20_pct=p20,ma20_close=ma20,ma20_gap_pct=gap20))
-    # Transparent heuristic: relative turnover rank (0-40), 5d turnover ratio (0-25),
-    # daily return (0-20), 20d turnover ratio (0-15). Not a backtested signal.
-    max_amount=max(s['amount_eok'] for s in stocks) or 1
-    for s in stocks:
-        vol=40*s['amount_eok']/max_amount
-        s5=25*min(1,max(0,(s['spike5_pct'] or 0)/200))
-        move=20*min(1,max(0,s['change_pct'])/15)
-        s20=15*min(1,max(0,(s['spike20_pct'] or 0)/200))
-        s['score']=round(vol+s5+move+s20,1)
-    result=dict(date=f'{date[:4]}-{date[4:6]}-{date[6:]}',generated_at_kst=datetime.now(KST).strftime('%Y-%m-%d %H:%M KST'),source='KRX via pykrx',sector_mapping_note='data/sectors.csv 수동 테마 분류; 다중 테마 거래대금 중복 집계 가능; 미분류는 분류 미등록',stocks=stocks)
-    OUT.parent.mkdir(exist_ok=True)
-    tmp=OUT.with_suffix('.json.tmp')
-    tmp.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-    os.replace(tmp,OUT)
-    print(f'Wrote {OUT}: {len(stocks)} stocks for {date}')
+            errors += 1
+            print(f"Skipping {rank['ticker']}: {str(exc)[:170]}", flush=True)
+        if i % 20 == 0:
+            print(f"Checked {i}/{len(ranking)}, valid={len(stocks)}", flush=True)
+    if len(stocks) < max(20, int(len(ranking) * .7)):
+        raise RuntimeError(f"Too few valid daily histories: {len(stocks)}/{len(ranking)}; JSON unchanged")
 
-if __name__=='__main__':
+    # Prevent incorrectly combining current rank snapshot with stale chart results.
+    from collections import Counter
+    day, count = Counter(s["session"] for s in stocks).most_common(1)[0]
+    stocks = [s for s in stocks if s["session"] == day]
+    if len(stocks) < max(20, int(len(ranking) * .7)):
+        raise RuntimeError("Daily chart dates inconsistent; JSON unchanged")
+    # Reject old snapshots instead of silently publishing old quotes as current.
+    actual = datetime.strptime(day, "%Y%m%d").date()
+    if (date.date() - actual).days > 5:
+        raise RuntimeError("Latest chart session older than five days; JSON unchanged")
+
+    stocks.sort(key=lambda x: -x["amount_eok"])
+    max_amount = max(x["amount_eok"] for x in stocks) or 1
+    for s in stocks:
+        vol = 40 * s["amount_eok"] / max_amount
+        s5 = 25 * min(1, max(0, (s["spike5_pct"] or 0) / 200))
+        move = 20 * min(1, max(0, s["change_pct"]) / 15)
+        s20 = 15 * min(1, max(0, (s["spike20_pct"] or 0) / 200))
+        s["score"] = round(vol + s5 + move + s20, 1)
+        del s["session"]
+    output = {
+        "date": f"{day[:4]}-{day[4:6]}-{day[6:]}",
+        "generated_at_kst": datetime.now(KST).strftime("%Y-%m-%d %H:%M KST"),
+        "source": "Kiwoom REST (ka10032 + ka10081)",
+        "sector_mapping_note": "수동 data/sectors.csv 분류; 다중 테마 거래대금 중복 집계 가능",
+        "stocks": stocks,
+    }
+    OUT.parent.mkdir(exist_ok=True)
+    temp = OUT.with_suffix(".json.tmp")
+    temp.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(temp, OUT)
+    print(f"Saved {len(stocks)} stocks, session={day}, skipped={errors}", flush=True)
+
+
+if __name__ == "__main__":
     main()
