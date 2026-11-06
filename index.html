@@ -7,7 +7,7 @@
 <div class="rightcol"><section class="panel detail"><div class="panel-head"><div><h2><span class="accent">03</span> 선택 종목 상세</h2><p>정량 지표 기반 · 신호는 자체 기준</p></div><button class="small-btn" id="watchToggle" disabled>☆ 관심 등록</button></div><div id="detailBody" class="detail-body empty">왼쪽에서 종목을 선택해 주세요.</div></section><section class="panel"><div class="panel-head"><div><h2><span class="accent">04</span> 인포스탁 테마 자금 집중</h2><p>500억 이상 일반주 기준 · 다중 테마 중복 집계</p></div><select id="sectorSort" aria-label="섹터 정렬"><option value="amount">거래대금 순</option><option value="change">평균 상승률 순</option><option value="count">종목 수 순</option></select></div><div id="sectorBars" class="sector-bars"></div><div class="sector-bottom"><div class="sector-list"><h3>테마별 종목 목록</h3><div id="sectorColumns" class="sector-columns"></div></div></div></section><section class="panel"><div class="panel-head"><div><h2><span class="accent">05</span> 관심종목</h2><p>이 브라우저에 저장 · 다른 기기와 동기화 안 됨</p></div></div><div id="watchList" class="watch-list"></div></section></div></main>
 <section id="radarPanel" class="panel radar-panel hidden" aria-label="3개월 주도 테마 및 눌림목 감시">
 <div class="panel-head"><div><h2><span class="accent">06</span> 3개월 주도 테마 관심 추적</h2><p id="radarDateInfo">거래일 기록을 확인 중입니다.</p></div><button id="radarRefresh" class="small-btn">새로고침</button></div>
-<div class="radar-blurb">매일 <strong>상승률 1~2위 테마</strong>에서 거래대금 상위 양봉 종목을 관심 대상으로 누적합니다. 순위는 <strong>거래대금 500억 이상 감시 종목의 평균 상승률을 이용한 대용지표</strong>이며 인포스탁 전체 테마 공식 상승률 순위가 아닙니다. 기록이 없는 과거 3개월을 임의로 복원하지 않고 첫 수집부터 누적합니다. 주문은 직접 진행하세요.</div>
+<div class="radar-blurb">매일 <strong>상승률 1~2위 테마</strong>에서 거래대금 상위 양봉 종목을 관심 대상으로 누적합니다. 순위는 <strong>거래대금 500억 이상 감시 종목의 평균 상승률을 이용한 대용지표</strong>이며 인포스탁 전체 테마 공식 상승률 순위가 아닙니다. 기록이 없는 과거복원 기능을 실행하면 당시 개별주 시세로 3개월을 추정 복원합니다. 당시의 인포스탁 테마 구성 변경 및 공식 과거 테마 순위는 복원할 수 없으므로 구분해서 표시합니다. 주문은 직접 진행하세요.</div>
 <div class="radar-stats" id="radarStats"></div>
 <div class="radar-layout">
  <section class="radar-box"><div class="radar-box-head"><h3>관심종목 · <span id="radarCount">0종목</span></h3><select id="radarStatusFilter" aria-label="눌림 상태별 필터">
@@ -18,7 +18,7 @@
  <section class="radar-box"><div class="radar-box-head"><h3>종목별 상승 시점 · 현재 눌림 위치</h3><span class="radar-subtitle" id="radarLoadStatus">데이터 읽는 중</span></div>
  <div id="radarDetail" class="radar-detail"></div></section>
 </div>
-<section class="radar-box" style="margin:0 13px 14px"><div class="radar-box-head"><h3>날짜별 주도 테마 1·2위 기록</h3><span class="radar-subtitle">최대 92일 보존</span></div><div class="radar-events" id="radarEvents"></div></section>
+<section class="radar-box" style="margin:0 13px 14px"><div class="radar-box-head"><h3>날짜별 주도 테마 1·2위 기록</h3><select id="radarEventOrder" aria-label="기록 표시 순서"><option value="recent">최신순</option><option value="oldest">3개월 전부터</option><option value="backfill">과거 추정 복원만</option></select></div><div class="radar-events" id="radarEvents"></div></section>
 </section>
 <footer>Money Flow Radar v2 · 키움 REST 장마감 시세 · 인포스탁 테마 · 거래대금은 원화 억원 단위 · 투자 판단 보조용이며 자동 주문 기능은 없습니다. <span id="sourceLabel"></span></footer>
 <script src="app.js" defer></script><script src="radar-ui.js" defer></script></body></html>
