@@ -223,6 +223,71 @@ def analyze(rank, bars, mapping):
     )
 
 
+def lookup_stock_themes(client, ticker):
+    """ka90001 qry_tp=2: query current theme memberships for one shortlisted stock."""
+    found = []
+    seen = set()
+    cont, next_key = "N", ""
+    for page in range(5):
+        data, cont_response, new_key = client.call(
+            "ka90001", "/api/dostk/thme",
+            {"qry_tp": "2", "stk_cd": ticker, "date_tp": "10",
+             "thema_nm": "", "flu_pl_amt_tp": "3", "stex_tp": "3"},
+            cont, next_key,
+        )
+        rows = data.get("thema_grp")
+        if not isinstance(rows, list):
+            raise RuntimeError("ka90001 response missing thema_grp array")
+        for row in rows:
+            name = str(row.get("thema_nm", "")).strip()
+            code = str(row.get("thema_grp_cd", "")).strip()
+            if name and name not in seen:
+                found.append({"code": code, "name": name,
+                              "change_pct": number(row.get("flu_rt"))})
+                seen.add(name)
+        if cont_response != "Y" or not new_key:
+            return found
+        cont, next_key = "Y", new_key
+    raise RuntimeError("ka90001 pagination exceeded 5 pages")
+
+
+def attach_themes(client, stocks, manual_mapping):
+    """Enrich valid 500억원+ stocks only; keep deterministic manual backup on error."""
+    success = 0
+    failure = 0
+    matched = 0
+    for index, item in enumerate(stocks, 1):
+        code = item["ticker"]
+        try:
+            themes = lookup_stock_themes(client, code)
+            success += 1
+            if themes:
+                names = [t["name"] for t in themes]
+                item["sectors"] = names
+                item["sector"] = names[0]
+                item["theme_source"] = "kiwoom_ka90001"
+                item["theme_details"] = themes
+                matched += 1
+            else:
+                item["sectors"] = ["미분류"]
+                item["sector"] = "미분류"
+                item["theme_source"] = "kiwoom_empty"
+                item["theme_details"] = []
+        except Exception as exc:
+            failure += 1
+            backup = manual_mapping.get(code) or ["미분류"]
+            item["sectors"] = backup
+            item["sector"] = backup[0]
+            item["theme_source"] = "manual_fallback" if backup != ["미분류"] else "lookup_failed"
+            item["theme_details"] = []
+            print(f"Theme lookup failed for {code}: {str(exc)[:120]}", flush=True)
+        if index % 20 == 0:
+            print(f"Theme checks {index}/{len(stocks)}, matched={matched}, failures={failure}", flush=True)
+    print(f"Theme summary: calls ok={success}, matched={matched}, failed={failure}", flush=True)
+    return {"api_id": "ka90001", "lookup_ok": success, "matched": matched,
+            "lookup_failed": failure, "mode": "stock_reverse_lookup"}
+
+
 def main():
     date = datetime.now(KST)
     client = Kiwoom()
@@ -272,6 +337,7 @@ def main():
     if (date.date() - actual).days > 5:
         raise RuntimeError("Latest chart session older than five days; JSON unchanged")
 
+    theme_status = attach_themes(client, stocks, mapping)
     stocks.sort(key=lambda x: -x["amount_eok"])
     max_amount = max(x["amount_eok"] for x in stocks) or 1
     for s in stocks:
@@ -286,7 +352,8 @@ def main():
         "generated_at_kst": datetime.now(KST).strftime("%Y-%m-%d %H:%M KST"),
         "source": "Kiwoom REST (ka10099 + ka10032 + ka10081)",
         "filter_note": "KOSPI/KOSDAQ ordinary shares, no ETF/ETN/REIT/SPAC/preferred shares, turnover >=500억원",
-        "sector_mapping_note": "수동 data/sectors.csv 분류; 다중 테마 거래대금 중복 집계 가능",
+        "sector_mapping_note": "키움 ka90001 종목 역조회 테마; 조회 실패 시에만 수동 CSV 대체; 다중 테마 거래대금 중복 집계 가능",
+        "theme_lookup": theme_status,
         "stocks": stocks,
     }
     OUT.parent.mkdir(exist_ok=True)
