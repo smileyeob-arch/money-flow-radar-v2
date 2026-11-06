@@ -1,49 +1,29 @@
-name: Daily KRX collection and Pages deployment
+name: Deploy Money Flow Radar (local PC data)
 on:
-  schedule:
-    # 17:30 KST = 08:30 UTC, weekdays.
-    - cron: '30 8 * * 1-5'
+  push:
+    branches: [main]
+    paths:
+      - 'data/latest.json'
+      - 'index.html'
+      - 'app.js'
+      - 'style.css'
+      - '.github/workflows/daily.yml'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 concurrency:
   group: pages
   cancel-in-progress: false
 jobs:
-  collect-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: pip
-      - run: pip install -r requirements.txt
-      - name: Collect market data (Kiwoom REST)
-        id: collect
-        continue-on-error: true
-        env:
-          KIWOOM_APP_KEY: ${{ secrets.KIWOOM_APP_KEY }}
-          KIWOOM_APP_SECRET: ${{ secrets.KIWOOM_APP_SECRET || secrets.KIWOOM_SECRET_KEY }}
-        run: python -u scripts/collect.py
-      - name: Report collection status
-        if: steps.collect.outcome == 'failure'
-        run: |
-          echo '::warning::Kiwoom data collection failed. Deploying UI without fabricated quotes; existing data stays unchanged.'
-          echo '## 키움 REST 데이터 수집 실패' >> "$GITHUB_STEP_SUMMARY"
-          echo '키움 REST API 조회 실패로 실제 시세가 업데이트되지 않았습니다. 기존 JSON은 유지되며 샘플 시세는 표시하지 않습니다.' >> "$GITHUB_STEP_SUMMARY"
-      - name: Save new data to repository
-        if: steps.collect.outcome == 'success'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/latest.json
-          if ! git diff --cached --quiet; then git commit -m "Update daily KRX snapshot" && git push; fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
