@@ -259,21 +259,12 @@ def load_infostock_themes(client, selected):
         payload, ncont, nkey = client.call(
             "ka10106", "/api/dostk/thme", {}, cont, next_key
         )
-        rows = _infostock_rows(payload, (
-            "infostock_thema_cd_list", "thema_cd_list", "thema_list",
-            "theme_list", "infostock_theme_list", "list"
-        ), "ka10106")
+        rows = _infostock_rows(payload, ("list",), "ka10106")
         for row in rows:
             if not isinstance(row, dict):
                 continue
-            code = _infostock_value(row, (
-                "thema_cd", "thema_grp_cd", "theme_code", "theme_cd",
-                "infostock_thema_cd", "code"
-            ))
-            name = _infostock_value(row, (
-                "thema_nm", "theme_name", "theme_nm", "thema_name",
-                "infostock_thema_nm", "name"
-            ))
+            code = _infostock_value(row, ("code",))
+            name = _infostock_value(row, ("name",))
             if code and name and code not in seen_codes:
                 seen_codes.add(code)
                 categories.append((code, name))
@@ -288,9 +279,8 @@ def load_infostock_themes(client, selected):
 
     detail_errors = 0
     response_validated = 0
-    # Request keys are configurable so an official field-name update won't require
-    # changing the known-good turnover and chart collection code.
-    code_key = os.getenv("INFOSTOCK_DETAIL_CODE_KEY", "code")
+    # Verified against actual Kiwoom Infostock response on 2026-11-06.
+    code_key = "code"
     max_details = int(os.getenv("INFOSTOCK_MAX_THEMES", "1000"))
     if len(categories) > max_details:
         raise RuntimeError(f"Infostock theme count {len(categories)} exceeds safe limit {max_details}")
@@ -299,18 +289,13 @@ def load_infostock_themes(client, selected):
             payload, ncont, next_key = client.call(
                 "ka10107", "/api/dostk/thme", {code_key: theme_code}
             )
-            rows = _infostock_rows(payload, (
-                "infostock_thema_stk_list", "thema_stk_list",
-                "theme_stock_list", "thema_constit_stk", "stock_list", "list"
-            ), "ka10107")
+            rows = _infostock_rows(payload, ("list",), "ka10107")
             response_validated += 1
             def process(batch):
                 for entry in batch:
                     if not isinstance(entry, dict):
                         continue
-                    ticker = _infostock_value(entry, (
-                        "stk_cd", "stock_code", "stk_code", "code"
-                    )).split("_")[0]
+                    ticker = _infostock_value(entry, ("stk_cd",)).split("_")[0]
                     if ticker in selected_codes:
                         theme_index.setdefault(ticker, []).append(
                             {"code": theme_code, "name": theme_name}
@@ -324,10 +309,7 @@ def load_infostock_themes(client, selected):
                     "ka10107", "/api/dostk/thme",
                     {code_key: theme_code}, "Y", next_key
                 )
-                process(_infostock_rows(payload, (
-                    "infostock_thema_stk_list", "thema_stk_list",
-                    "theme_stock_list", "thema_constit_stk", "stock_list", "list"
-                ), "ka10107"))
+                process(_infostock_rows(payload, ("list",), "ka10107"))
                 pages += 1
         except Exception as exc:
             detail_errors += 1
