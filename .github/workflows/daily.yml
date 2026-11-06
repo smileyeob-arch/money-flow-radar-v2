@@ -29,7 +29,7 @@ jobs:
         continue-on-error: true
         env:
           KIWOOM_APP_KEY: ${{ secrets.KIWOOM_APP_KEY }}
-          KIWOOM_APP_SECRET: ${{ secrets.KIWOOM_APP_SECRET }}
+          KIWOOM_APP_SECRET: ${{ secrets.KIWOOM_APP_SECRET || secrets.KIWOOM_SECRET_KEY }}
         run: python -u scripts/collect.py
       - name: Report collection status
         if: steps.collect.outcome == 'failure'
