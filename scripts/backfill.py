@@ -46,7 +46,9 @@ def _checkpoint_path(snapshot):
             else Path.home() / ".MoneyFlowRadar")
     directory = base / "historical-cache"
     directory.mkdir(parents=True, exist_ok=True)
-    return directory / ("stock-charts-" + snapshot.replace("-", "") + "-v1.json.gz")
+    # snapshot is a datetime.date, not a string: date.replace("-", "") raises TypeError.
+    date_token = snapshot.strftime("%Y%m%d")
+    return directory / f"stock-charts-{date_token}-v1.json.gz"
 
 
 def _load_checkpoint(path, asof):
