@@ -1,63 +1,106 @@
 {
   "date": "2026-11-06",
-  "generated_at_kst": "2026-11-06 13:36 KST",
+  "generated_at_kst": "2026-11-06 13:43 KST",
   "source": "Kiwoom REST (ka10099 + ka10032 + ka10081)",
   "filter_note": "KOSPI/KOSDAQ ordinary shares, no ETF/ETN/REIT/SPAC/preferred shares, turnover >=500억원",
-  "sector_mapping_note": "수동 data/sectors.csv 분류; 다중 테마 거래대금 중복 집계 가능",
+  "sector_mapping_note": "키움 ka90001 종목 역조회 테마; 조회 실패 시에만 수동 CSV 대체; 다중 테마 거래대금 중복 집계 가능",
+  "theme_lookup": {
+    "api_id": "ka90001",
+    "lookup_ok": 51,
+    "matched": 33,
+    "lookup_failed": 0,
+    "mode": "stock_reverse_lookup"
+  },
   "stocks": [
     {
       "ticker": "000660",
       "name": "SK하이닉스",
       "market": "KOSPI",
-      "sector": "반도체",
+      "sector": "반도체_생산",
       "sectors": [
-        "반도체"
+        "반도체_생산"
       ],
-      "close": 1153000,
-      "change_pct": -8.64,
-      "amount_eok": 56914.6,
-      "day_amount_pct": 3.9,
-      "spike5_pct": 17.4,
-      "spike20_pct": 8.4,
-      "ma20_close": 1353800.0,
-      "ma20_gap_pct": -14.83,
-      "score": 42.8
+      "close": 1151000,
+      "change_pct": -8.8,
+      "amount_eok": 57923.0,
+      "day_amount_pct": 5.7,
+      "spike5_pct": 19.5,
+      "spike20_pct": 10.3,
+      "ma20_close": 1353700.0,
+      "ma20_gap_pct": -14.97,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "550",
+          "name": "반도체_생산",
+          "change_pct": -4.48
+        }
+      ],
+      "score": 43.2
     },
     {
       "ticker": "005930",
       "name": "삼성전자",
       "market": "KOSPI",
-      "sector": "반도체",
+      "sector": "반도체_생산",
       "sectors": [
-        "반도체"
+        "반도체_생산"
       ],
-      "close": 189450,
-      "change_pct": -5.98,
-      "amount_eok": 49144.9,
-      "day_amount_pct": -2.5,
-      "spike5_pct": 20.2,
-      "spike20_pct": 14.4,
-      "ma20_close": 221347.5,
-      "ma20_gap_pct": -14.41,
-      "score": 38.1
+      "close": 189500,
+      "change_pct": -5.96,
+      "amount_eok": 49851.2,
+      "day_amount_pct": -1.1,
+      "spike5_pct": 21.9,
+      "spike20_pct": 16.1,
+      "ma20_close": 221350.0,
+      "ma20_gap_pct": -14.39,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "550",
+          "name": "반도체_생산",
+          "change_pct": -4.43
+        }
+      ],
+      "score": 38.4
     },
     {
       "ticker": "009150",
       "name": "삼성전기",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "스마트폰_삼성전자관련주",
       "sectors": [
-        "미분류"
+        "스마트폰_삼성전자관련주",
+        "PCB(인쇄회로기판)",
+        "휴대폰_카메라"
       ],
       "close": 885000,
       "change_pct": -6.84,
-      "amount_eok": 10419.0,
-      "day_amount_pct": -24.2,
-      "spike5_pct": 8.8,
-      "spike20_pct": 6.8,
+      "amount_eok": 10548.4,
+      "day_amount_pct": -23.2,
+      "spike5_pct": 10.2,
+      "spike20_pct": 8.2,
       "ma20_close": 1186800.0,
       "ma20_gap_pct": -25.43,
-      "score": 8.9
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "515",
+          "name": "스마트폰_삼성전자관련주",
+          "change_pct": -3.69
+        },
+        {
+          "code": "500",
+          "name": "PCB(인쇄회로기판)",
+          "change_pct": -4.01
+        },
+        {
+          "code": "514",
+          "name": "휴대폰_카메라",
+          "change_pct": -4.43
+        }
+      ],
+      "score": 9.2
     },
     {
       "ticker": "402340",
@@ -67,32 +110,54 @@
       "sectors": [
         "미분류"
       ],
-      "close": 733000,
-      "change_pct": -8.83,
-      "amount_eok": 3947.0,
-      "day_amount_pct": -32.4,
-      "spike5_pct": -31.3,
-      "spike20_pct": -38.0,
-      "ma20_close": 838050.0,
-      "ma20_gap_pct": -12.54,
+      "close": 734000,
+      "change_pct": -8.71,
+      "amount_eok": 4015.3,
+      "day_amount_pct": -31.3,
+      "spike5_pct": -30.1,
+      "spike20_pct": -37.0,
+      "ma20_close": 838100.0,
+      "ma20_gap_pct": -12.42,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 2.8
     },
     {
       "ticker": "006400",
       "name": "삼성SDI",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "태양광_잉곳/웨이퍼/셀/모듈",
       "sectors": [
-        "미분류"
+        "태양광_잉곳/웨이퍼/셀/모듈",
+        "그린카_하이브리드카/전기차",
+        "2차전지_완제품"
       ],
-      "close": 479000,
-      "change_pct": -6.08,
-      "amount_eok": 2847.8,
-      "day_amount_pct": -44.1,
-      "spike5_pct": -37.6,
-      "spike20_pct": -28.1,
-      "ma20_close": 533100.0,
-      "ma20_gap_pct": -10.15,
+      "close": 480000,
+      "change_pct": -5.88,
+      "amount_eok": 2880.6,
+      "day_amount_pct": -43.4,
+      "spike5_pct": -36.9,
+      "spike20_pct": -27.3,
+      "ma20_close": 533150.0,
+      "ma20_gap_pct": -9.97,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "101",
+          "name": "태양광_잉곳/웨이퍼/셀/모듈",
+          "change_pct": -2.07
+        },
+        {
+          "code": "245",
+          "name": "그린카_하이브리드카/전기차",
+          "change_pct": -3.47
+        },
+        {
+          "code": "140",
+          "name": "2차전지_완제품",
+          "change_pct": -4.51
+        }
+      ],
       "score": 2.0
     },
     {
@@ -105,67 +170,141 @@
       ],
       "close": 207000,
       "change_pct": 13.3,
-      "amount_eok": 2196.2,
-      "day_amount_pct": 8.5,
-      "spike5_pct": 25.7,
-      "spike20_pct": 339.6,
+      "amount_eok": 2214.5,
+      "day_amount_pct": 9.4,
+      "spike5_pct": 26.7,
+      "spike20_pct": 343.2,
       "ma20_close": 136765.0,
       "ma20_gap_pct": 51.35,
-      "score": 37.5
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 37.6
     },
     {
       "ticker": "035420",
       "name": "NAVER",
       "market": "KOSPI",
-      "sector": "인터넷",
+      "sector": "SNS(Social Network Service)",
       "sectors": [
-        "인터넷"
+        "SNS(Social Network Service)",
+        "게임_모바일"
       ],
-      "close": 190000,
-      "change_pct": 3.32,
-      "amount_eok": 1707.0,
-      "day_amount_pct": -36.5,
-      "spike5_pct": 30.5,
-      "spike20_pct": 43.3,
-      "ma20_close": 177415.0,
-      "ma20_gap_pct": 7.09,
-      "score": 12.7
-    },
-    {
-      "ticker": "036930",
-      "name": "주성엔지니어링",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
+      "close": 191800,
+      "change_pct": 4.3,
+      "amount_eok": 1867.6,
+      "day_amount_pct": -30.5,
+      "spike5_pct": 42.8,
+      "spike20_pct": 56.8,
+      "ma20_close": 177505.0,
+      "ma20_gap_pct": 8.05,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "452",
+          "name": "SNS(Social Network Service)",
+          "change_pct": 2.74
+        },
+        {
+          "code": "471",
+          "name": "게임_모바일",
+          "change_pct": 1.63
+        }
       ],
-      "close": 135800,
-      "change_pct": -7.3,
-      "amount_eok": 1602.2,
-      "day_amount_pct": -18.8,
-      "spike5_pct": -6.8,
-      "spike20_pct": -51.0,
-      "ma20_close": 189785.0,
-      "ma20_gap_pct": -28.45,
-      "score": 1.1
+      "score": 16.6
     },
     {
       "ticker": "009830",
       "name": "한화솔루션",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "태양광_폴리실리콘",
       "sectors": [
-        "미분류"
+        "태양광_폴리실리콘",
+        "태양광_발전/설치/운영",
+        "태양광_잉곳/웨이퍼/셀/모듈",
+        "합성수지",
+        "2차전지_소재(양극화물질등)"
       ],
-      "close": 26600,
-      "change_pct": -1.85,
-      "amount_eok": 1586.3,
-      "day_amount_pct": -61.7,
-      "spike5_pct": -42.9,
-      "spike20_pct": 19.9,
-      "ma20_close": 28472.5,
-      "ma20_gap_pct": -6.58,
-      "score": 2.6
+      "close": 27000,
+      "change_pct": -0.37,
+      "amount_eok": 1632.6,
+      "day_amount_pct": -60.6,
+      "spike5_pct": -41.3,
+      "spike20_pct": 23.4,
+      "ma20_close": 28492.5,
+      "ma20_gap_pct": -5.24,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "100",
+          "name": "태양광_폴리실리콘",
+          "change_pct": -0.2
+        },
+        {
+          "code": "103",
+          "name": "태양광_발전/설치/운영",
+          "change_pct": -0.34
+        },
+        {
+          "code": "101",
+          "name": "태양광_잉곳/웨이퍼/셀/모듈",
+          "change_pct": -2.09
+        },
+        {
+          "code": "150",
+          "name": "합성수지",
+          "change_pct": -2.93
+        },
+        {
+          "code": "141",
+          "name": "2차전지_소재(양극화물질등)",
+          "change_pct": -5.15
+        }
+      ],
+      "score": 2.9
+    },
+    {
+      "ticker": "036930",
+      "name": "주성엔지니어링",
+      "market": "KOSDAQ",
+      "sector": "LCD_장비",
+      "sectors": [
+        "LCD_장비",
+        "AMOLED_장비",
+        "태양광_부품/소재/장비",
+        "반도체_전공정장비"
+      ],
+      "close": 135500,
+      "change_pct": -7.51,
+      "amount_eok": 1613.9,
+      "day_amount_pct": -18.2,
+      "spike5_pct": -6.2,
+      "spike20_pct": -50.7,
+      "ma20_close": 189770.0,
+      "ma20_gap_pct": -28.6,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "560",
+          "name": "LCD_장비",
+          "change_pct": -3.38
+        },
+        {
+          "code": "570",
+          "name": "AMOLED_장비",
+          "change_pct": -3.9
+        },
+        {
+          "code": "102",
+          "name": "태양광_부품/소재/장비",
+          "change_pct": -7.08
+        },
+        {
+          "code": "555",
+          "name": "반도체_전공정장비",
+          "change_pct": -7.09
+        }
+      ],
+      "score": 1.1
     },
     {
       "ticker": "353200",
@@ -175,159 +314,231 @@
       "sectors": [
         "미분류"
       ],
-      "close": 72200,
-      "change_pct": -10.53,
-      "amount_eok": 1424.6,
-      "day_amount_pct": -43.9,
-      "spike5_pct": -35.8,
-      "spike20_pct": -16.0,
-      "ma20_close": 122825.0,
-      "ma20_gap_pct": -41.22,
+      "close": 72100,
+      "change_pct": -10.66,
+      "amount_eok": 1439.8,
+      "day_amount_pct": -43.3,
+      "spike5_pct": -35.1,
+      "spike20_pct": -15.1,
+      "ma20_close": 122820.0,
+      "ma20_gap_pct": -41.3,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 1.0
     },
     {
       "ticker": "028050",
       "name": "삼성E&A",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "건설_해외건설",
       "sectors": [
-        "미분류"
+        "건설_해외건설"
       ],
-      "close": 61400,
-      "change_pct": -5.25,
-      "amount_eok": 1412.8,
-      "day_amount_pct": -29.2,
-      "spike5_pct": -16.6,
-      "spike20_pct": -29.7,
-      "ma20_close": 55070.0,
-      "ma20_gap_pct": 11.49,
+      "close": 61800,
+      "change_pct": -4.63,
+      "amount_eok": 1433.5,
+      "day_amount_pct": -28.2,
+      "spike5_pct": -15.4,
+      "spike20_pct": -28.7,
+      "ma20_close": 55090.0,
+      "ma20_gap_pct": 12.18,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "200",
+          "name": "건설_해외건설",
+          "change_pct": -1.8
+        }
+      ],
       "score": 1.0
     },
     {
       "ticker": "068270",
       "name": "셀트리온",
       "market": "KOSPI",
-      "sector": "바이오",
+      "sector": "바이오_바이오시밀러/베터",
       "sectors": [
-        "바이오"
+        "바이오_바이오시밀러/베터"
       ],
       "close": 212000,
       "change_pct": -1.4,
-      "amount_eok": 1398.4,
-      "day_amount_pct": -67.3,
-      "spike5_pct": -19.2,
-      "spike20_pct": 13.9,
+      "amount_eok": 1421.8,
+      "day_amount_pct": -66.8,
+      "spike5_pct": -17.8,
+      "spike20_pct": 15.8,
       "ma20_close": 192555.0,
       "ma20_gap_pct": 10.1,
-      "score": 2.0
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "360",
+          "name": "바이오_바이오시밀러/베터",
+          "change_pct": -1.21
+        }
+      ],
+      "score": 2.2
     },
     {
       "ticker": "298040",
       "name": "효성중공업",
       "market": "KOSPI",
-      "sector": "전력기기",
+      "sector": "미분류",
       "sectors": [
-        "전력기기"
+        "미분류"
       ],
-      "close": 1586000,
-      "change_pct": -11.45,
-      "amount_eok": 1371.9,
-      "day_amount_pct": -7.5,
-      "spike5_pct": -1.8,
-      "spike20_pct": 9.5,
-      "ma20_close": 1939800.0,
-      "ma20_gap_pct": -18.24,
-      "score": 1.7
+      "close": 1587000,
+      "change_pct": -11.39,
+      "amount_eok": 1393.7,
+      "day_amount_pct": -6.1,
+      "spike5_pct": -0.2,
+      "spike20_pct": 11.2,
+      "ma20_close": 1939850.0,
+      "ma20_gap_pct": -18.19,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 1.8
     },
     {
       "ticker": "034020",
       "name": "두산에너빌리티",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "온실가스배출저감",
       "sectors": [
-        "미분류"
+        "온실가스배출저감",
+        "원자력_기자재"
       ],
       "close": 45250,
       "change_pct": -7.65,
-      "amount_eok": 1368.2,
-      "day_amount_pct": -4.3,
-      "spike5_pct": -8.8,
-      "spike20_pct": -19.1,
+      "amount_eok": 1392.8,
+      "day_amount_pct": -2.6,
+      "spike5_pct": -7.2,
+      "spike20_pct": -17.6,
       "ma20_close": 59682.5,
       "ma20_gap_pct": -24.18,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "800",
+          "name": "온실가스배출저감",
+          "change_pct": -4.52
+        },
+        {
+          "code": "110",
+          "name": "원자력_기자재",
+          "change_pct": -10.89
+        }
+      ],
       "score": 1.0
     },
     {
       "ticker": "105560",
       "name": "KB금융",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "은행",
       "sectors": [
-        "미분류"
+        "은행"
       ],
-      "close": 151000,
-      "change_pct": -4.55,
-      "amount_eok": 1319.8,
-      "day_amount_pct": -15.8,
-      "spike5_pct": -6.6,
-      "spike20_pct": -8.5,
-      "ma20_close": 156395.0,
-      "ma20_gap_pct": -3.45,
+      "close": 151500,
+      "change_pct": -4.24,
+      "amount_eok": 1348.5,
+      "day_amount_pct": -14.0,
+      "spike5_pct": -4.6,
+      "spike20_pct": -6.5,
+      "ma20_close": 156420.0,
+      "ma20_gap_pct": -3.15,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "400",
+          "name": "은행",
+          "change_pct": -1.81
+        }
+      ],
       "score": 0.9
     },
     {
       "ticker": "042700",
       "name": "한미반도체",
       "market": "KOSPI",
-      "sector": "반도체",
+      "sector": "반도체_후공정장비",
       "sectors": [
-        "반도체"
+        "반도체_후공정장비"
       ],
-      "close": 161500,
-      "change_pct": -3.93,
-      "amount_eok": 1235.2,
-      "day_amount_pct": -6.2,
-      "spike5_pct": -8.1,
-      "spike20_pct": -13.4,
-      "ma20_close": 196985.0,
-      "ma20_gap_pct": -18.01,
+      "close": 161300,
+      "change_pct": -4.05,
+      "amount_eok": 1248.5,
+      "day_amount_pct": -5.2,
+      "spike5_pct": -7.2,
+      "spike20_pct": -12.5,
+      "ma20_close": 196975.0,
+      "ma20_gap_pct": -18.11,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "553",
+          "name": "반도체_후공정장비",
+          "change_pct": -4.0
+        }
+      ],
       "score": 0.9
     },
     {
       "ticker": "005380",
       "name": "현대차",
       "market": "KOSPI",
-      "sector": "자동차",
+      "sector": "그린카_하이브리드카/전기차",
       "sectors": [
-        "자동차"
+        "그린카_하이브리드카/전기차"
       ],
-      "close": 281500,
-      "change_pct": -3.92,
-      "amount_eok": 1222.1,
-      "day_amount_pct": -61.0,
-      "spike5_pct": -32.4,
-      "spike20_pct": -33.6,
-      "ma20_close": 297800.0,
-      "ma20_gap_pct": -5.47,
+      "close": 282500,
+      "change_pct": -3.58,
+      "amount_eok": 1237.8,
+      "day_amount_pct": -60.5,
+      "spike5_pct": -31.5,
+      "spike20_pct": -32.8,
+      "ma20_close": 297850.0,
+      "ma20_gap_pct": -5.15,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "245",
+          "name": "그린카_하이브리드카/전기차",
+          "change_pct": -3.47
+        }
+      ],
       "score": 0.9
     },
     {
       "ticker": "128940",
       "name": "한미약품",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "신약개발/기술수출",
       "sectors": [
-        "미분류"
+        "신약개발/기술수출",
+        "바이오_바이오시밀러/베터"
       ],
-      "close": 470500,
-      "change_pct": 1.18,
-      "amount_eok": 1207.3,
-      "day_amount_pct": -5.5,
-      "spike5_pct": 70.5,
-      "spike20_pct": 120.9,
-      "ma20_close": 401950.0,
-      "ma20_gap_pct": 17.05,
-      "score": 20.3
+      "close": 469000,
+      "change_pct": 0.86,
+      "amount_eok": 1217.5,
+      "day_amount_pct": -4.7,
+      "spike5_pct": 71.9,
+      "spike20_pct": 122.8,
+      "ma20_close": 401875.0,
+      "ma20_gap_pct": 16.7,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "370",
+          "name": "신약개발/기술수출",
+          "change_pct": -0.93
+        },
+        {
+          "code": "360",
+          "name": "바이오_바이오시밀러/베터",
+          "change_pct": -1.21
+        }
+      ],
+      "score": 20.2
     },
     {
       "ticker": "207940",
@@ -337,15 +548,17 @@
       "sectors": [
         "미분류"
       ],
-      "close": 1526000,
-      "change_pct": 0.46,
-      "amount_eok": 1035.1,
-      "day_amount_pct": -23.0,
-      "spike5_pct": -0.5,
-      "spike20_pct": -10.0,
-      "ma20_close": 1376050.0,
-      "ma20_gap_pct": 10.9,
-      "score": 1.3
+      "close": 1522000,
+      "change_pct": 0.2,
+      "amount_eok": 1056.3,
+      "day_amount_pct": -21.4,
+      "spike5_pct": 1.5,
+      "spike20_pct": -8.1,
+      "ma20_close": 1375850.0,
+      "ma20_gap_pct": 10.62,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 1.2
     },
     {
       "ticker": "089860",
@@ -355,15 +568,17 @@
       "sectors": [
         "미분류"
       ],
-      "close": 58500,
-      "change_pct": 10.17,
-      "amount_eok": 1025.3,
-      "day_amount_pct": 1173.5,
-      "spike5_pct": 1215.4,
-      "spike20_pct": 1442.9,
-      "ma20_close": 51320.0,
-      "ma20_gap_pct": 13.99,
-      "score": 54.3
+      "close": 58400,
+      "change_pct": 9.98,
+      "amount_eok": 1026.0,
+      "day_amount_pct": 1174.3,
+      "spike5_pct": 1216.2,
+      "spike20_pct": 1443.8,
+      "ma20_close": 51315.0,
+      "ma20_gap_pct": 13.81,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 54.0
     },
     {
       "ticker": "373220",
@@ -373,33 +588,17 @@
       "sectors": [
         "미분류"
       ],
-      "close": 342000,
-      "change_pct": -1.58,
-      "amount_eok": 1006.4,
-      "day_amount_pct": -41.0,
-      "spike5_pct": -48.7,
-      "spike20_pct": -51.5,
-      "ma20_close": 382100.0,
-      "ma20_gap_pct": -10.49,
+      "close": 342500,
+      "change_pct": -1.44,
+      "amount_eok": 1021.0,
+      "day_amount_pct": -40.2,
+      "spike5_pct": -48.0,
+      "spike20_pct": -50.8,
+      "ma20_close": 382125.0,
+      "ma20_gap_pct": -10.37,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 0.7
-    },
-    {
-      "ticker": "030530",
-      "name": "원익홀딩스",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 28550,
-      "change_pct": 7.53,
-      "amount_eok": 980.1,
-      "day_amount_pct": 8.2,
-      "spike5_pct": -43.0,
-      "spike20_pct": 40.0,
-      "ma20_close": 26042.5,
-      "ma20_gap_pct": 9.63,
-      "score": 13.7
     },
     {
       "ticker": "028260",
@@ -409,32 +608,98 @@
       "sectors": [
         "미분류"
       ],
-      "close": 273000,
-      "change_pct": -5.86,
-      "amount_eok": 977.5,
-      "day_amount_pct": -2.8,
-      "spike5_pct": 8.4,
-      "spike20_pct": -13.3,
-      "ma20_close": 296650.0,
-      "ma20_gap_pct": -7.97,
-      "score": 1.7
+      "close": 272500,
+      "change_pct": -6.03,
+      "amount_eok": 1001.3,
+      "day_amount_pct": -0.5,
+      "spike5_pct": 11.1,
+      "spike20_pct": -11.2,
+      "ma20_close": 296625.0,
+      "ma20_gap_pct": -8.13,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 2.1
+    },
+    {
+      "ticker": "030530",
+      "name": "원익홀딩스",
+      "market": "KOSDAQ",
+      "sector": "LCD_장비",
+      "sectors": [
+        "LCD_장비",
+        "코스닥_히든챔피언",
+        "AMOLED_장비",
+        "코스닥_라이징스타",
+        "반도체_전공정장비"
+      ],
+      "close": 28400,
+      "change_pct": 6.97,
+      "amount_eok": 986.9,
+      "day_amount_pct": 9.0,
+      "spike5_pct": -42.6,
+      "spike20_pct": 41.0,
+      "ma20_close": 26035.0,
+      "ma20_gap_pct": 9.08,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "560",
+          "name": "LCD_장비",
+          "change_pct": -3.38
+        },
+        {
+          "code": "900",
+          "name": "코스닥_히든챔피언",
+          "change_pct": -3.57
+        },
+        {
+          "code": "570",
+          "name": "AMOLED_장비",
+          "change_pct": -3.9
+        },
+        {
+          "code": "920",
+          "name": "코스닥_라이징스타",
+          "change_pct": -5.09
+        },
+        {
+          "code": "555",
+          "name": "반도체_전공정장비",
+          "change_pct": -7.1
+        }
+      ],
+      "score": 13.0
     },
     {
       "ticker": "010120",
       "name": "LS ELECTRIC",
       "market": "KOSPI",
-      "sector": "전력기기",
+      "sector": "그린카_하이브리드카/전기차",
       "sectors": [
-        "전력기기"
+        "그린카_하이브리드카/전기차",
+        "스마트 그리드"
       ],
-      "close": 116300,
-      "change_pct": -10.54,
-      "amount_eok": 940.2,
-      "day_amount_pct": -46.7,
-      "spike5_pct": -18.6,
-      "spike20_pct": -12.1,
-      "ma20_close": 157250.0,
-      "ma20_gap_pct": -26.04,
+      "close": 116500,
+      "change_pct": -10.38,
+      "amount_eok": 959.9,
+      "day_amount_pct": -45.6,
+      "spike5_pct": -16.9,
+      "spike20_pct": -10.3,
+      "ma20_close": 157260.0,
+      "ma20_gap_pct": -25.92,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "245",
+          "name": "그린카_하이브리드카/전기차",
+          "change_pct": -3.45
+        },
+        {
+          "code": "810",
+          "name": "스마트 그리드",
+          "change_pct": -5.43
+        }
+      ],
       "score": 0.7
     },
     {
@@ -445,69 +710,101 @@
       "sectors": [
         "미분류"
       ],
-      "close": 95700,
-      "change_pct": -5.81,
-      "amount_eok": 936.0,
-      "day_amount_pct": -41.1,
-      "spike5_pct": -27.0,
-      "spike20_pct": -19.9,
-      "ma20_close": 122800.0,
-      "ma20_gap_pct": -22.07,
+      "close": 95600,
+      "change_pct": -5.91,
+      "amount_eok": 951.5,
+      "day_amount_pct": -40.2,
+      "spike5_pct": -25.8,
+      "spike20_pct": -18.6,
+      "ma20_close": 122795.0,
+      "ma20_gap_pct": -22.15,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 0.7
     },
     {
       "ticker": "000150",
       "name": "두산",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "기계_건설기계",
       "sectors": [
-        "미분류"
+        "기계_건설기계"
       ],
       "close": 636000,
       "change_pct": -12.52,
-      "amount_eok": 930.1,
-      "day_amount_pct": -19.7,
-      "spike5_pct": 17.3,
-      "spike20_pct": -10.8,
+      "amount_eok": 946.2,
+      "day_amount_pct": -18.3,
+      "spike5_pct": 19.3,
+      "spike20_pct": -9.3,
       "ma20_close": 965950.0,
       "ma20_gap_pct": -34.16,
-      "score": 2.8
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "210",
+          "name": "기계_건설기계",
+          "change_pct": -0.81
+        }
+      ],
+      "score": 3.1
     },
     {
       "ticker": "000270",
       "name": "기아",
       "market": "KOSPI",
-      "sector": "자동차",
+      "sector": "그린카_하이브리드카/전기차",
       "sectors": [
-        "자동차"
+        "그린카_하이브리드카/전기차"
       ],
       "close": 101200,
       "change_pct": 0.1,
-      "amount_eok": 826.5,
-      "day_amount_pct": -46.6,
-      "spike5_pct": -43.6,
-      "spike20_pct": -18.4,
+      "amount_eok": 844.3,
+      "day_amount_pct": -45.5,
+      "spike5_pct": -42.4,
+      "spike20_pct": -16.6,
       "ma20_close": 105300.0,
       "ma20_gap_pct": -3.89,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "245",
+          "name": "그린카_하이브리드카/전기차",
+          "change_pct": -3.43
+        }
+      ],
       "score": 0.7
     },
     {
       "ticker": "035720",
       "name": "카카오",
       "market": "KOSPI",
-      "sector": "인터넷",
+      "sector": "SNS(Social Network Service)",
       "sectors": [
-        "인터넷"
+        "SNS(Social Network Service)",
+        "게임_모바일"
       ],
-      "close": 32750,
-      "change_pct": 1.08,
-      "amount_eok": 746.6,
-      "day_amount_pct": -53.2,
-      "spike5_pct": 26.8,
-      "spike20_pct": 54.2,
-      "ma20_close": 30642.5,
-      "ma20_gap_pct": 6.88,
-      "score": 9.4
+      "close": 32850,
+      "change_pct": 1.39,
+      "amount_eok": 765.2,
+      "day_amount_pct": -52.0,
+      "spike5_pct": 30.0,
+      "spike20_pct": 58.0,
+      "ma20_close": 30647.5,
+      "ma20_gap_pct": 7.19,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "452",
+          "name": "SNS(Social Network Service)",
+          "change_pct": 2.65
+        },
+        {
+          "code": "471",
+          "name": "게임_모바일",
+          "change_pct": 1.59
+        }
+      ],
+      "score": 10.5
     },
     {
       "ticker": "012450",
@@ -517,14 +814,16 @@
       "sectors": [
         "미분류"
       ],
-      "close": 652000,
-      "change_pct": -4.54,
-      "amount_eok": 738.2,
-      "day_amount_pct": -48.7,
-      "spike5_pct": -56.7,
-      "spike20_pct": -53.0,
-      "ma20_close": 781650.0,
-      "ma20_gap_pct": -16.59,
+      "close": 654000,
+      "change_pct": -4.25,
+      "amount_eok": 751.7,
+      "day_amount_pct": -47.7,
+      "spike5_pct": -55.9,
+      "spike20_pct": -52.2,
+      "ma20_close": 781750.0,
+      "ma20_gap_pct": -16.34,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 0.5
     },
     {
@@ -535,69 +834,113 @@
       "sectors": [
         "미분류"
       ],
-      "close": 189700,
-      "change_pct": -3.66,
-      "amount_eok": 706.9,
-      "day_amount_pct": 2.1,
-      "spike5_pct": 32.8,
-      "spike20_pct": 34.9,
-      "ma20_close": 190265.0,
-      "ma20_gap_pct": -0.3,
-      "score": 7.2
+      "close": 189600,
+      "change_pct": -3.71,
+      "amount_eok": 730.4,
+      "day_amount_pct": 5.5,
+      "spike5_pct": 37.2,
+      "spike20_pct": 39.3,
+      "ma20_close": 190260.0,
+      "ma20_gap_pct": -0.35,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 8.1
     },
     {
       "ticker": "034730",
       "name": "SK",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "클라우드 컴퓨팅",
       "sectors": [
-        "미분류"
+        "클라우드 컴퓨팅",
+        "전자결제",
+        "SI(시스템통합)"
       ],
-      "close": 444000,
-      "change_pct": -8.64,
-      "amount_eok": 685.4,
-      "day_amount_pct": -18.4,
-      "spike5_pct": -9.9,
-      "spike20_pct": -49.8,
-      "ma20_close": 487125.0,
-      "ma20_gap_pct": -8.85,
+      "close": 445000,
+      "change_pct": -8.44,
+      "amount_eok": 697.6,
+      "day_amount_pct": -16.9,
+      "spike5_pct": -8.3,
+      "spike20_pct": -48.9,
+      "ma20_close": 487175.0,
+      "ma20_gap_pct": -8.66,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "457",
+          "name": "클라우드 컴퓨팅",
+          "change_pct": -1.98
+        },
+        {
+          "code": "454",
+          "name": "전자결제",
+          "change_pct": -2.7
+        },
+        {
+          "code": "458",
+          "name": "SI(시스템통합)",
+          "change_pct": -3.31
+        }
+      ],
       "score": 0.5
-    },
-    {
-      "ticker": "071050",
-      "name": "한국금융지주",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 121300,
-      "change_pct": -15.12,
-      "amount_eok": 665.6,
-      "day_amount_pct": 264.9,
-      "spike5_pct": 233.0,
-      "spike20_pct": 131.0,
-      "ma20_close": 150065.0,
-      "ma20_gap_pct": -19.17,
-      "score": 35.3
     },
     {
       "ticker": "010060",
       "name": "OCI홀딩스",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "태양광_폴리실리콘",
       "sectors": [
-        "미분류"
+        "태양광_폴리실리콘"
       ],
-      "close": 206000,
-      "change_pct": -0.24,
-      "amount_eok": 648.2,
-      "day_amount_pct": -48.3,
-      "spike5_pct": -37.1,
-      "spike20_pct": 11.8,
-      "ma20_close": 197135.0,
-      "ma20_gap_pct": 4.5,
-      "score": 1.3
+      "close": 209000,
+      "change_pct": 1.21,
+      "amount_eok": 680.0,
+      "day_amount_pct": -45.8,
+      "spike5_pct": -34.0,
+      "spike20_pct": 17.3,
+      "ma20_close": 197285.0,
+      "ma20_gap_pct": 5.94,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "100",
+          "name": "태양광_폴리실리콘",
+          "change_pct": -0.16
+        }
+      ],
+      "score": 3.4
+    },
+    {
+      "ticker": "071050",
+      "name": "한국금융지주",
+      "market": "KOSPI",
+      "sector": "창투",
+      "sectors": [
+        "창투",
+        "증권"
+      ],
+      "close": 122100,
+      "change_pct": -14.56,
+      "amount_eok": 676.5,
+      "day_amount_pct": 270.9,
+      "spike5_pct": 238.4,
+      "spike20_pct": 134.8,
+      "ma20_close": 150105.0,
+      "ma20_gap_pct": -18.66,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "410",
+          "name": "창투",
+          "change_pct": -4.67
+        },
+        {
+          "code": "430",
+          "name": "증권",
+          "change_pct": -4.83
+        }
+      ],
+      "score": 35.6
     },
     {
       "ticker": "066570",
@@ -607,68 +950,88 @@
       "sectors": [
         "미분류"
       ],
-      "close": 139400,
-      "change_pct": -1.83,
-      "amount_eok": 630.5,
-      "day_amount_pct": -40.4,
-      "spike5_pct": -32.7,
-      "spike20_pct": -49.3,
-      "ma20_close": 160030.0,
-      "ma20_gap_pct": -12.89,
-      "score": 0.4
-    },
-    {
-      "ticker": "196170",
-      "name": "알테오젠",
-      "market": "KOSDAQ",
-      "sector": "바이오",
-      "sectors": [
-        "바이오"
-      ],
-      "close": 201000,
-      "change_pct": -4.96,
-      "amount_eok": 618.4,
-      "day_amount_pct": -44.8,
-      "spike5_pct": -29.1,
-      "spike20_pct": -18.4,
-      "ma20_close": 220725.0,
-      "ma20_gap_pct": -8.94,
+      "close": 139800,
+      "change_pct": -1.55,
+      "amount_eok": 640.1,
+      "day_amount_pct": -39.5,
+      "spike5_pct": -31.7,
+      "spike20_pct": -48.5,
+      "ma20_close": 160050.0,
+      "ma20_gap_pct": -12.65,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 0.4
     },
     {
       "ticker": "000810",
       "name": "삼성화재",
       "market": "KOSPI",
+      "sector": "보험_손해보험",
+      "sectors": [
+        "보험_손해보험"
+      ],
+      "close": 601000,
+      "change_pct": -8.66,
+      "amount_eok": 626.9,
+      "day_amount_pct": 5.5,
+      "spike5_pct": 15.0,
+      "spike20_pct": 6.8,
+      "ma20_close": 617500.0,
+      "ma20_gap_pct": -2.67,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "421",
+          "name": "보험_손해보험",
+          "change_pct": -3.27
+        }
+      ],
+      "score": 2.8
+    },
+    {
+      "ticker": "196170",
+      "name": "알테오젠",
+      "market": "KOSDAQ",
       "sector": "미분류",
       "sectors": [
         "미분류"
       ],
-      "close": 606000,
-      "change_pct": -7.9,
-      "amount_eok": 608.6,
-      "day_amount_pct": 2.4,
-      "spike5_pct": 11.6,
-      "spike20_pct": 3.7,
-      "ma20_close": 617750.0,
-      "ma20_gap_pct": -1.9,
-      "score": 2.2
+      "close": 201000,
+      "change_pct": -4.96,
+      "amount_eok": 625.2,
+      "day_amount_pct": -44.2,
+      "spike5_pct": -28.3,
+      "spike20_pct": -17.5,
+      "ma20_close": 220725.0,
+      "ma20_gap_pct": -8.94,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 0.4
     },
     {
       "ticker": "055550",
       "name": "신한지주",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "은행",
       "sectors": [
-        "미분류"
+        "은행"
       ],
-      "close": 86600,
-      "change_pct": -3.02,
-      "amount_eok": 607.0,
-      "day_amount_pct": -35.5,
-      "spike5_pct": -28.9,
-      "spike20_pct": -40.8,
-      "ma20_close": 90660.0,
-      "ma20_gap_pct": -4.48,
+      "close": 86800,
+      "change_pct": -2.8,
+      "amount_eok": 620.8,
+      "day_amount_pct": -34.1,
+      "spike5_pct": -27.3,
+      "spike20_pct": -39.5,
+      "ma20_close": 90670.0,
+      "ma20_gap_pct": -4.27,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "400",
+          "name": "은행",
+          "change_pct": -1.84
+        }
+      ],
       "score": 0.4
     },
     {
@@ -679,177 +1042,269 @@
       "sectors": [
         "미분류"
       ],
-      "close": 2290,
-      "change_pct": 1.33,
-      "amount_eok": 605.2,
-      "day_amount_pct": 51.5,
-      "spike5_pct": 482.7,
-      "spike20_pct": 2154.1,
-      "ma20_close": 1789.75,
-      "ma20_gap_pct": 27.95,
-      "score": 42.2
+      "close": 2285,
+      "change_pct": 1.11,
+      "amount_eok": 607.5,
+      "day_amount_pct": 52.1,
+      "spike5_pct": 484.9,
+      "spike20_pct": 2162.7,
+      "ma20_close": 1789.5,
+      "ma20_gap_pct": 27.69,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 41.9
     },
     {
       "ticker": "032830",
       "name": "삼성생명",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "보험_생명보험",
       "sectors": [
-        "미분류"
+        "보험_생명보험"
       ],
-      "close": 233000,
-      "change_pct": -5.28,
-      "amount_eok": 592.2,
-      "day_amount_pct": 12.9,
-      "spike5_pct": -8.3,
-      "spike20_pct": -20.4,
-      "ma20_close": 252150.0,
-      "ma20_gap_pct": -7.59,
+      "close": 233500,
+      "change_pct": -5.08,
+      "amount_eok": 602.6,
+      "day_amount_pct": 14.9,
+      "spike5_pct": -6.7,
+      "spike20_pct": -19.0,
+      "ma20_close": 252175.0,
+      "ma20_gap_pct": -7.41,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "420",
+          "name": "보험_생명보험",
+          "change_pct": -4.5
+        }
+      ],
       "score": 0.4
     },
     {
       "ticker": "010170",
       "name": "대한광통신",
       "market": "KOSDAQ",
-      "sector": "미분류",
+      "sector": "네트워크/광통신",
       "sectors": [
-        "미분류"
+        "네트워크/광통신"
       ],
       "close": 10960,
       "change_pct": -5.92,
-      "amount_eok": 584.3,
-      "day_amount_pct": 3.1,
-      "spike5_pct": 6.9,
-      "spike20_pct": -32.6,
+      "amount_eok": 587.4,
+      "day_amount_pct": 3.6,
+      "spike5_pct": 7.5,
+      "spike20_pct": -32.2,
       "ma20_close": 13643.5,
       "ma20_gap_pct": -19.67,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "480",
+          "name": "네트워크/광통신",
+          "change_pct": -3.49
+        }
+      ],
       "score": 1.3
     },
     {
       "ticker": "012330",
       "name": "현대모비스",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "자동차_차량용 반도체",
       "sectors": [
-        "미분류"
+        "자동차_차량용 반도체",
+        "자동차_전장화 수혜",
+        "그린카_하이브리드카/전기차"
       ],
-      "close": 355000,
-      "change_pct": -2.34,
-      "amount_eok": 576.4,
-      "day_amount_pct": -62.7,
-      "spike5_pct": -35.3,
-      "spike20_pct": -38.5,
-      "ma20_close": 346875.0,
-      "ma20_gap_pct": 2.34,
-      "score": 0.4
-    },
-    {
-      "ticker": "161890",
-      "name": "한국콜마",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
+      "close": 356500,
+      "change_pct": -1.93,
+      "amount_eok": 584.7,
+      "day_amount_pct": -62.2,
+      "spike5_pct": -34.4,
+      "spike20_pct": -37.6,
+      "ma20_close": 346950.0,
+      "ma20_gap_pct": 2.75,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "243",
+          "name": "자동차_차량용 반도체",
+          "change_pct": -1.63
+        },
+        {
+          "code": "241",
+          "name": "자동차_전장화 수혜",
+          "change_pct": -3.23
+        },
+        {
+          "code": "245",
+          "name": "그린카_하이브리드카/전기차",
+          "change_pct": -3.43
+        }
       ],
-      "close": 110100,
-      "change_pct": -10.27,
-      "amount_eok": 542.6,
-      "day_amount_pct": 51.9,
-      "spike5_pct": 144.1,
-      "spike20_pct": 121.7,
-      "ma20_close": 120560.0,
-      "ma20_gap_pct": -8.68,
-      "score": 27.5
-    },
-    {
-      "ticker": "003490",
-      "name": "대한항공",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 29550,
-      "change_pct": -2.48,
-      "amount_eok": 542.6,
-      "day_amount_pct": -55.2,
-      "spike5_pct": -48.2,
-      "spike20_pct": -31.0,
-      "ma20_close": 27850.0,
-      "ma20_gap_pct": 6.1,
       "score": 0.4
     },
     {
       "ticker": "086790",
       "name": "하나금융지주",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "은행",
       "sectors": [
-        "미분류"
+        "은행"
       ],
-      "close": 117200,
-      "change_pct": -3.93,
-      "amount_eok": 541.3,
-      "day_amount_pct": -35.2,
-      "spike5_pct": -6.4,
-      "spike20_pct": -36.2,
-      "ma20_close": 119705.0,
-      "ma20_gap_pct": -2.09,
+      "close": 117500,
+      "change_pct": -3.69,
+      "amount_eok": 554.7,
+      "day_amount_pct": -33.6,
+      "spike5_pct": -4.1,
+      "spike20_pct": -34.7,
+      "ma20_close": 119720.0,
+      "ma20_gap_pct": -1.85,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "400",
+          "name": "은행",
+          "change_pct": -1.82
+        }
+      ],
       "score": 0.4
+    },
+    {
+      "ticker": "003490",
+      "name": "대한항공",
+      "market": "KOSPI",
+      "sector": "운송_항공",
+      "sectors": [
+        "운송_항공"
+      ],
+      "close": 29650,
+      "change_pct": -2.15,
+      "amount_eok": 551.9,
+      "day_amount_pct": -54.4,
+      "spike5_pct": -47.3,
+      "spike20_pct": -29.9,
+      "ma20_close": 27855.0,
+      "ma20_gap_pct": 6.44,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "230",
+          "name": "운송_항공",
+          "change_pct": -2.17
+        }
+      ],
+      "score": 0.4
+    },
+    {
+      "ticker": "161890",
+      "name": "한국콜마",
+      "market": "KOSPI",
+      "sector": "중국_내수소비 확대",
+      "sectors": [
+        "중국_내수소비 확대",
+        "화장품",
+        "Cheap-Chic_저가실용품"
+      ],
+      "close": 110400,
+      "change_pct": -10.02,
+      "amount_eok": 551.5,
+      "day_amount_pct": 54.3,
+      "spike5_pct": 148.1,
+      "spike20_pct": 125.4,
+      "ma20_close": 120575.0,
+      "ma20_gap_pct": -8.44,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "910",
+          "name": "중국_내수소비 확대",
+          "change_pct": -2.52
+        },
+        {
+          "code": "330",
+          "name": "화장품",
+          "change_pct": -2.72
+        },
+        {
+          "code": "830",
+          "name": "Cheap-Chic_저가실용품",
+          "change_pct": -3.04
+        }
+      ],
+      "score": 28.3
     },
     {
       "ticker": "086520",
       "name": "에코프로",
       "market": "KOSDAQ",
-      "sector": "미분류",
+      "sector": "온실가스배출저감",
       "sectors": [
-        "미분류"
+        "온실가스배출저감"
       ],
-      "close": 68400,
-      "change_pct": -4.47,
-      "amount_eok": 536.7,
-      "day_amount_pct": -45.6,
-      "spike5_pct": -15.6,
-      "spike20_pct": -21.8,
-      "ma20_close": 77705.0,
-      "ma20_gap_pct": -11.97,
+      "close": 68200,
+      "change_pct": -4.75,
+      "amount_eok": 545.1,
+      "day_amount_pct": -44.7,
+      "spike5_pct": -14.3,
+      "spike20_pct": -20.6,
+      "ma20_close": 77695.0,
+      "ma20_gap_pct": -12.22,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "800",
+          "name": "온실가스배출저감",
+          "change_pct": -4.51
+        }
+      ],
       "score": 0.4
     },
     {
       "ticker": "267260",
       "name": "HD현대일렉트릭",
       "market": "KOSPI",
-      "sector": "전력기기",
+      "sector": "미분류",
       "sectors": [
-        "전력기기"
+        "미분류"
       ],
-      "close": 370000,
-      "change_pct": -7.27,
-      "amount_eok": 535.5,
-      "day_amount_pct": -39.1,
-      "spike5_pct": -41.5,
-      "spike20_pct": -41.0,
-      "ma20_close": 472400.0,
-      "ma20_gap_pct": -21.68,
+      "close": 369250,
+      "change_pct": -7.46,
+      "amount_eok": 544.6,
+      "day_amount_pct": -38.0,
+      "spike5_pct": -40.5,
+      "spike20_pct": -40.0,
+      "ma20_close": 472362.5,
+      "ma20_gap_pct": -21.83,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 0.4
     },
     {
       "ticker": "017670",
       "name": "SK텔레콤",
       "market": "KOSPI",
-      "sector": "미분류",
+      "sector": "클라우드 컴퓨팅",
       "sectors": [
-        "미분류"
+        "클라우드 컴퓨팅"
       ],
-      "close": 75900,
-      "change_pct": -2.69,
-      "amount_eok": 521.0,
-      "day_amount_pct": -11.7,
-      "spike5_pct": 9.4,
-      "spike20_pct": -7.6,
-      "ma20_close": 76950.0,
-      "ma20_gap_pct": -1.36,
-      "score": 1.5
+      "close": 76400,
+      "change_pct": -2.05,
+      "amount_eok": 533.0,
+      "day_amount_pct": -9.7,
+      "spike5_pct": 11.9,
+      "spike20_pct": -5.4,
+      "ma20_close": 76975.0,
+      "ma20_gap_pct": -0.75,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "457",
+          "name": "클라우드 컴퓨팅",
+          "change_pct": -1.94
+        }
+      ],
+      "score": 1.9
     },
     {
       "ticker": "329180",
@@ -859,14 +1314,48 @@
       "sectors": [
         "미분류"
       ],
-      "close": 263000,
-      "change_pct": -2.41,
-      "amount_eok": 520.6,
-      "day_amount_pct": -32.3,
-      "spike5_pct": -46.1,
-      "spike20_pct": -55.0,
-      "ma20_close": 309625.0,
-      "ma20_gap_pct": -15.06,
+      "close": 264000,
+      "change_pct": -2.04,
+      "amount_eok": 530.7,
+      "day_amount_pct": -31.0,
+      "spike5_pct": -45.0,
+      "spike20_pct": -54.1,
+      "ma20_close": 309675.0,
+      "ma20_gap_pct": -14.75,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 0.4
+    },
+    {
+      "ticker": "010140",
+      "name": "삼성중공업",
+      "market": "KOSPI",
+      "sector": "조선_Eco선",
+      "sectors": [
+        "조선_Eco선",
+        "조선_해양플랜트"
+      ],
+      "close": 16400,
+      "change_pct": -3.59,
+      "amount_eok": 520.5,
+      "day_amount_pct": 1.0,
+      "spike5_pct": -34.0,
+      "spike20_pct": -23.9,
+      "ma20_close": 17271.5,
+      "ma20_gap_pct": -5.05,
+      "theme_source": "kiwoom_ka90001",
+      "theme_details": [
+        {
+          "code": "223",
+          "name": "조선_Eco선",
+          "change_pct": -3.18
+        },
+        {
+          "code": "222",
+          "name": "조선_해양플랜트",
+          "change_pct": -3.66
+        }
+      ],
       "score": 0.4
     },
     {
@@ -877,32 +1366,36 @@
       "sectors": [
         "미분류"
       ],
-      "close": 14520,
-      "change_pct": 3.05,
-      "amount_eok": 515.4,
-      "day_amount_pct": -64.9,
-      "spike5_pct": 18.9,
-      "spike20_pct": 352.2,
-      "ma20_close": 11708.5,
-      "ma20_gap_pct": 24.01,
-      "score": 21.8
+      "close": 14540,
+      "change_pct": 3.19,
+      "amount_eok": 517.2,
+      "day_amount_pct": -64.8,
+      "spike5_pct": 19.4,
+      "spike20_pct": 353.8,
+      "ma20_close": 11709.5,
+      "ma20_gap_pct": 24.17,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
+      "score": 22.0
     },
     {
-      "ticker": "010140",
-      "name": "삼성중공업",
+      "ticker": "005490",
+      "name": "POSCO홀딩스",
       "market": "KOSPI",
       "sector": "미분류",
       "sectors": [
         "미분류"
       ],
-      "close": 16320,
-      "change_pct": -4.06,
-      "amount_eok": 510.6,
-      "day_amount_pct": -1.0,
-      "spike5_pct": -35.3,
-      "spike20_pct": -25.3,
-      "ma20_close": 17267.5,
-      "ma20_gap_pct": -5.49,
+      "close": 268500,
+      "change_pct": -2.01,
+      "amount_eok": 511.2,
+      "day_amount_pct": -16.3,
+      "spike5_pct": -29.2,
+      "spike20_pct": -30.6,
+      "ma20_close": 285625.0,
+      "ma20_gap_pct": -6.0,
+      "theme_source": "kiwoom_empty",
+      "theme_details": [],
       "score": 0.4
     }
   ]
