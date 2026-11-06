@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'data/latest.json'
+      - 'data/radar-history.json'
       - 'index.html'
       - 'app.js'
       - 'style.css'
