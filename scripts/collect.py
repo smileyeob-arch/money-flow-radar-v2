@@ -223,69 +223,152 @@ def analyze(rank, bars, mapping):
     )
 
 
-def lookup_stock_themes(client, ticker):
-    """ka90001 qry_tp=2: query current theme memberships for one shortlisted stock."""
-    found = []
-    seen = set()
+def _infostock_rows(data, keys, api_id):
+    """Read a documented-style array without interpreting unknown objects as stock lists."""
+    for key in keys:
+        value = data.get(key)
+        if isinstance(value, list):
+            return value
+    arrays = [(k, v) for k, v in data.items() if isinstance(v, list)]
+    if len(arrays) == 1:
+        print(f"{api_id} response list key: {arrays[0][0]}", flush=True)
+        return arrays[0][1]
+    raise RuntimeError(f"{api_id} list schema unresolved; fields={list(data.keys())[:20]}")
+
+
+def _infostock_value(row, keys):
+    for key in keys:
+        value = row.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def load_infostock_themes(client, selected):
+    """Build an Infostock-only reverse map from ka10106 -> ka10107.
+
+    Since provider schema versions may differ, unexpected response shapes FAIL
+    CLOSED without writing a misleading JSON. No ka90001 or fabricated themes.
+    """
+    selected_codes = {x["ticker"] for x in selected}
+    theme_index = {}
+    categories = []
+    seen_codes = set()
     cont, next_key = "N", ""
-    for page in range(5):
-        data, cont_response, new_key = client.call(
-            "ka90001", "/api/dostk/thme",
-            {"qry_tp": "2", "stk_cd": ticker, "date_tp": "10",
-             "thema_nm": "", "flu_pl_amt_tp": "3", "stex_tp": "3"},
-            cont, next_key,
+    for page in range(20):
+        payload, ncont, nkey = client.call(
+            "ka10106", "/api/dostk/thme", {}, cont, next_key
         )
-        rows = data.get("thema_grp")
-        if not isinstance(rows, list):
-            raise RuntimeError("ka90001 response missing thema_grp array")
+        rows = _infostock_rows(payload, (
+            "infostock_thema_cd_list", "thema_cd_list", "thema_list",
+            "theme_list", "infostock_theme_list", "list"
+        ), "ka10106")
         for row in rows:
-            name = str(row.get("thema_nm", "")).strip()
-            code = str(row.get("thema_grp_cd", "")).strip()
-            if name and name not in seen:
-                found.append({"code": code, "name": name,
-                              "change_pct": number(row.get("flu_rt"))})
-                seen.add(name)
-        if cont_response != "Y" or not new_key:
-            return found
-        cont, next_key = "Y", new_key
-    raise RuntimeError("ka90001 pagination exceeded 5 pages")
+            if not isinstance(row, dict):
+                continue
+            code = _infostock_value(row, (
+                "thema_cd", "thema_grp_cd", "theme_code", "theme_cd",
+                "infostock_thema_cd", "code"
+            ))
+            name = _infostock_value(row, (
+                "thema_nm", "theme_name", "theme_nm", "thema_name",
+                "infostock_thema_nm", "name"
+            ))
+            if code and name and code not in seen_codes:
+                seen_codes.add(code)
+                categories.append((code, name))
+        print(f"Infostock ka10106 page={page+1}, themes={len(categories)}", flush=True)
+        if ncont != "Y" or not nkey:
+            break
+        cont, next_key = "Y", nkey
+    else:
+        raise RuntimeError("ka10106 theme list pagination limit hit; refusing incomplete map")
+    if not categories:
+        raise RuntimeError("ka10106 returned no recognizable theme codes/names; JSON unchanged")
+
+    detail_errors = 0
+    response_validated = 0
+    # Request keys are configurable so an official field-name update won't require
+    # changing the known-good turnover and chart collection code.
+    code_key = os.getenv("INFOSTOCK_DETAIL_CODE_KEY", "thema_cd")
+    max_details = int(os.getenv("INFOSTOCK_MAX_THEMES", "1000"))
+    if len(categories) > max_details:
+        raise RuntimeError(f"Infostock theme count {len(categories)} exceeds safe limit {max_details}")
+    for i, (theme_code, theme_name) in enumerate(categories, 1):
+        try:
+            payload, ncont, next_key = client.call(
+                "ka10107", "/api/dostk/thme", {code_key: theme_code}
+            )
+            rows = _infostock_rows(payload, (
+                "infostock_thema_stk_list", "thema_stk_list",
+                "theme_stock_list", "thema_constit_stk", "stock_list", "list"
+            ), "ka10107")
+            response_validated += 1
+            def process(batch):
+                for entry in batch:
+                    if not isinstance(entry, dict):
+                        continue
+                    ticker = _infostock_value(entry, (
+                        "stk_cd", "stock_code", "stk_code", "code"
+                    )).split("_")[0]
+                    if ticker in selected_codes:
+                        theme_index.setdefault(ticker, []).append(
+                            {"code": theme_code, "name": theme_name}
+                        )
+            process(rows)
+            pages = 1
+            while ncont == "Y" and next_key:
+                if pages >= 20:
+                    raise RuntimeError(f"ka10107 pagination exceeded for {theme_code}")
+                payload, ncont, next_key = client.call(
+                    "ka10107", "/api/dostk/thme",
+                    {code_key: theme_code}, "Y", next_key
+                )
+                process(_infostock_rows(payload, (
+                    "infostock_thema_stk_list", "thema_stk_list",
+                    "theme_stock_list", "thema_constit_stk", "stock_list", "list"
+                ), "ka10107"))
+                pages += 1
+        except Exception as exc:
+            detail_errors += 1
+            if detail_errors <= 3:
+                print(f"Infostock ka10107 diagnostic: {type(exc).__name__}: {str(exc)[:180]}", flush=True)
+            # Any incomplete membership mapping must not be published as complete.
+            if detail_errors >= 3:
+                raise RuntimeError(
+                    "Infostock detail API schema or authorization failed repeatedly; JSON unchanged"
+                ) from exc
+        if i % 50 == 0:
+            print(f"Infostock detail progress {i}/{len(categories)}, matched={len(theme_index)}", flush=True)
+
+    if detail_errors:
+        raise RuntimeError(f"Infostock {detail_errors} detail lookup(s) failed; JSON unchanged")
+    if not response_validated or not theme_index:
+        raise RuntimeError(
+            "Infostock returned no matched stocks; check ka10106/ka10107 field names; JSON unchanged"
+        )
+    return theme_index, len(categories)
 
 
 def attach_themes(client, stocks, manual_mapping):
-    """Enrich valid 500억원+ stocks only; keep deterministic manual backup on error."""
-    success = 0
-    failure = 0
-    matched = 0
-    for index, item in enumerate(stocks, 1):
-        code = item["ticker"]
-        try:
-            themes = lookup_stock_themes(client, code)
-            success += 1
-            if themes:
-                names = [t["name"] for t in themes]
-                item["sectors"] = names
-                item["sector"] = names[0]
-                item["theme_source"] = "kiwoom_ka90001"
-                item["theme_details"] = themes
-                matched += 1
-            else:
-                item["sectors"] = ["미분류"]
-                item["sector"] = "미분류"
-                item["theme_source"] = "kiwoom_empty"
-                item["theme_details"] = []
-        except Exception as exc:
-            failure += 1
-            backup = manual_mapping.get(code) or ["미분류"]
-            item["sectors"] = backup
-            item["sector"] = backup[0]
-            item["theme_source"] = "manual_fallback" if backup != ["미분류"] else "lookup_failed"
-            item["theme_details"] = []
-            print(f"Theme lookup failed for {code}: {str(exc)[:120]}", flush=True)
-        if index % 20 == 0:
-            print(f"Theme checks {index}/{len(stocks)}, matched={matched}, failures={failure}", flush=True)
-    print(f"Theme summary: calls ok={success}, matched={matched}, failed={failure}", flush=True)
-    return {"api_id": "ka90001", "lookup_ok": success, "matched": matched,
-            "lookup_failed": failure, "mode": "stock_reverse_lookup"}
+    """Exclusive Infostock theme membership; do not fallback to Kiwoom basic themes."""
+    theme_index, categories = load_infostock_themes(client, stocks)
+    match_count = 0
+    for item in stocks:
+        details = theme_index.get(item["ticker"], [])
+        names = list(dict.fromkeys(t["name"] for t in details))
+        if names:
+            match_count += 1
+        else:
+            names = ["미분류"]
+        item["sectors"] = names
+        item["sector"] = names[0]
+        item["theme_source"] = "infostock_ka10106_ka10107" if details else "infostock_unmatched"
+        item["theme_details"] = details
+    print(f"Infostock summary: themes={categories}, matched={match_count}/{len(stocks)}", flush=True)
+    return {"api_ids": ["ka10106", "ka10107"], "theme_count": categories,
+            "matched": match_count, "unmatched": len(stocks) - match_count,
+            "mode": "infostock_exclusive"}
 
 
 def main():
@@ -352,7 +435,7 @@ def main():
         "generated_at_kst": datetime.now(KST).strftime("%Y-%m-%d %H:%M KST"),
         "source": "Kiwoom REST (ka10099 + ka10032 + ka10081)",
         "filter_note": "KOSPI/KOSDAQ ordinary shares, no ETF/ETN/REIT/SPAC/preferred shares, turnover >=500억원",
-        "sector_mapping_note": "키움 ka90001 종목 역조회 테마; 조회 실패 시에만 수동 CSV 대체; 다중 테마 거래대금 중복 집계 가능",
+        "sector_mapping_note": "인포스탁 전용 ka10106/ka10107 기반; 미매칭은 미분류; 다중 테마 거래대금 중복 집계 가능",
         "theme_lookup": theme_status,
         "stocks": stocks,
     }
