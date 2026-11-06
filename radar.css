@@ -116,3 +116,13 @@
 .radar-private-info{margin:8px 0 0;font-size:11px;color:#7188a1;line-height:1.7;overflow-wrap:anywhere}
 .radar-private-info code{background:#e8f1f8;padding:2px 4px;border-radius:3px}
 @media(max-width:760px){.radar-private-row{align-items:flex-start;flex-direction:column}.radar-private-tools{width:100%}.radar-private-tools select{max-width:100%}}
+
+/* v3.3 — individually remove imported stocks or an imported group */
+.radar-candidate-row{display:flex;align-items:stretch;min-width:0;border-bottom:1px solid #eff3f6;background:#fff}
+.radar-candidate-row>.radar-candidate{min-width:0;flex:1;border-bottom:0}
+.radar-remove-stock{align-self:center;flex:0 0 30px;width:30px;height:30px;margin:0 7px 0 3px;background:#fff;border:1px solid #d9e5ef;border-radius:7px;color:#8a9cad;font-size:19px;line-height:1;cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+.radar-remove-stock:hover{background:#fff1ee;color:#b84746;border-color:#e6aaa7}
+.radar-remove-stock:focus-visible{outline:2px solid #167db2;outline-offset:2px}
+#radarWatchRemoveGroup:not(:disabled){color:#ac5050;border-color:#efcccc}
+#radarWatchRemoveGroup:not(:disabled):hover{background:#fff2f0}
+#radarWatchRemoveGroup:disabled{opacity:.43;cursor:not-allowed}
