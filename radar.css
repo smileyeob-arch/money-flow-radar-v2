@@ -48,3 +48,8 @@
 .radar-empty{padding:22px;color:#8999aa;font-size:11px;text-align:center}
 @media(max-width:1100px){.radar-prices{grid-template-columns:repeat(3,1fr)}.radar-layout{grid-template-columns:35% minmax(0,65%)}}
 @media(max-width:760px){.radar-panel{margin:0 9px 12px}.radar-stats{grid-template-columns:repeat(2,1fr)}.radar-layout{display:flex;flex-direction:column}.radar-candidates{max-height:300px}.radar-prices{grid-template-columns:repeat(2,1fr)}}
+
+.radar-event-main{flex-wrap:wrap}
+.radar-proxy,.radar-live{font-size:9px;border-radius:4px;padding:3px 5px;white-space:nowrap;font-weight:700}
+.radar-proxy{background:#fff2e1;color:#9b6c21}
+.radar-live{background:#e7f3ec;color:#2c8150}
