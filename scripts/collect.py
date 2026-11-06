@@ -51,9 +51,12 @@ def main():
         day=(today-timedelta(days=offset)).strftime('%Y%m%d')
         try:
             frame=market_snapshot(day)
-            if (frame['거래대금']>0).sum()>100:
+            active=int((frame['거래대금']>0).sum())
+            print(f'Snapshot {day}: {len(frame)} rows, {active} active stocks', flush=True)
+            if active>100:
                 latest=(day,frame)
                 break
+            print(f'Skip {day}: only {active} active stocks, expected >100', flush=True)
         except Exception as exc:
             print(f'Skip {day}: {exc}')
     if latest is None:
