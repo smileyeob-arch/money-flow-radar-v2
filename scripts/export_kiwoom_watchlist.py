@@ -254,7 +254,7 @@ def main():
     }
     target = base / "watchlist-export.json"
     temp = target.with_suffix(".tmp")
-    temp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    temp.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     os.replace(temp, target)
     print(f"EXPORT SUCCESS: {len(stocks)} stocks in {len(groups)} groups.", flush=True)
     print(f"LOCAL ONLY: {target}", flush=True)
