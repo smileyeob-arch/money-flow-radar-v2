@@ -3,6 +3,7 @@
 Never sends watchlist, account holdings, token or API key to GitHub.
 Outputs one JSON file under LOCALAPPDATA\MoneyFlowRadar.
 """
+import gzip
 import json
 import os
 import re
@@ -122,6 +123,93 @@ def historical_technical(bars):
     }
 
 
+
+CACHE_VERSION = 1
+CHECKPOINT_EVERY = 25
+
+
+def watchlist_checkpoint_path(asof, base):
+    """Private, date-scoped cache. Never committed to the GitHub repository."""
+    directory = Path(base) / "watchlist-chart-cache"
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory / ("watchlist-bars-" + asof.strftime("%Y%m%d") + "-v1.json.gz")
+
+
+def load_watchlist_cache(path, asof):
+    if not path.exists():
+        return {"version": CACHE_VERSION, "session": asof.strftime("%Y%m%d"), "records": {}}
+    try:
+        with gzip.open(path, "rt", encoding="utf-8") as stream:
+            result = json.load(stream)
+    except (OSError, ValueError, EOFError) as exc:
+        raise RuntimeError("Watchlist cache unreadable; do not overwrite it without checking") from exc
+    if (not isinstance(result, dict) or result.get("version") != CACHE_VERSION
+            or result.get("session") != asof.strftime("%Y%m%d")
+            or not isinstance(result.get("records"), dict)):
+        raise RuntimeError("Watchlist cache date/version does not match the requested session")
+    return result
+
+
+def save_watchlist_cache(path, data):
+    temp = path.with_suffix(path.suffix + ".tmp")
+    with gzip.open(temp, "wt", encoding="utf-8", compresslevel=5) as stream:
+        json.dump(data, stream, ensure_ascii=False, separators=(",", ":"))
+    os.replace(temp, path)
+
+
+def stock_record(code, info, bars):
+    technical = historical_technical(bars)
+    return {
+        "ticker": code, "name": info["name"], "market": info["market"],
+        "bars": [
+            {"date": b["date"], "close": b["close"],
+             "high": b.get("high"), "low": b.get("low")}
+            for b in bars[:110]
+        ],
+        "session": bars[0]["date"] if bars else None,
+        **technical
+    }
+
+
+def collect_watch_charts(client, selected, today, cache_path):
+    """Resume a large watchlist in 25-ticker checkpoints; never publish partial exports."""
+    cache = load_watchlist_cache(cache_path, today)
+    records = cache["records"]
+    total = len(selected)
+    already = sum(code in records for code in selected)
+    print(f"Personal watchlist charts: {already}/{total} cached locally; resume supported", flush=True)
+    consecutive_errors = 0
+    failed = 0
+    processed_since_checkpoint = 0
+    for idx, (code, info) in enumerate(sorted(selected.items()), 1):
+        if code in records:
+            continue
+        try:
+            bars = daily_bars(client, code, today)
+            records[code] = stock_record(code, info, bars)
+            consecutive_errors = 0
+        except Exception as exc:
+            failed += 1
+            consecutive_errors += 1
+            if failed <= 8:
+                print(f"Watchlist chart error {code}: {type(exc).__name__}: {str(exc)[:100]}", flush=True)
+        processed_since_checkpoint += 1
+        if processed_since_checkpoint >= CHECKPOINT_EVERY or idx == total:
+            save_watchlist_cache(cache_path, cache)
+            processed_since_checkpoint = 0
+            print(f"Watchlist progress {idx}/{total}; cached={sum(c in records for c in selected)}, errors={failed}", flush=True)
+        if consecutive_errors >= 8:
+            save_watchlist_cache(cache_path, cache)
+            raise RuntimeError("8 consecutive Kiwoom chart errors. Local checkpoint saved; rerun to resume.")
+    save_watchlist_cache(cache_path, cache)
+    missing = [code for code in selected if code not in records]
+    if missing:
+        raise RuntimeError(
+            f"{len(missing)} watchlist chart requests failed; checkpoint saved, export not overwritten. Rerun to retry."
+        )
+    return [records[code] for code in sorted(selected)]
+
+
 def main():
     client = Kiwoom()
     groups = watchlist_group_list(client)
@@ -140,34 +228,20 @@ def main():
         print(f"Group '{group['name']}': {len(accepted)} KOSPI/KOSDAQ ordinary stocks "
               f"({raw_count} raw entries)", flush=True)
 
-    max_stocks = int(os.environ.get("KIWOOM_WATCHLIST_MAX", "400"))
+    # Keep all selected groups. 1,545 unique tickers is valid; the former
+    # 400-ticker cap stopped before exporting any data.
+    max_stocks = int(os.environ.get("KIWOOM_WATCHLIST_MAX", "3000"))
     if len(selected) > max_stocks:
         raise RuntimeError(
-            f"Too many personal watchlist stocks ({len(selected)}). "
-            f"Default safe limit is {max_stocks}; no export written."
+            f"Watchlist has {len(selected)} unique shares, exceeding safe cap {max_stocks}. "
+            "Increase KIWOOM_WATCHLIST_MAX explicitly if needed."
         )
-    stocks = []
     now = datetime.now(KST)
-    for idx, (ticker, info) in enumerate(sorted(selected.items()), 1):
-        try:
-            bars = daily_bars(client, ticker, now.date())
-            technical = historical_technical(bars)
-            record = {"ticker": ticker, "name": info["name"], "market": info["market"],
-                      "bars": [
-                          {"date": b["date"],"close": b["close"],
-                           "high": b.get("high"),"low": b.get("low")}
-                          for b in bars[:110]
-                      ],
-                      "session": bars[0]["date"] if bars else None,
-                      **technical}
-            stocks.append(record)
-        except Exception as exc:
-            print(f"Technical data unavailable {ticker}: {type(exc).__name__}",flush=True)
-            stocks.append({"ticker": ticker, "name": info["name"],
-                           "market": info["market"],"status":"일봉 조회 실패",
-                           "status_key":"unknown", "bars":[]})
-        if idx % 20 == 0:
-            print(f"Watchlist daily charts {idx}/{len(selected)}",flush=True)
+    base = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "MoneyFlowRadar"
+    base.mkdir(parents=True, exist_ok=True)
+    cache_path = watchlist_checkpoint_path(now.date(), base)
+    print(f"Groups loaded: {len(group_items)}; {len(selected)} unique ordinary shares", flush=True)
+    stocks = collect_watch_charts(client, selected, now.date(), cache_path)
     if not stocks:
         raise RuntimeError("No eligible KOSPI/KOSDAQ ordinary stocks; existing file unchanged")
     data = {
@@ -178,8 +252,6 @@ def main():
         "swing_method": "strongest low-to-later-high within recent 90 sessions; not a historical theme signal",
         "groups": group_items, "stocks": stocks
     }
-    base = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "MoneyFlowRadar"
-    base.mkdir(parents=True, exist_ok=True)
     target = base / "watchlist-export.json"
     temp = target.with_suffix(".tmp")
     temp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
