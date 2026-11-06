@@ -1,7 +1,8 @@
 {
   "date": "2026-11-06",
-  "generated_at_kst": "2026-11-06 13:27 KST",
-  "source": "Kiwoom REST (ka10032 + ka10081)",
+  "generated_at_kst": "2026-11-06 13:36 KST",
+  "source": "Kiwoom REST (ka10099 + ka10032 + ka10081)",
+  "filter_note": "KOSPI/KOSDAQ ordinary shares, no ETF/ETN/REIT/SPAC/preferred shares, turnover >=500억원",
   "sector_mapping_note": "수동 data/sectors.csv 분류; 다중 테마 거래대금 중복 집계 가능",
   "stocks": [
     {
@@ -12,15 +13,15 @@
       "sectors": [
         "반도체"
       ],
-      "close": 1141000,
-      "change_pct": -9.59,
-      "amount_eok": 55490.2,
-      "day_amount_pct": 1.3,
-      "spike5_pct": 14.5,
-      "spike20_pct": 5.6,
-      "ma20_close": 1353200.0,
-      "ma20_gap_pct": -15.68,
-      "score": 42.2
+      "close": 1153000,
+      "change_pct": -8.64,
+      "amount_eok": 56914.6,
+      "day_amount_pct": 3.9,
+      "spike5_pct": 17.4,
+      "spike20_pct": 8.4,
+      "ma20_close": 1353800.0,
+      "ma20_gap_pct": -14.83,
+      "score": 42.8
     },
     {
       "ticker": "005930",
@@ -30,105 +31,15 @@
       "sectors": [
         "반도체"
       ],
-      "close": 188600,
-      "change_pct": -6.4,
-      "amount_eok": 48002.4,
-      "day_amount_pct": -4.7,
-      "spike5_pct": 17.4,
-      "spike20_pct": 11.8,
-      "ma20_close": 221305.0,
-      "ma20_gap_pct": -14.78,
-      "score": 37.7
-    },
-    {
-      "ticker": "069500",
-      "name": "KODEX 200",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 79290,
-      "change_pct": -6.29,
-      "amount_eok": 22700.2,
-      "day_amount_pct": -8.3,
-      "spike5_pct": -9.8,
-      "spike20_pct": -19.1,
-      "ma20_close": 89874.85,
-      "ma20_gap_pct": -11.78,
-      "score": 16.4
-    },
-    {
-      "ticker": "252670",
-      "name": "KODEX 200선물인버스2X",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 125,
-      "change_pct": 12.61,
-      "amount_eok": 19680.8,
-      "day_amount_pct": 38.5,
-      "spike5_pct": 74.0,
-      "spike20_pct": 81.1,
-      "ma20_close": 102.2,
-      "ma20_gap_pct": 22.31,
-      "score": 46.3
-    },
-    {
-      "ticker": "122630",
-      "name": "KODEX 레버리지",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 54750,
-      "change_pct": -12.4,
-      "amount_eok": 17611.8,
-      "day_amount_pct": -6.9,
-      "spike5_pct": -3.7,
-      "spike20_pct": -3.3,
-      "ma20_close": 72036.75,
-      "ma20_gap_pct": -24.0,
-      "score": 12.7
-    },
-    {
-      "ticker": "114800",
-      "name": "KODEX 인버스",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 1339,
-      "change_pct": 6.35,
-      "amount_eok": 15770.7,
-      "day_amount_pct": 28.2,
-      "spike5_pct": 17.3,
-      "spike20_pct": 28.0,
-      "ma20_close": 1199.1,
-      "ma20_gap_pct": 11.67,
-      "score": 24.1
-    },
-    {
-      "ticker": "102110",
-      "name": "TIGER 200",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 79095,
-      "change_pct": -6.18,
-      "amount_eok": 11020.7,
-      "day_amount_pct": -1.0,
-      "spike5_pct": -21.1,
-      "spike20_pct": -28.8,
-      "ma20_close": 89601.55,
-      "ma20_gap_pct": -11.73,
-      "score": 7.9
+      "close": 189450,
+      "change_pct": -5.98,
+      "amount_eok": 49144.9,
+      "day_amount_pct": -2.5,
+      "spike5_pct": 20.2,
+      "spike20_pct": 14.4,
+      "ma20_close": 221347.5,
+      "ma20_gap_pct": -14.41,
+      "score": 38.1
     },
     {
       "ticker": "009150",
@@ -138,123 +49,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 872000,
-      "change_pct": -8.21,
-      "amount_eok": 10152.8,
-      "day_amount_pct": -26.1,
-      "spike5_pct": 6.1,
-      "spike20_pct": 4.1,
-      "ma20_close": 1186150.0,
-      "ma20_gap_pct": -26.48,
-      "score": 8.4
-    },
-    {
-      "ticker": "229200",
-      "name": "KODEX 코스닥150",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 10575,
-      "change_pct": -4.64,
-      "amount_eok": 6416.7,
-      "day_amount_pct": 6.8,
-      "spike5_pct": 22.3,
-      "spike20_pct": 23.9,
-      "ma20_close": 12628.5,
-      "ma20_gap_pct": -16.26,
-      "score": 9.2
-    },
-    {
-      "ticker": "005935",
-      "name": "삼성전자우",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 151000,
-      "change_pct": -5.86,
-      "amount_eok": 6028.7,
-      "day_amount_pct": -13.2,
-      "spike5_pct": -7.8,
-      "spike20_pct": -13.0,
-      "ma20_close": 171305.0,
-      "ma20_gap_pct": -11.85,
-      "score": 4.3
-    },
-    {
-      "ticker": "233740",
-      "name": "KODEX 코스닥150레버리지",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 3745,
-      "change_pct": -8.99,
-      "amount_eok": 5132.6,
-      "day_amount_pct": -2.8,
-      "spike5_pct": 16.0,
-      "spike20_pct": 3.3,
-      "ma20_close": 5462.25,
-      "ma20_gap_pct": -31.44,
-      "score": 5.9
-    },
-    {
-      "ticker": "360750",
-      "name": "TIGER 미국S&P500",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 24760,
-      "change_pct": -3.02,
-      "amount_eok": 4956.3,
-      "day_amount_pct": -24.9,
-      "spike5_pct": -47.7,
-      "spike20_pct": -44.4,
-      "ma20_close": 25395.55,
-      "ma20_gap_pct": -2.5,
-      "score": 3.6
-    },
-    {
-      "ticker": "459580",
-      "name": "KODEX CD금리액티브(합성)",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 1074157,
-      "change_pct": 0.01,
-      "amount_eok": 4413.1,
-      "day_amount_pct": -3.0,
-      "spike5_pct": -16.2,
-      "spike20_pct": -44.8,
-      "ma20_close": 1072813.15,
-      "ma20_gap_pct": 0.13,
-      "score": 3.2
-    },
-    {
-      "ticker": "133690",
-      "name": "TIGER 미국나스닥100",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 161325,
-      "change_pct": -3.32,
-      "amount_eok": 4072.6,
-      "day_amount_pct": -55.2,
-      "spike5_pct": -51.0,
-      "spike20_pct": -54.3,
-      "ma20_close": 172599.8,
-      "ma20_gap_pct": -6.53,
-      "score": 2.9
+      "close": 885000,
+      "change_pct": -6.84,
+      "amount_eok": 10419.0,
+      "day_amount_pct": -24.2,
+      "spike5_pct": 8.8,
+      "spike20_pct": 6.8,
+      "ma20_close": 1186800.0,
+      "ma20_gap_pct": -25.43,
+      "score": 8.9
     },
     {
       "ticker": "402340",
@@ -264,69 +67,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 728000,
-      "change_pct": -9.45,
-      "amount_eok": 3846.8,
-      "day_amount_pct": -34.1,
-      "spike5_pct": -33.0,
-      "spike20_pct": -39.6,
-      "ma20_close": 837800.0,
-      "ma20_gap_pct": -13.11,
+      "close": 733000,
+      "change_pct": -8.83,
+      "amount_eok": 3947.0,
+      "day_amount_pct": -32.4,
+      "spike5_pct": -31.3,
+      "spike20_pct": -38.0,
+      "ma20_close": 838050.0,
+      "ma20_gap_pct": -12.54,
       "score": 2.8
-    },
-    {
-      "ticker": "396500",
-      "name": "TIGER 반도체TOP10",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 25020,
-      "change_pct": -7.61,
-      "amount_eok": 3493.5,
-      "day_amount_pct": -15.7,
-      "spike5_pct": -19.8,
-      "spike20_pct": -14.5,
-      "ma20_close": 30061.85,
-      "ma20_gap_pct": -16.77,
-      "score": 2.5
-    },
-    {
-      "ticker": "488080",
-      "name": "TIGER 반도체TOP10레버리지",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 14870,
-      "change_pct": -15.7,
-      "amount_eok": 3210.1,
-      "day_amount_pct": 11.7,
-      "spike5_pct": -5.1,
-      "spike20_pct": 24.2,
-      "ma20_close": 22266.25,
-      "ma20_gap_pct": -33.22,
-      "score": 4.1
-    },
-    {
-      "ticker": "379810",
-      "name": "KODEX 미국나스닥100",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 24105,
-      "change_pct": -3.29,
-      "amount_eok": 3201.3,
-      "day_amount_pct": -54.6,
-      "spike5_pct": -54.6,
-      "spike20_pct": -56.6,
-      "ma20_close": 25778.6,
-      "ma20_gap_pct": -6.49,
-      "score": 2.3
     },
     {
       "ticker": "006400",
@@ -336,51 +85,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 471000,
-      "change_pct": -7.65,
-      "amount_eok": 2782.2,
-      "day_amount_pct": -45.4,
-      "spike5_pct": -39.1,
-      "spike20_pct": -29.8,
-      "ma20_close": 532700.0,
-      "ma20_gap_pct": -11.58,
+      "close": 479000,
+      "change_pct": -6.08,
+      "amount_eok": 2847.8,
+      "day_amount_pct": -44.1,
+      "spike5_pct": -37.6,
+      "spike20_pct": -28.1,
+      "ma20_close": 533100.0,
+      "ma20_gap_pct": -10.15,
       "score": 2.0
-    },
-    {
-      "ticker": "379800",
-      "name": "KODEX 미국S&P500",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 22450,
-      "change_pct": -2.98,
-      "amount_eok": 2485.4,
-      "day_amount_pct": -52.9,
-      "spike5_pct": -63.3,
-      "spike20_pct": -62.5,
-      "ma20_close": 23022.05,
-      "ma20_gap_pct": -2.48,
-      "score": 1.8
-    },
-    {
-      "ticker": "494310",
-      "name": "KODEX 반도체레버리지",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 31575,
-      "change_pct": -15.69,
-      "amount_eok": 2442.0,
-      "day_amount_pct": -27.5,
-      "spike5_pct": -9.5,
-      "spike20_pct": -20.7,
-      "ma20_close": 56504.75,
-      "ma20_gap_pct": -44.12,
-      "score": 1.8
     },
     {
       "ticker": "180640",
@@ -390,69 +103,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 206500,
-      "change_pct": 13.03,
-      "amount_eok": 2164.7,
-      "day_amount_pct": 6.9,
-      "spike5_pct": 23.9,
-      "spike20_pct": 333.2,
-      "ma20_close": 136740.0,
-      "ma20_gap_pct": 51.02,
-      "score": 36.9
-    },
-    {
-      "ticker": "498400",
-      "name": "KODEX 200타겟위클리커버드콜",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 14670,
-      "change_pct": -6.23,
-      "amount_eok": 2120.0,
-      "day_amount_pct": 18.7,
-      "spike5_pct": 34.9,
-      "spike20_pct": 25.8,
-      "ma20_close": 16600.95,
-      "ma20_gap_pct": -11.63,
-      "score": 7.8
-    },
-    {
-      "ticker": "395160",
-      "name": "KODEX AI반도체TOP2플러스",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 26930,
-      "change_pct": -8.17,
-      "amount_eok": 1961.5,
-      "day_amount_pct": 27.2,
-      "spike5_pct": 11.0,
-      "spike20_pct": 16.9,
-      "ma20_close": 32581.75,
-      "ma20_gap_pct": -17.35,
-      "score": 4.1
-    },
-    {
-      "ticker": "091160",
-      "name": "KODEX 반도체",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 85890,
-      "change_pct": -7.75,
-      "amount_eok": 1803.2,
-      "day_amount_pct": -43.1,
-      "spike5_pct": -21.9,
-      "spike20_pct": -33.5,
-      "ma20_close": 111549.5,
-      "ma20_gap_pct": -23.0,
-      "score": 1.3
+      "close": 207000,
+      "change_pct": 13.3,
+      "amount_eok": 2196.2,
+      "day_amount_pct": 8.5,
+      "spike5_pct": 25.7,
+      "spike20_pct": 339.6,
+      "ma20_close": 136765.0,
+      "ma20_gap_pct": 51.35,
+      "score": 37.5
     },
     {
       "ticker": "035420",
@@ -462,15 +121,15 @@
       "sectors": [
         "인터넷"
       ],
-      "close": 188200,
-      "change_pct": 2.34,
-      "amount_eok": 1608.4,
-      "day_amount_pct": -40.2,
-      "spike5_pct": 23.0,
-      "spike20_pct": 35.0,
-      "ma20_close": 177325.0,
-      "ma20_gap_pct": 6.13,
-      "score": 9.8
+      "close": 190000,
+      "change_pct": 3.32,
+      "amount_eok": 1707.0,
+      "day_amount_pct": -36.5,
+      "spike5_pct": 30.5,
+      "spike20_pct": 43.3,
+      "ma20_close": 177415.0,
+      "ma20_gap_pct": 7.09,
+      "score": 12.7
     },
     {
       "ticker": "036930",
@@ -480,14 +139,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 134100,
-      "change_pct": -8.46,
-      "amount_eok": 1589.8,
-      "day_amount_pct": -19.4,
-      "spike5_pct": -7.6,
-      "spike20_pct": -51.4,
-      "ma20_close": 189700.0,
-      "ma20_gap_pct": -29.31,
+      "close": 135800,
+      "change_pct": -7.3,
+      "amount_eok": 1602.2,
+      "day_amount_pct": -18.8,
+      "spike5_pct": -6.8,
+      "spike20_pct": -51.0,
+      "ma20_close": 189785.0,
+      "ma20_gap_pct": -28.45,
       "score": 1.1
     },
     {
@@ -498,15 +157,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 26150,
-      "change_pct": -3.51,
-      "amount_eok": 1557.3,
-      "day_amount_pct": -62.4,
-      "spike5_pct": -44.0,
-      "spike20_pct": 17.7,
-      "ma20_close": 28450.0,
-      "ma20_gap_pct": -8.08,
-      "score": 2.5
+      "close": 26600,
+      "change_pct": -1.85,
+      "amount_eok": 1586.3,
+      "day_amount_pct": -61.7,
+      "spike5_pct": -42.9,
+      "spike20_pct": 19.9,
+      "ma20_close": 28472.5,
+      "ma20_gap_pct": -6.58,
+      "score": 2.6
     },
     {
       "ticker": "353200",
@@ -516,33 +175,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 71600,
-      "change_pct": -11.28,
-      "amount_eok": 1401.2,
-      "day_amount_pct": -44.8,
-      "spike5_pct": -36.9,
-      "spike20_pct": -17.4,
-      "ma20_close": 122795.0,
-      "ma20_gap_pct": -41.69,
+      "close": 72200,
+      "change_pct": -10.53,
+      "amount_eok": 1424.6,
+      "day_amount_pct": -43.9,
+      "spike5_pct": -35.8,
+      "spike20_pct": -16.0,
+      "ma20_close": 122825.0,
+      "ma20_gap_pct": -41.22,
       "score": 1.0
-    },
-    {
-      "ticker": "381180",
-      "name": "TIGER 미국필라델피아반도체나스닥",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 32595,
-      "change_pct": -6.28,
-      "amount_eok": 1394.8,
-      "day_amount_pct": 65.5,
-      "spike5_pct": 70.3,
-      "spike20_pct": 72.5,
-      "ma20_close": 38656.35,
-      "ma20_gap_pct": -15.68,
-      "score": 15.2
     },
     {
       "ticker": "028050",
@@ -552,14 +193,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 61100,
-      "change_pct": -5.71,
-      "amount_eok": 1382.7,
-      "day_amount_pct": -30.7,
-      "spike5_pct": -18.4,
-      "spike20_pct": -31.2,
-      "ma20_close": 55055.0,
-      "ma20_gap_pct": 10.98,
+      "close": 61400,
+      "change_pct": -5.25,
+      "amount_eok": 1412.8,
+      "day_amount_pct": -29.2,
+      "spike5_pct": -16.6,
+      "spike20_pct": -29.7,
+      "ma20_close": 55070.0,
+      "ma20_gap_pct": 11.49,
       "score": 1.0
     },
     {
@@ -570,15 +211,15 @@
       "sectors": [
         "바이오"
       ],
-      "close": 211500,
-      "change_pct": -1.63,
-      "amount_eok": 1367.5,
-      "day_amount_pct": -68.0,
-      "spike5_pct": -21.0,
-      "spike20_pct": 11.4,
-      "ma20_close": 192530.0,
-      "ma20_gap_pct": 9.85,
-      "score": 1.8
+      "close": 212000,
+      "change_pct": -1.4,
+      "amount_eok": 1398.4,
+      "day_amount_pct": -67.3,
+      "spike5_pct": -19.2,
+      "spike20_pct": 13.9,
+      "ma20_close": 192555.0,
+      "ma20_gap_pct": 10.1,
+      "score": 2.0
     },
     {
       "ticker": "298040",
@@ -588,15 +229,15 @@
       "sectors": [
         "전력기기"
       ],
-      "close": 1570000,
-      "change_pct": -12.34,
-      "amount_eok": 1340.9,
-      "day_amount_pct": -9.6,
-      "spike5_pct": -4.0,
-      "spike20_pct": 7.0,
-      "ma20_close": 1939000.0,
-      "ma20_gap_pct": -19.03,
-      "score": 1.5
+      "close": 1586000,
+      "change_pct": -11.45,
+      "amount_eok": 1371.9,
+      "day_amount_pct": -7.5,
+      "spike5_pct": -1.8,
+      "spike20_pct": 9.5,
+      "ma20_close": 1939800.0,
+      "ma20_gap_pct": -18.24,
+      "score": 1.7
     },
     {
       "ticker": "034020",
@@ -606,69 +247,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 45000,
-      "change_pct": -8.16,
-      "amount_eok": 1325.7,
-      "day_amount_pct": -7.2,
-      "spike5_pct": -11.6,
-      "spike20_pct": -21.6,
-      "ma20_close": 59670.0,
-      "ma20_gap_pct": -24.59,
+      "close": 45250,
+      "change_pct": -7.65,
+      "amount_eok": 1368.2,
+      "day_amount_pct": -4.3,
+      "spike5_pct": -8.8,
+      "spike20_pct": -19.1,
+      "ma20_close": 59682.5,
+      "ma20_gap_pct": -24.18,
       "score": 1.0
-    },
-    {
-      "ticker": "251340",
-      "name": "KODEX 코스닥150선물인버스",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 3090,
-      "change_pct": 4.75,
-      "amount_eok": 1318.8,
-      "day_amount_pct": 14.6,
-      "spike5_pct": 2.5,
-      "spike20_pct": 12.9,
-      "ma20_close": 2631.0,
-      "ma20_gap_pct": 17.45,
-      "score": 8.6
-    },
-    {
-      "ticker": "232080",
-      "name": "TIGER 코스닥150",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 10790,
-      "change_pct": -4.68,
-      "amount_eok": 1303.1,
-      "day_amount_pct": 11.1,
-      "spike5_pct": 10.8,
-      "spike20_pct": -2.9,
-      "ma20_close": 12880.5,
-      "ma20_gap_pct": -16.23,
-      "score": 2.3
-    },
-    {
-      "ticker": "148020",
-      "name": "RISE 200",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 79495,
-      "change_pct": -6.34,
-      "amount_eok": 1280.3,
-      "day_amount_pct": -16.9,
-      "spike5_pct": -30.5,
-      "spike20_pct": -40.8,
-      "ma20_close": 90128.55,
-      "ma20_gap_pct": -11.8,
-      "score": 0.9
     },
     {
       "ticker": "105560",
@@ -678,14 +265,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 150500,
-      "change_pct": -4.87,
-      "amount_eok": 1269.3,
-      "day_amount_pct": -19.0,
-      "spike5_pct": -10.2,
-      "spike20_pct": -12.0,
-      "ma20_close": 156370.0,
-      "ma20_gap_pct": -3.75,
+      "close": 151000,
+      "change_pct": -4.55,
+      "amount_eok": 1319.8,
+      "day_amount_pct": -15.8,
+      "spike5_pct": -6.6,
+      "spike20_pct": -8.5,
+      "ma20_close": 156395.0,
+      "ma20_gap_pct": -3.45,
       "score": 0.9
     },
     {
@@ -696,14 +283,14 @@
       "sectors": [
         "반도체"
       ],
-      "close": 159000,
-      "change_pct": -5.41,
-      "amount_eok": 1208.9,
-      "day_amount_pct": -8.2,
-      "spike5_pct": -10.1,
-      "spike20_pct": -15.3,
-      "ma20_close": 196860.0,
-      "ma20_gap_pct": -19.23,
+      "close": 161500,
+      "change_pct": -3.93,
+      "amount_eok": 1235.2,
+      "day_amount_pct": -6.2,
+      "spike5_pct": -8.1,
+      "spike20_pct": -13.4,
+      "ma20_close": 196985.0,
+      "ma20_gap_pct": -18.01,
       "score": 0.9
     },
     {
@@ -714,14 +301,14 @@
       "sectors": [
         "자동차"
       ],
-      "close": 280000,
-      "change_pct": -4.44,
-      "amount_eok": 1199.6,
-      "day_amount_pct": -61.8,
-      "spike5_pct": -33.6,
-      "spike20_pct": -34.8,
-      "ma20_close": 297725.0,
-      "ma20_gap_pct": -5.95,
+      "close": 281500,
+      "change_pct": -3.92,
+      "amount_eok": 1222.1,
+      "day_amount_pct": -61.0,
+      "spike5_pct": -32.4,
+      "spike20_pct": -33.6,
+      "ma20_close": 297800.0,
+      "ma20_gap_pct": -5.47,
       "score": 0.9
     },
     {
@@ -734,49 +321,13 @@
       ],
       "close": 470500,
       "change_pct": 1.18,
-      "amount_eok": 1193.5,
-      "day_amount_pct": -6.6,
-      "spike5_pct": 68.5,
-      "spike20_pct": 118.4,
+      "amount_eok": 1207.3,
+      "day_amount_pct": -5.5,
+      "spike5_pct": 70.5,
+      "spike20_pct": 120.9,
       "ma20_close": 401950.0,
       "ma20_gap_pct": 17.05,
-      "score": 19.9
-    },
-    {
-      "ticker": "395270",
-      "name": "HANARO Fn K-반도체",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 38220,
-      "change_pct": -8.31,
-      "amount_eok": 1025.0,
-      "day_amount_pct": 96.5,
-      "spike5_pct": 54.5,
-      "spike20_pct": 23.6,
-      "ma20_close": 46571.5,
-      "ma20_gap_pct": -17.93,
-      "score": 9.3
-    },
-    {
-      "ticker": "089860",
-      "name": "롯데렌탈",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 58400,
-      "change_pct": 9.98,
-      "amount_eok": 1018.3,
-      "day_amount_pct": 1164.8,
-      "spike5_pct": 1206.4,
-      "spike20_pct": 1432.3,
-      "ma20_close": 51315.0,
-      "ma20_gap_pct": 13.81,
-      "score": 54.0
+      "score": 20.3
     },
     {
       "ticker": "207940",
@@ -786,15 +337,33 @@
       "sectors": [
         "미분류"
       ],
-      "close": 1525000,
-      "change_pct": 0.39,
-      "amount_eok": 1003.1,
-      "day_amount_pct": -25.4,
-      "spike5_pct": -3.6,
-      "spike20_pct": -12.7,
-      "ma20_close": 1376000.0,
-      "ma20_gap_pct": 10.83,
-      "score": 1.2
+      "close": 1526000,
+      "change_pct": 0.46,
+      "amount_eok": 1035.1,
+      "day_amount_pct": -23.0,
+      "spike5_pct": -0.5,
+      "spike20_pct": -10.0,
+      "ma20_close": 1376050.0,
+      "ma20_gap_pct": 10.9,
+      "score": 1.3
+    },
+    {
+      "ticker": "089860",
+      "name": "롯데렌탈",
+      "market": "KOSPI",
+      "sector": "미분류",
+      "sectors": [
+        "미분류"
+      ],
+      "close": 58500,
+      "change_pct": 10.17,
+      "amount_eok": 1025.3,
+      "day_amount_pct": 1173.5,
+      "spike5_pct": 1215.4,
+      "spike20_pct": 1442.9,
+      "ma20_close": 51320.0,
+      "ma20_gap_pct": 13.99,
+      "score": 54.3
     },
     {
       "ticker": "373220",
@@ -804,33 +373,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 339000,
-      "change_pct": -2.45,
-      "amount_eok": 987.2,
-      "day_amount_pct": -42.1,
-      "spike5_pct": -49.7,
-      "spike20_pct": -52.4,
-      "ma20_close": 381950.0,
-      "ma20_gap_pct": -11.24,
+      "close": 342000,
+      "change_pct": -1.58,
+      "amount_eok": 1006.4,
+      "day_amount_pct": -41.0,
+      "spike5_pct": -48.7,
+      "spike20_pct": -51.5,
+      "ma20_close": 382100.0,
+      "ma20_gap_pct": -10.49,
       "score": 0.7
-    },
-    {
-      "ticker": "487240",
-      "name": "KODEX AI전력핵심설비",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 20540,
-      "change_pct": -9.44,
-      "amount_eok": 978.3,
-      "day_amount_pct": -6.5,
-      "spike5_pct": 10.9,
-      "spike20_pct": 11.0,
-      "ma20_close": 26741.5,
-      "ma20_gap_pct": -23.19,
-      "score": 2.9
     },
     {
       "ticker": "030530",
@@ -840,15 +391,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 28400,
-      "change_pct": 6.97,
-      "amount_eok": 969.3,
-      "day_amount_pct": 7.0,
-      "spike5_pct": -43.6,
-      "spike20_pct": 38.4,
-      "ma20_close": 26035.0,
-      "ma20_gap_pct": 9.08,
-      "score": 12.9
+      "close": 28550,
+      "change_pct": 7.53,
+      "amount_eok": 980.1,
+      "day_amount_pct": 8.2,
+      "spike5_pct": -43.0,
+      "spike20_pct": 40.0,
+      "ma20_close": 26042.5,
+      "ma20_gap_pct": 9.63,
+      "score": 13.7
     },
     {
       "ticker": "028260",
@@ -858,51 +409,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 272000,
-      "change_pct": -6.21,
-      "amount_eok": 923.3,
-      "day_amount_pct": -8.2,
-      "spike5_pct": 2.4,
-      "spike20_pct": -18.2,
-      "ma20_close": 296600.0,
-      "ma20_gap_pct": -8.29,
-      "score": 1.0
-    },
-    {
-      "ticker": "222800",
-      "name": "심텍",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 94300,
-      "change_pct": -7.19,
-      "amount_eok": 913.5,
-      "day_amount_pct": -42.6,
-      "spike5_pct": -28.8,
-      "spike20_pct": -21.8,
-      "ma20_close": 122730.0,
-      "ma20_gap_pct": -23.16,
-      "score": 0.7
-    },
-    {
-      "ticker": "488770",
-      "name": "KODEX 머니마켓액티브",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 106080,
-      "change_pct": 0.02,
-      "amount_eok": 908.8,
-      "day_amount_pct": 5.5,
-      "spike5_pct": 32.1,
-      "spike20_pct": 34.5,
-      "ma20_close": 105936.25,
-      "ma20_gap_pct": 0.14,
-      "score": 7.3
+      "close": 273000,
+      "change_pct": -5.86,
+      "amount_eok": 977.5,
+      "day_amount_pct": -2.8,
+      "spike5_pct": 8.4,
+      "spike20_pct": -13.3,
+      "ma20_close": 296650.0,
+      "ma20_gap_pct": -7.97,
+      "score": 1.7
     },
     {
       "ticker": "010120",
@@ -912,14 +427,32 @@
       "sectors": [
         "전력기기"
       ],
-      "close": 115500,
-      "change_pct": -11.15,
-      "amount_eok": 908.6,
-      "day_amount_pct": -48.5,
-      "spike5_pct": -21.4,
-      "spike20_pct": -15.1,
-      "ma20_close": 157210.0,
-      "ma20_gap_pct": -26.53,
+      "close": 116300,
+      "change_pct": -10.54,
+      "amount_eok": 940.2,
+      "day_amount_pct": -46.7,
+      "spike5_pct": -18.6,
+      "spike20_pct": -12.1,
+      "ma20_close": 157250.0,
+      "ma20_gap_pct": -26.04,
+      "score": 0.7
+    },
+    {
+      "ticker": "222800",
+      "name": "심텍",
+      "market": "KOSDAQ",
+      "sector": "미분류",
+      "sectors": [
+        "미분류"
+      ],
+      "close": 95700,
+      "change_pct": -5.81,
+      "amount_eok": 936.0,
+      "day_amount_pct": -41.1,
+      "spike5_pct": -27.0,
+      "spike20_pct": -19.9,
+      "ma20_close": 122800.0,
+      "ma20_gap_pct": -22.07,
       "score": 0.7
     },
     {
@@ -930,51 +463,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 628000,
-      "change_pct": -13.62,
-      "amount_eok": 906.1,
-      "day_amount_pct": -21.8,
-      "spike5_pct": 14.2,
-      "spike20_pct": -13.1,
-      "ma20_close": 965550.0,
-      "ma20_gap_pct": -34.96,
-      "score": 2.4
-    },
-    {
-      "ticker": "462330",
-      "name": "KODEX 2차전지산업레버리지",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 702,
-      "change_pct": -9.42,
-      "amount_eok": 873.0,
-      "day_amount_pct": -45.6,
-      "spike5_pct": -28.9,
-      "spike20_pct": -29.5,
-      "ma20_close": 926.0,
-      "ma20_gap_pct": -24.19,
-      "score": 0.6
-    },
-    {
-      "ticker": "472150",
-      "name": "TIGER 배당커버드콜액티브",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 14150,
-      "change_pct": -6.23,
-      "amount_eok": 824.6,
-      "day_amount_pct": -26.3,
-      "spike5_pct": 1.9,
-      "spike20_pct": -18.9,
-      "ma20_close": 16172.65,
-      "ma20_gap_pct": -12.51,
-      "score": 0.8
+      "close": 636000,
+      "change_pct": -12.52,
+      "amount_eok": 930.1,
+      "day_amount_pct": -19.7,
+      "spike5_pct": 17.3,
+      "spike20_pct": -10.8,
+      "ma20_close": 965950.0,
+      "ma20_gap_pct": -34.16,
+      "score": 2.8
     },
     {
       "ticker": "000270",
@@ -984,15 +481,15 @@
       "sectors": [
         "자동차"
       ],
-      "close": 100700,
-      "change_pct": -0.4,
-      "amount_eok": 797.1,
-      "day_amount_pct": -48.5,
-      "spike5_pct": -45.6,
-      "spike20_pct": -21.3,
-      "ma20_close": 105275.0,
-      "ma20_gap_pct": -4.35,
-      "score": 0.6
+      "close": 101200,
+      "change_pct": 0.1,
+      "amount_eok": 826.5,
+      "day_amount_pct": -46.6,
+      "spike5_pct": -43.6,
+      "spike20_pct": -18.4,
+      "ma20_close": 105300.0,
+      "ma20_gap_pct": -3.89,
+      "score": 0.7
     },
     {
       "ticker": "035720",
@@ -1002,15 +499,15 @@
       "sectors": [
         "인터넷"
       ],
-      "close": 32550,
-      "change_pct": 0.46,
-      "amount_eok": 727.9,
-      "day_amount_pct": -54.3,
-      "spike5_pct": 23.6,
-      "spike20_pct": 50.3,
-      "ma20_close": 30632.5,
-      "ma20_gap_pct": 6.26,
-      "score": 7.9
+      "close": 32750,
+      "change_pct": 1.08,
+      "amount_eok": 746.6,
+      "day_amount_pct": -53.2,
+      "spike5_pct": 26.8,
+      "spike20_pct": 54.2,
+      "ma20_close": 30642.5,
+      "ma20_gap_pct": 6.88,
+      "score": 9.4
     },
     {
       "ticker": "012450",
@@ -1020,14 +517,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 650000,
-      "change_pct": -4.83,
-      "amount_eok": 718.6,
-      "day_amount_pct": -50.1,
-      "spike5_pct": -57.9,
-      "spike20_pct": -54.3,
-      "ma20_close": 781550.0,
-      "ma20_gap_pct": -16.83,
+      "close": 652000,
+      "change_pct": -4.54,
+      "amount_eok": 738.2,
+      "day_amount_pct": -48.7,
+      "spike5_pct": -56.7,
+      "spike20_pct": -53.0,
+      "ma20_close": 781650.0,
+      "ma20_gap_pct": -16.59,
       "score": 0.5
     },
     {
@@ -1038,15 +535,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 189900,
-      "change_pct": -3.56,
-      "amount_eok": 672.3,
-      "day_amount_pct": -2.9,
-      "spike5_pct": 26.3,
-      "spike20_pct": 28.3,
-      "ma20_close": 190275.0,
-      "ma20_gap_pct": -0.2,
-      "score": 5.9
+      "close": 189700,
+      "change_pct": -3.66,
+      "amount_eok": 706.9,
+      "day_amount_pct": 2.1,
+      "spike5_pct": 32.8,
+      "spike20_pct": 34.9,
+      "ma20_close": 190265.0,
+      "ma20_gap_pct": -0.3,
+      "score": 7.2
     },
     {
       "ticker": "034730",
@@ -1056,14 +553,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 441500,
-      "change_pct": -9.16,
-      "amount_eok": 667.6,
-      "day_amount_pct": -20.5,
-      "spike5_pct": -12.2,
-      "spike20_pct": -51.1,
-      "ma20_close": 487000.0,
-      "ma20_gap_pct": -9.34,
+      "close": 444000,
+      "change_pct": -8.64,
+      "amount_eok": 685.4,
+      "day_amount_pct": -18.4,
+      "spike5_pct": -9.9,
+      "spike20_pct": -49.8,
+      "ma20_close": 487125.0,
+      "ma20_gap_pct": -8.85,
       "score": 0.5
     },
     {
@@ -1074,51 +571,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 121050,
-      "change_pct": -15.29,
-      "amount_eok": 652.7,
-      "day_amount_pct": 257.8,
-      "spike5_pct": 226.5,
-      "spike20_pct": 126.6,
-      "ma20_close": 150052.5,
-      "ma20_gap_pct": -19.33,
-      "score": 35.0
-    },
-    {
-      "ticker": "455850",
-      "name": "SOL AI반도체소부장",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 16555,
-      "change_pct": -8.94,
-      "amount_eok": 651.0,
-      "day_amount_pct": -6.3,
-      "spike5_pct": 5.2,
-      "spike20_pct": -40.3,
-      "ma20_close": 23060.0,
-      "ma20_gap_pct": -28.21,
-      "score": 1.1
-    },
-    {
-      "ticker": "105190",
-      "name": "ACE 200",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 79440,
-      "change_pct": -6.3,
-      "amount_eok": 645.4,
-      "day_amount_pct": 44.2,
-      "spike5_pct": 31.0,
-      "spike20_pct": 1.9,
-      "ma20_close": 90039.1,
-      "ma20_gap_pct": -11.77,
-      "score": 4.5
+      "close": 121300,
+      "change_pct": -15.12,
+      "amount_eok": 665.6,
+      "day_amount_pct": 264.9,
+      "spike5_pct": 233.0,
+      "spike20_pct": 131.0,
+      "ma20_close": 150065.0,
+      "ma20_gap_pct": -19.17,
+      "score": 35.3
     },
     {
       "ticker": "010060",
@@ -1128,33 +589,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 201000,
-      "change_pct": -2.66,
-      "amount_eok": 633.5,
-      "day_amount_pct": -49.5,
-      "spike5_pct": -38.5,
-      "spike20_pct": 9.3,
-      "ma20_close": 196885.0,
-      "ma20_gap_pct": 2.09,
-      "score": 1.2
-    },
-    {
-      "ticker": "520099",
-      "name": "미래에셋 인버스 2X 반도체 ETN",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 6360,
-      "change_pct": 16.59,
-      "amount_eok": 624.9,
-      "day_amount_pct": 29.1,
-      "spike5_pct": 44.5,
-      "spike20_pct": 90.4,
-      "ma20_close": 4264.75,
-      "ma20_gap_pct": 49.13,
-      "score": 32.8
+      "close": 206000,
+      "change_pct": -0.24,
+      "amount_eok": 648.2,
+      "day_amount_pct": -48.3,
+      "spike5_pct": -37.1,
+      "spike20_pct": 11.8,
+      "ma20_close": 197135.0,
+      "ma20_gap_pct": 4.5,
+      "score": 1.3
     },
     {
       "ticker": "066570",
@@ -1164,33 +607,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 138700,
-      "change_pct": -2.32,
-      "amount_eok": 616.2,
-      "day_amount_pct": -41.8,
-      "spike5_pct": -34.2,
-      "spike20_pct": -50.5,
-      "ma20_close": 159995.0,
-      "ma20_gap_pct": -13.31,
+      "close": 139400,
+      "change_pct": -1.83,
+      "amount_eok": 630.5,
+      "day_amount_pct": -40.4,
+      "spike5_pct": -32.7,
+      "spike20_pct": -49.3,
+      "ma20_close": 160030.0,
+      "ma20_gap_pct": -12.89,
       "score": 0.4
-    },
-    {
-      "ticker": "475630",
-      "name": "TIGER CD1년금리액티브(합성)",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 1082905,
-      "change_pct": 0.01,
-      "amount_eok": 613.6,
-      "day_amount_pct": -26.0,
-      "spike5_pct": -56.0,
-      "spike20_pct": -74.1,
-      "ma20_close": 1081367.0,
-      "ma20_gap_pct": 0.14,
-      "score": 0.5
     },
     {
       "ticker": "196170",
@@ -1200,32 +625,50 @@
       "sectors": [
         "바이오"
       ],
-      "close": 199600,
-      "change_pct": -5.63,
-      "amount_eok": 605.8,
-      "day_amount_pct": -45.9,
-      "spike5_pct": -30.5,
-      "spike20_pct": -20.0,
-      "ma20_close": 220655.0,
-      "ma20_gap_pct": -9.54,
+      "close": 201000,
+      "change_pct": -4.96,
+      "amount_eok": 618.4,
+      "day_amount_pct": -44.8,
+      "spike5_pct": -29.1,
+      "spike20_pct": -18.4,
+      "ma20_close": 220725.0,
+      "ma20_gap_pct": -8.94,
       "score": 0.4
     },
     {
-      "ticker": "305720",
-      "name": "KODEX 2차전지산업",
+      "ticker": "000810",
+      "name": "삼성화재",
       "market": "KOSPI",
       "sector": "미분류",
       "sectors": [
         "미분류"
       ],
-      "close": 12510,
-      "change_pct": -4.72,
-      "amount_eok": 598.1,
-      "day_amount_pct": -49.2,
-      "spike5_pct": -41.8,
-      "spike20_pct": -43.0,
-      "ma20_close": 14177.25,
-      "ma20_gap_pct": -11.76,
+      "close": 606000,
+      "change_pct": -7.9,
+      "amount_eok": 608.6,
+      "day_amount_pct": 2.4,
+      "spike5_pct": 11.6,
+      "spike20_pct": 3.7,
+      "ma20_close": 617750.0,
+      "ma20_gap_pct": -1.9,
+      "score": 2.2
+    },
+    {
+      "ticker": "055550",
+      "name": "신한지주",
+      "market": "KOSPI",
+      "sector": "미분류",
+      "sectors": [
+        "미분류"
+      ],
+      "close": 86600,
+      "change_pct": -3.02,
+      "amount_eok": 607.0,
+      "day_amount_pct": -35.5,
+      "spike5_pct": -28.9,
+      "spike20_pct": -40.8,
+      "ma20_close": 90660.0,
+      "ma20_gap_pct": -4.48,
       "score": 0.4
     },
     {
@@ -1236,33 +679,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 2330,
-      "change_pct": 3.1,
-      "amount_eok": 592.6,
-      "day_amount_pct": 48.3,
-      "spike5_pct": 470.6,
-      "spike20_pct": 2107.3,
-      "ma20_close": 1791.75,
-      "ma20_gap_pct": 30.04,
-      "score": 44.6
-    },
-    {
-      "ticker": "055550",
-      "name": "신한지주",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 86100,
-      "change_pct": -3.58,
-      "amount_eok": 585.2,
-      "day_amount_pct": -37.8,
-      "spike5_pct": -31.5,
-      "spike20_pct": -43.0,
-      "ma20_close": 90635.0,
-      "ma20_gap_pct": -5.0,
-      "score": 0.4
+      "close": 2290,
+      "change_pct": 1.33,
+      "amount_eok": 605.2,
+      "day_amount_pct": 51.5,
+      "spike5_pct": 482.7,
+      "spike20_pct": 2154.1,
+      "ma20_close": 1789.75,
+      "ma20_gap_pct": 27.95,
+      "score": 42.2
     },
     {
       "ticker": "032830",
@@ -1272,14 +697,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 231500,
-      "change_pct": -5.89,
-      "amount_eok": 576.4,
-      "day_amount_pct": 9.9,
-      "spike5_pct": -10.7,
-      "spike20_pct": -22.5,
-      "ma20_close": 252075.0,
-      "ma20_gap_pct": -8.16,
+      "close": 233000,
+      "change_pct": -5.28,
+      "amount_eok": 592.2,
+      "day_amount_pct": 12.9,
+      "spike5_pct": -8.3,
+      "spike20_pct": -20.4,
+      "ma20_close": 252150.0,
+      "ma20_gap_pct": -7.59,
       "score": 0.4
     },
     {
@@ -1290,33 +715,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 10820,
-      "change_pct": -7.12,
-      "amount_eok": 572.1,
-      "day_amount_pct": 0.9,
-      "spike5_pct": 4.7,
-      "spike20_pct": -34.0,
-      "ma20_close": 13636.5,
-      "ma20_gap_pct": -20.65,
-      "score": 1.0
-    },
-    {
-      "ticker": "000810",
-      "name": "삼성화재",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 605000,
-      "change_pct": -8.05,
-      "amount_eok": 557.1,
-      "day_amount_pct": -6.3,
-      "spike5_pct": 2.2,
-      "spike20_pct": -5.1,
-      "ma20_close": 617700.0,
-      "ma20_gap_pct": -2.06,
-      "score": 0.7
+      "close": 10960,
+      "change_pct": -5.92,
+      "amount_eok": 584.3,
+      "day_amount_pct": 3.1,
+      "spike5_pct": 6.9,
+      "spike20_pct": -32.6,
+      "ma20_close": 13643.5,
+      "ma20_gap_pct": -19.67,
+      "score": 1.3
     },
     {
       "ticker": "012330",
@@ -1326,32 +733,14 @@
       "sectors": [
         "미분류"
       ],
-      "close": 353000,
-      "change_pct": -2.89,
-      "amount_eok": 556.3,
-      "day_amount_pct": -64.0,
-      "spike5_pct": -37.6,
-      "spike20_pct": -40.7,
-      "ma20_close": 346775.0,
-      "ma20_gap_pct": 1.8,
-      "score": 0.4
-    },
-    {
-      "ticker": "003490",
-      "name": "대한항공",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 29500,
-      "change_pct": -2.64,
-      "amount_eok": 533.0,
-      "day_amount_pct": -56.0,
-      "spike5_pct": -49.1,
-      "spike20_pct": -32.3,
-      "ma20_close": 27847.5,
-      "ma20_gap_pct": 5.93,
+      "close": 355000,
+      "change_pct": -2.34,
+      "amount_eok": 576.4,
+      "day_amount_pct": -62.7,
+      "spike5_pct": -35.3,
+      "spike20_pct": -38.5,
+      "ma20_close": 346875.0,
+      "ma20_gap_pct": 2.34,
       "score": 0.4
     },
     {
@@ -1362,32 +751,32 @@
       "sectors": [
         "미분류"
       ],
-      "close": 109800,
-      "change_pct": -10.51,
-      "amount_eok": 529.1,
-      "day_amount_pct": 48.1,
-      "spike5_pct": 138.1,
-      "spike20_pct": 116.2,
-      "ma20_close": 120545.0,
-      "ma20_gap_pct": -8.91,
-      "score": 26.4
+      "close": 110100,
+      "change_pct": -10.27,
+      "amount_eok": 542.6,
+      "day_amount_pct": 51.9,
+      "spike5_pct": 144.1,
+      "spike20_pct": 121.7,
+      "ma20_close": 120560.0,
+      "ma20_gap_pct": -8.68,
+      "score": 27.5
     },
     {
-      "ticker": "086520",
-      "name": "에코프로",
-      "market": "KOSDAQ",
+      "ticker": "003490",
+      "name": "대한항공",
+      "market": "KOSPI",
       "sector": "미분류",
       "sectors": [
         "미분류"
       ],
-      "close": 67700,
-      "change_pct": -5.45,
-      "amount_eok": 527.7,
-      "day_amount_pct": -46.5,
-      "spike5_pct": -17.0,
-      "spike20_pct": -23.1,
-      "ma20_close": 77670.0,
-      "ma20_gap_pct": -12.84,
+      "close": 29550,
+      "change_pct": -2.48,
+      "amount_eok": 542.6,
+      "day_amount_pct": -55.2,
+      "spike5_pct": -48.2,
+      "spike20_pct": -31.0,
+      "ma20_close": 27850.0,
+      "ma20_gap_pct": 6.1,
       "score": 0.4
     },
     {
@@ -1398,14 +787,32 @@
       "sectors": [
         "미분류"
       ],
-      "close": 116400,
-      "change_pct": -4.59,
-      "amount_eok": 520.9,
-      "day_amount_pct": -37.7,
-      "spike5_pct": -9.9,
-      "spike20_pct": -38.6,
-      "ma20_close": 119665.0,
-      "ma20_gap_pct": -2.73,
+      "close": 117200,
+      "change_pct": -3.93,
+      "amount_eok": 541.3,
+      "day_amount_pct": -35.2,
+      "spike5_pct": -6.4,
+      "spike20_pct": -36.2,
+      "ma20_close": 119705.0,
+      "ma20_gap_pct": -2.09,
+      "score": 0.4
+    },
+    {
+      "ticker": "086520",
+      "name": "에코프로",
+      "market": "KOSDAQ",
+      "sector": "미분류",
+      "sectors": [
+        "미분류"
+      ],
+      "close": 68400,
+      "change_pct": -4.47,
+      "amount_eok": 536.7,
+      "day_amount_pct": -45.6,
+      "spike5_pct": -15.6,
+      "spike20_pct": -21.8,
+      "ma20_close": 77705.0,
+      "ma20_gap_pct": -11.97,
       "score": 0.4
     },
     {
@@ -1416,32 +823,14 @@
       "sectors": [
         "전력기기"
       ],
-      "close": 365500,
-      "change_pct": -8.4,
-      "amount_eok": 518.9,
-      "day_amount_pct": -40.9,
-      "spike5_pct": -43.3,
-      "spike20_pct": -42.8,
-      "ma20_close": 472175.0,
-      "ma20_gap_pct": -22.59,
-      "score": 0.4
-    },
-    {
-      "ticker": "329180",
-      "name": "HD현대중공업",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 261500,
-      "change_pct": -2.97,
-      "amount_eok": 509.3,
-      "day_amount_pct": -33.8,
-      "spike5_pct": -47.2,
-      "spike20_pct": -56.0,
-      "ma20_close": 309550.0,
-      "ma20_gap_pct": -15.52,
+      "close": 370000,
+      "change_pct": -7.27,
+      "amount_eok": 535.5,
+      "day_amount_pct": -39.1,
+      "spike5_pct": -41.5,
+      "spike20_pct": -41.0,
+      "ma20_close": 472400.0,
+      "ma20_gap_pct": -21.68,
       "score": 0.4
     },
     {
@@ -1452,15 +841,51 @@
       "sectors": [
         "미분류"
       ],
-      "close": 75800,
-      "change_pct": -2.82,
-      "amount_eok": 508.2,
-      "day_amount_pct": -13.9,
-      "spike5_pct": 6.7,
-      "spike20_pct": -9.8,
-      "ma20_close": 76945.0,
-      "ma20_gap_pct": -1.49,
-      "score": 1.2
+      "close": 75900,
+      "change_pct": -2.69,
+      "amount_eok": 521.0,
+      "day_amount_pct": -11.7,
+      "spike5_pct": 9.4,
+      "spike20_pct": -7.6,
+      "ma20_close": 76950.0,
+      "ma20_gap_pct": -1.36,
+      "score": 1.5
+    },
+    {
+      "ticker": "329180",
+      "name": "HD현대중공업",
+      "market": "KOSPI",
+      "sector": "미분류",
+      "sectors": [
+        "미분류"
+      ],
+      "close": 263000,
+      "change_pct": -2.41,
+      "amount_eok": 520.6,
+      "day_amount_pct": -32.3,
+      "spike5_pct": -46.1,
+      "spike20_pct": -55.0,
+      "ma20_close": 309625.0,
+      "ma20_gap_pct": -15.06,
+      "score": 0.4
+    },
+    {
+      "ticker": "389260",
+      "name": "대명에너지",
+      "market": "KOSDAQ",
+      "sector": "미분류",
+      "sectors": [
+        "미분류"
+      ],
+      "close": 14520,
+      "change_pct": 3.05,
+      "amount_eok": 515.4,
+      "day_amount_pct": -64.9,
+      "spike5_pct": 18.9,
+      "spike20_pct": 352.2,
+      "ma20_close": 11708.5,
+      "ma20_gap_pct": 24.01,
+      "score": 21.8
     },
     {
       "ticker": "010140",
@@ -1470,339 +895,15 @@
       "sectors": [
         "미분류"
       ],
-      "close": 16230,
-      "change_pct": -4.59,
-      "amount_eok": 497.6,
-      "day_amount_pct": -3.5,
-      "spike5_pct": -36.9,
-      "spike20_pct": -27.2,
-      "ma20_close": 17263.0,
-      "ma20_gap_pct": -5.98,
+      "close": 16320,
+      "change_pct": -4.06,
+      "amount_eok": 510.6,
+      "day_amount_pct": -1.0,
+      "spike5_pct": -35.3,
+      "spike20_pct": -25.3,
+      "ma20_close": 17267.5,
+      "ma20_gap_pct": -5.49,
       "score": 0.4
-    },
-    {
-      "ticker": "005490",
-      "name": "POSCO홀딩스",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 264500,
-      "change_pct": -3.47,
-      "amount_eok": 489.7,
-      "day_amount_pct": -19.8,
-      "spike5_pct": -32.2,
-      "spike20_pct": -33.6,
-      "ma20_close": 285425.0,
-      "ma20_gap_pct": -7.33,
-      "score": 0.4
-    },
-    {
-      "ticker": "278470",
-      "name": "에이피알",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 256500,
-      "change_pct": -4.29,
-      "amount_eok": 469.6,
-      "day_amount_pct": -61.6,
-      "spike5_pct": -68.2,
-      "spike20_pct": -60.9,
-      "ma20_close": 287100.0,
-      "ma20_gap_pct": -10.66,
-      "score": 0.3
-    },
-    {
-      "ticker": "108490",
-      "name": "로보티즈",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 223500,
-      "change_pct": 1.82,
-      "amount_eok": 464.9,
-      "day_amount_pct": 38.5,
-      "spike5_pct": 5.8,
-      "spike20_pct": -21.2,
-      "ma20_close": 242550.0,
-      "ma20_gap_pct": -7.85,
-      "score": 3.5
-    },
-    {
-      "ticker": "003670",
-      "name": "포스코퓨처엠",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 161600,
-      "change_pct": -7.97,
-      "amount_eok": 456.8,
-      "day_amount_pct": -47.0,
-      "spike5_pct": -42.4,
-      "spike20_pct": -35.0,
-      "ma20_close": 170845.0,
-      "ma20_gap_pct": -5.41,
-      "score": 0.3
-    },
-    {
-      "ticker": "328130",
-      "name": "루닛",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 15470,
-      "change_pct": 5.17,
-      "amount_eok": 441.1,
-      "day_amount_pct": 22.7,
-      "spike5_pct": 21.0,
-      "spike20_pct": 57.4,
-      "ma20_close": 13381.0,
-      "ma20_gap_pct": 15.61,
-      "score": 14.1
-    },
-    {
-      "ticker": "066970",
-      "name": "엘앤에프",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 74500,
-      "change_pct": -11.63,
-      "amount_eok": 427.1,
-      "day_amount_pct": -28.0,
-      "spike5_pct": -6.7,
-      "spike20_pct": -14.0,
-      "ma20_close": 92285.0,
-      "ma20_gap_pct": -19.27,
-      "score": 0.3
-    },
-    {
-      "ticker": "062040",
-      "name": "산일전기",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 116800,
-      "change_pct": -9.46,
-      "amount_eok": 398.6,
-      "day_amount_pct": -42.8,
-      "spike5_pct": -2.6,
-      "spike20_pct": -12.8,
-      "ma20_close": 168065.0,
-      "ma20_gap_pct": -30.5,
-      "score": 0.3
-    },
-    {
-      "ticker": "247540",
-      "name": "에코프로비엠",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 83300,
-      "change_pct": -7.75,
-      "amount_eok": 391.1,
-      "day_amount_pct": -45.3,
-      "spike5_pct": -18.5,
-      "spike20_pct": -24.4,
-      "ma20_close": 99520.0,
-      "ma20_gap_pct": -16.3,
-      "score": 0.3
-    },
-    {
-      "ticker": "000720",
-      "name": "현대건설",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 77900,
-      "change_pct": -7.04,
-      "amount_eok": 385.2,
-      "day_amount_pct": -18.4,
-      "spike5_pct": -22.3,
-      "spike20_pct": -33.2,
-      "ma20_close": 91020.0,
-      "ma20_gap_pct": -14.41,
-      "score": 0.3
-    },
-    {
-      "ticker": "015760",
-      "name": "한국전력",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 30200,
-      "change_pct": -3.21,
-      "amount_eok": 377.9,
-      "day_amount_pct": -56.0,
-      "spike5_pct": -26.5,
-      "spike20_pct": 3.6,
-      "ma20_close": 28895.0,
-      "ma20_gap_pct": 4.52,
-      "score": 0.5
-    },
-    {
-      "ticker": "042660",
-      "name": "한화오션",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 47850,
-      "change_pct": -2.74,
-      "amount_eok": 376.6,
-      "day_amount_pct": -32.4,
-      "spike5_pct": -51.1,
-      "spike20_pct": -72.5,
-      "ma20_close": 56977.5,
-      "ma20_gap_pct": -16.02,
-      "score": 0.3
-    },
-    {
-      "ticker": "007660",
-      "name": "이수페타시스",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 62900,
-      "change_pct": -10.14,
-      "amount_eok": 351.8,
-      "day_amount_pct": -21.5,
-      "spike5_pct": -33.7,
-      "spike20_pct": -49.6,
-      "ma20_close": 91895.0,
-      "ma20_gap_pct": -31.55,
-      "score": 0.3
-    },
-    {
-      "ticker": "011070",
-      "name": "LG이노텍",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 266000,
-      "change_pct": -6.83,
-      "amount_eok": 341.4,
-      "day_amount_pct": -47.5,
-      "spike5_pct": -38.0,
-      "spike20_pct": -61.1,
-      "ma20_close": 372975.0,
-      "ma20_gap_pct": -28.68,
-      "score": 0.2
-    },
-    {
-      "ticker": "000990",
-      "name": "DB하이텍",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 85700,
-      "change_pct": 0.94,
-      "amount_eok": 332.9,
-      "day_amount_pct": -26.8,
-      "spike5_pct": -28.8,
-      "spike20_pct": -30.3,
-      "ma20_close": 101530.0,
-      "ma20_gap_pct": -15.59,
-      "score": 1.5
-    },
-    {
-      "ticker": "007810",
-      "name": "코리아써키트",
-      "market": "KOSPI",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 60700,
-      "change_pct": -8.86,
-      "amount_eok": 295.6,
-      "day_amount_pct": -47.9,
-      "spike5_pct": -54.0,
-      "spike20_pct": -48.5,
-      "ma20_close": 71345.0,
-      "ma20_gap_pct": -14.92,
-      "score": 0.2
-    },
-    {
-      "ticker": "053800",
-      "name": "안랩",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 98000,
-      "change_pct": 0.51,
-      "amount_eok": 272.8,
-      "day_amount_pct": -41.5,
-      "spike5_pct": -72.2,
-      "spike20_pct": -44.4,
-      "ma20_close": 94375.0,
-      "ma20_gap_pct": 3.84,
-      "score": 0.9
-    },
-    {
-      "ticker": "114190",
-      "name": "강원에너지",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 8420,
-      "change_pct": 6.85,
-      "amount_eok": 196.0,
-      "day_amount_pct": 579.8,
-      "spike5_pct": 1125.3,
-      "spike20_pct": 2277.1,
-      "ma20_close": 7853.5,
-      "ma20_gap_pct": 7.21,
-      "score": 49.3
-    },
-    {
-      "ticker": "458870",
-      "name": "씨어스",
-      "market": "KOSDAQ",
-      "sector": "미분류",
-      "sectors": [
-        "미분류"
-      ],
-      "close": 14500,
-      "change_pct": -30.12,
-      "amount_eok": 178.0,
-      "day_amount_pct": 222.6,
-      "spike5_pct": 160.9,
-      "spike20_pct": 104.2,
-      "ma20_close": 22832.5,
-      "ma20_gap_pct": -36.49,
-      "score": 28.1
     }
   ]
 }
