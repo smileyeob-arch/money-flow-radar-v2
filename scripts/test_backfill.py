@@ -1,5 +1,8 @@
 """Offline tests for 3-month historical reconstruction (no Kiwoom auth)."""
 import unittest
+import tempfile
+from unittest.mock import patch
+from backfill import _checkpoint_path
 from datetime import date, timedelta
 from radar_backfill_core import historical_snapshots, merge_events, tracked_from_events
 
@@ -29,6 +32,14 @@ def fixture():
 
 
 class HistoricalThemeTests(unittest.TestCase):
+    def test_checkpoint_path_with_date_object(self):
+        # Regression for date.replace("-", "") raising TypeError.
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.dict("os.environ", {"LOCALAPPDATA": directory}):
+                result = _checkpoint_path(date(2026, 11, 6))
+                self.assertEqual(result.name, "stock-charts-20261106-v1.json.gz")
+                self.assertTrue(result.parent.is_dir())
+
     def test_backfill_is_bounded_and_liquidity_filtered(self):
         universe, charts, themes = fixture()
         start = date(2026, 8, 6)
