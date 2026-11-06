@@ -28,6 +28,22 @@
   // The candidate rows are rebuilt when filters and data change. Delegate the
   // click to their stable parent so every stock always updates the detail.
   $('radarCandidates').addEventListener('click',event=>{
+    const remove=event.target.closest('button[data-remove-ticker]');
+    if(remove && $('radarCandidates').contains(remove)){
+      if(currentSource!=='kiwoom' || !personalData)return;
+      const ticker=remove.dataset.removeTicker;
+      if(!personalData.stocks.some(item=>item.ticker===ticker))return;
+      // Remove ONLY from the browser's imported copy, not Kiwoom HTS,
+      // the selected JSON file on disk, or the public theme tracker.
+      personalData.stocks=personalData.stocks.filter(item=>item.ticker!==ticker);
+      for(const group of personalData.groups){
+        if(Array.isArray(group.tickers))
+          group.tickers=group.tickers.filter(code=>code!==ticker);
+      }
+      if(chosen===ticker)chosen=null;
+      render();
+      return;
+    }
     const row=event.target.closest('button[data-radar-ticker]');
     if(!row || !$('radarCandidates').contains(row))return;
     const ticker=row.dataset.radarTicker;
@@ -45,6 +61,24 @@
   });
   $('radarWatchGroup').addEventListener('change',e=>{
     selectedGroup=e.target.value;
+    chosen=null;
+    render();
+  });
+  $('radarWatchRemoveGroup').addEventListener('click',()=>{
+    if(currentSource!=='kiwoom' || !personalData || selectedGroup==='all')return;
+    const group=personalData.groups.find(g=>String(g.id)===selectedGroup);
+    if(!group)return;
+    const label=String(group.name||group.id||'선택 그룹');
+    if(!window.confirm('"'+label+'" 그룹을 현재 불러온 목록에서 제외할까요? 영웅문과 원본 JSON은 변경되지 않습니다.'))return;
+    personalData.groups=personalData.groups.filter(g=>String(g.id)!==selectedGroup);
+    const remainingCodes=new Set(personalData.groups.flatMap(g=>
+      Array.isArray(g.tickers)?g.tickers:[]));
+    personalData.stocks=personalData.stocks.filter(s=>remainingCodes.has(s.ticker));
+    selectedGroup='all';
+    $('radarWatchGroup').innerHTML='<option value="all">모든 관심그룹</option>'+
+      personalData.groups.filter(g=>g && g.id!=null).map(g=>
+        '<option value="'+safe(g.id)+'">'+safe(g.name||g.id)+'</option>').join('');
+    $('radarWatchGroup').value='all';
     chosen=null;
     render();
   });
@@ -128,14 +162,17 @@
     if(!chosenStocks.some(x=>x.ticker===chosen))
       chosen=chosenStocks[0]?.ticker||null;
     $('radarCandidates').innerHTML=chosenStocks.length?chosenStocks.map(x=>
-      '<button type="button" class="radar-candidate'+(chosen===x.ticker?' selected':'')+
+      '<div class="radar-candidate-row"><button type="button" class="radar-candidate'+(chosen===x.ticker?' selected':'')+
       '" data-radar-ticker="'+safe(x.ticker)+'" aria-pressed="'+(chosen===x.ticker)+'"><span class="radar-candidate-title"><strong>'+
       safe(x.name)+'</strong>'+statusPill(x)+'</span><span class="radar-sub">'+
       safe(x.ticker)+' · '+(currentSource==='kiwoom'
         ? safe(x.group_names?.join(' / ')||'내 관심종목')+' · 기술적 구간'
         : safe(x.first_theme)+' ('+fmt(x.first_rank)+'위) · 최초 '+safe(x.first_seen))+
       '</span><span class="radar-sub">종가 '+fmt(x.close)+'원 · MA20 '+fmt(x.ma20)+
-      '원 · 피보 0.382 '+fmt(x.fib?.['0.382'])+'원</span></button>').join(''):
+      '원 · 피보 0.382 '+fmt(x.fib?.['0.382'])+'원</span></button>'+
+      (currentSource==='kiwoom'?'<button type="button" class="radar-remove-stock"'+
+      ' data-remove-ticker="'+safe(x.ticker)+'" aria-label="'+safe(x.name)+' 목록에서 지우기"'+
+      ' title="'+safe(x.name)+' 목록에서 지우기">×</button>':'')+'</div>').join(''):
       '<p class="radar-empty">조건에 맞는 관심종목이 없습니다.</p>';
     renderDetail();
   }
@@ -303,6 +340,7 @@
   }
   function render() {
     if(currentSource==='kiwoom'){
+      $('radarWatchRemoveGroup').disabled=!personalData || selectedGroup==='all';
       const stocks=activeStocks();
       const groups=personalData?.groups||[];
       $('radarDateInfo').textContent=personalData?
@@ -311,7 +349,7 @@
         '내 키움 관심종목 · 개인 파일을 아직 가져오지 않았습니다.';
       $('radarWatchInfo').textContent=personalError || (personalData
         ? '개인 관심그룹 '+groups.length+'개, 일반주 '+stocks.length+
-          '종목. 이 정보는 현재 브라우저에서만 읽으며 새로고침하면 사라집니다.'
+          '종목. 종목 옆 ×로 개별 삭제하거나 선택 그룹을 삭제할 수 있습니다. 이 브라우저 화면에만 적용되며, 파일 재선택 시 복원됩니다.'
         : '키움 PC에서 windows/export-watchlist.ps1 실행 후, %LOCALAPPDATA%\\MoneyFlowRadar\\watchlist-export.json 파일을 선택하세요. 개인 파일은 GitHub에 업로드하지 않습니다.');
       $('radarStats').innerHTML=[
         ['관심그룹',groups.length+'개'],['내 관심종목',stocks.length+'개'],
