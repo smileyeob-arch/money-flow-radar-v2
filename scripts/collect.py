@@ -21,7 +21,9 @@ OUT = ROOT / "data" / "latest.json"
 MAPPING = ROOT / "data" / "sectors.csv"
 HOST = "https://api.kiwoom.com"
 DELAY = float(os.getenv("KIWOOM_REQUEST_DELAY", "0.30"))
-LIMIT = min(100, max(1, int(os.getenv("KIWOOM_TOP_N", "100"))))
+MIN_AMOUNT_EOK = 500
+MIN_AMOUNT_MILLION = 50000
+MAX_RANK_PAGES = 10
 
 
 def number(value, default=None):
@@ -97,37 +99,83 @@ class Kiwoom:
         return payload, response.headers.get("cont-yn", "N").upper(), response.headers.get("next-key", "")
 
 
-def rank_stocks(client):
-    """Get ranking for each market, deduplicate ticker, and rank by traded value (million KRW)."""
+def eligible_individual_stocks(client):
+    """Fail closed: only marketCode 0/10, excluding fund vehicles, SPACs and preferred shares."""
+    eligible = {}
+    for request_market in ("0", "10"):
+        cont, next_key = "N", ""
+        for page in range(10):
+            payload, ncont, nkey = client.call("ka10099", "/api/dostk/stkinfo",
+                                               {"mrkt_tp": request_market}, cont, next_key)
+            rows = payload.get("list")
+            if not isinstance(rows, list):
+                raise RuntimeError("ka10099 list missing; cannot classify stocks safely")
+            print(f"ka10099 requested={request_market} page={page+1}: {len(rows)} rows", flush=True)
+            for item in rows:
+                code = str(item.get("code", "")).strip()
+                kind = str(item.get("marketCode", "")).strip()
+                name = str(item.get("name", "")).strip()
+                if not re.fullmatch(r"\d{6}", code) or kind not in ("0", "10"):
+                    continue
+                if re.search(r"스팩|SPAC|리츠|REIT|인프라|투자회사|뮤추얼", name, re.I):
+                    continue
+                if re.search(r"우(?:B|C|D|E|F)?$", name, re.I):
+                    continue
+                eligible[code] = {"market": "KOSPI" if kind == "0" else "KOSDAQ", "name": name}
+            if ncont != "Y" or not nkey:
+                break
+            cont, next_key = "Y", nkey
+        else:
+            raise RuntimeError("ka10099 stock master pagination incomplete")
+    if len(eligible) < 100:
+        raise RuntimeError(f"ka10099 stock master too small: {len(eligible)}")
+    print(f"Eligible ordinary stocks: {len(eligible)}", flush=True)
+    return eligible
+
+
+def rank_stocks(client, universe):
+    """Ranked KOSPI/KOSDAQ ordinary shares only; minimum turnover 500억원."""
     result = {}
+    excluded = 0
     for market, market_name in (("001", "KOSPI"), ("101", "KOSDAQ")):
         cont, next_key = "N", ""
-        for page in range(4):
+        for page in range(MAX_RANK_PAGES):
             payload, ncont, nkey = client.call(
                 "ka10032", "/api/dostk/rkinfo",
                 {"mrkt_tp": market, "mang_stk_incls": "0", "stex_tp": "3"},
-                cont, next_key,
+                cont, next_key
             )
             rows = payload.get("trde_prica_upper") or []
             print(f"ka10032 {market_name} page={page+1}: {len(rows)} rows", flush=True)
+            amounts = []
             for row in rows:
                 code = str(row.get("stk_cd", "")).strip().split("_")[0]
                 if not re.fullmatch(r"\d{6}", code):
                     continue
                 amount = positive(row.get("trde_prica"))
-                if not amount:
+                if amount <= 0:
                     continue
-                item = dict(ticker=code, name=str(row.get("stk_nm") or code),
-                            market=market_name, rank_amount_million=amount)
+                amounts.append(amount)
+                info = universe.get(code)
+                if amount < MIN_AMOUNT_MILLION or not info or info["market"] != market_name:
+                    excluded += 1
+                    continue
+                item = dict(ticker=code, name=info["name"], market=market_name, rank_amount_million=amount)
                 if code not in result or amount > result[code]["rank_amount_million"]:
                     result[code] = item
+            if not rows or (amounts and min(amounts) < MIN_AMOUNT_MILLION):
+                break
             if ncont != "Y" or not nkey:
                 break
             cont, next_key = "Y", nkey
-    stocks = sorted(result.values(), key=lambda r: -r["rank_amount_million"])[:LIMIT]
-    if len(stocks) < 30:
-        raise RuntimeError(f"Only {len(stocks)} ranked stocks returned; no output written")
+        else:
+            print(f"WARNING: {market_name} reached the page limit; ranking may be incomplete", flush=True)
+    stocks = sorted(result.values(), key=lambda item: -item["rank_amount_million"])
+    print(f"500억원+ ordinary stocks: {len(stocks)}, excluded rank rows: {excluded}", flush=True)
+    if not stocks:
+        raise RuntimeError("No eligible ordinary stocks >=500억원; JSON unchanged")
     return stocks
+
 
 
 def daily_bars(client, code, today):
@@ -178,7 +226,8 @@ def analyze(rank, bars, mapping):
 def main():
     date = datetime.now(KST)
     client = Kiwoom()
-    ranking = rank_stocks(client)
+    universe = eligible_individual_stocks(client)
+    ranking = rank_stocks(client, universe)
     mapping = load_mapping()
     stocks = []
     errors = 0
@@ -186,8 +235,11 @@ def main():
         try:
             bars = daily_bars(client, rank["ticker"], date.date())
             s = analyze(rank, bars, mapping)
-            if s:
+            if s and s["amount_eok"] >= MIN_AMOUNT_EOK:
                 stocks.append(s)
+            elif s:
+                errors += 1
+                print("Below 500억원 at daily chart: " + rank["ticker"], flush=True)
             else:
                 errors += 1
                 print(f"Insufficient daily history: {rank['ticker']}", flush=True)
@@ -196,14 +248,14 @@ def main():
             print(f"Skipping {rank['ticker']}: {str(exc)[:170]}", flush=True)
         if i % 20 == 0:
             print(f"Checked {i}/{len(ranking)}, valid={len(stocks)}", flush=True)
-    if len(stocks) < max(20, int(len(ranking) * .7)):
+    if len(stocks) < max(1, int(len(ranking) * .7)):
         raise RuntimeError(f"Too few valid daily histories: {len(stocks)}/{len(ranking)}; JSON unchanged")
 
     # Prevent incorrectly combining current rank snapshot with stale chart results.
     from collections import Counter
     day, count = Counter(s["session"] for s in stocks).most_common(1)[0]
     stocks = [s for s in stocks if s["session"] == day]
-    if len(stocks) < max(20, int(len(ranking) * .7)):
+    if len(stocks) < max(1, int(len(ranking) * .7)):
         raise RuntimeError("Daily chart dates inconsistent; JSON unchanged")
     # Reject old snapshots instead of silently publishing old quotes as current.
     actual = datetime.strptime(day, "%Y%m%d").date()
@@ -222,7 +274,8 @@ def main():
     output = {
         "date": f"{day[:4]}-{day[4:6]}-{day[6:]}",
         "generated_at_kst": datetime.now(KST).strftime("%Y-%m-%d %H:%M KST"),
-        "source": "Kiwoom REST (ka10032 + ka10081)",
+        "source": "Kiwoom REST (ka10099 + ka10032 + ka10081)",
+        "filter_note": "KOSPI/KOSDAQ ordinary shares, no ETF/ETN/REIT/SPAC/preferred shares, turnover >=500억원",
         "sector_mapping_note": "수동 data/sectors.csv 분류; 다중 테마 거래대금 중복 집계 가능",
         "stocks": stocks,
     }
