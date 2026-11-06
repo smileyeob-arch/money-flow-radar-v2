@@ -5,7 +5,7 @@ $dir = Join-Path $env:LOCALAPPDATA "MoneyFlowRadar"
 function Read-Secret([string]$filename) {
     $file = Join-Path $dir $filename
     if (!(Test-Path $file)) { throw "Run windows/setup-credentials.ps1 first: missing $filename" }
-    $secure = Get-Content -Raw -Encoding UTF8 $file | ConvertTo-SecureString
+    $secure = (Get-Content -Encoding UTF8 $file | Select-Object -First 1) | ConvertTo-SecureString
     $ptr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
     try { return [Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr) }
     finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ptr) }
