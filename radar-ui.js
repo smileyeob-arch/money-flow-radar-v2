@@ -65,7 +65,7 @@
       const payload=JSON.parse(await file.text());
       if(payload?.kind!=='kiwoom_watchlist_local' ||
          !Array.isArray(payload.groups) || !Array.isArray(payload.stocks) ||
-         payload.groups.length>200 || payload.stocks.length>400)
+         payload.groups.length>500 || payload.stocks.length>3000)
         throw Error('키움 로컬 관심종목 내보내기 파일이 아닙니다.');
       for(const x of payload.stocks){
         if(!/^\d{6}$/.test(String(x.ticker||'')) || !Array.isArray(x.bars))
