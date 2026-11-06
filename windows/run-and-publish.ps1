@@ -34,7 +34,7 @@ try {
         Remove-Item Env:\KIWOOM_APP_SECRET -ErrorAction SilentlyContinue
     }
     if ($NoPush) { Write-Host "Collected locally; no upload requested."; return }
-    git add -- data/latest.json
+    git add -- data/latest.json data/radar-history.json
     if ($LASTEXITCODE -ne 0) { throw "Git stage failed" }
     git diff --cached --quiet
     if ($LASTEXITCODE -eq 0) { Write-Host "Data unchanged; no push necessary"; return }
@@ -42,5 +42,5 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Git commit failed" }
     git push origin main
     if ($LASTEXITCODE -ne 0) { throw "Git push failed; check GitHub login and sync conflicts" }
-    Write-Host "SUCCESS: data/latest.json pushed; Pages deployment triggered."
+    Write-Host "SUCCESS: latest.json + radar-history.json published; Pages deployment triggered."
 } finally { Pop-Location }
