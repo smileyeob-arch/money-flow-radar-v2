@@ -73,7 +73,11 @@
     personalData.groups=personalData.groups.filter(g=>String(g.id)!==selectedGroup);
     const remainingCodes=new Set(personalData.groups.flatMap(g=>
       Array.isArray(g.tickers)?g.tickers:[]));
-    personalData.stocks=personalData.stocks.filter(s=>remainingCodes.has(s.ticker));
+    personalData.stocks=personalData.stocks.filter(s=>remainingCodes.has(s.ticker)).map(stock=>{
+      const groups=personalData.groups.filter(g=>Array.isArray(g.tickers) && g.tickers.includes(stock.ticker))
+        .map(g=>String(g.name||g.id||'그룹'));
+      return {...stock,group_names:groups,first_theme:groups.join(' · ')||'내 관심종목'};
+    });
     selectedGroup='all';
     $('radarWatchGroup').innerHTML='<option value="all">모든 관심그룹</option>'+
       personalData.groups.filter(g=>g && g.id!=null).map(g=>
