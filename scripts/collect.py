@@ -290,7 +290,7 @@ def load_infostock_themes(client, selected):
     response_validated = 0
     # Request keys are configurable so an official field-name update won't require
     # changing the known-good turnover and chart collection code.
-    code_key = os.getenv("INFOSTOCK_DETAIL_CODE_KEY", "thema_cd")
+    code_key = os.getenv("INFOSTOCK_DETAIL_CODE_KEY", "code")
     max_details = int(os.getenv("INFOSTOCK_MAX_THEMES", "1000"))
     if len(categories) > max_details:
         raise RuntimeError(f"Infostock theme count {len(categories)} exceeds safe limit {max_details}")
