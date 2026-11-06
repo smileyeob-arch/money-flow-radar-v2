@@ -8,6 +8,8 @@
   const pc = v => v == null ? '—' : (v>0?'+':'')+fmt(v,2)+'%';
   const koreanDate = v => v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.slice(5).replace('-','/') : (v||'—');
   let data = null, chosen = null, filter = 'all';
+  let personalData = null, currentSource = 'theme', selectedGroup = 'all';
+  const activeStocks = () => currentSource === 'kiwoom' ? (personalData?.stocks || []) : (data?.tracked || []);
   const priority = {confluence:0,ma20:1,fib:2,fib_watch:3,waiting:4,risk:5,unknown:6};
   const keyLabel = {confluence:'중첩 관심',ma20:'20일선 관심',fib:'0.382 관심',
     fib_watch:'0.236 관찰',waiting:'눌림 대기',risk:'이탈 주의',unknown:'데이터 확인'};
@@ -29,9 +31,68 @@
     const row=event.target.closest('button[data-radar-ticker]');
     if(!row || !$('radarCandidates').contains(row))return;
     const ticker=row.dataset.radarTicker;
-    if(!data || !(data.tracked||[]).some(item=>item.ticker===ticker))return;
+    if(!activeStocks().some(item=>item.ticker===ticker))return;
     chosen=ticker;
     renderList();
+  });
+  $('radarDataSource').addEventListener('change',e=>{
+    currentSource=e.target.value==='kiwoom'?'kiwoom':'theme';
+    $('radarWatchTools').classList.toggle('hidden',currentSource!=='kiwoom');
+    $('radarWatchInfo').classList.toggle('hidden',currentSource!=='kiwoom');
+    $('radarEventsPanel').classList.toggle('hidden',currentSource==='kiwoom');
+    chosen=null;
+    render();
+  });
+  $('radarWatchGroup').addEventListener('change',e=>{
+    selectedGroup=e.target.value;
+    chosen=null;
+    render();
+  });
+  $('radarWatchClear').addEventListener('click',()=>{
+    personalData=null;
+    selectedGroup='all';
+    $('radarWatchFile').value='';
+    $('radarWatchGroup').innerHTML='<option value="all">모든 관심그룹</option>';
+    chosen=null;
+    render();
+  });
+  $('radarWatchFile').addEventListener('change',async e=>{
+    const file=e.target.files?.[0];
+    if(!file)return;
+    try{
+      if(file.size>5*1024*1024)throw Error('파일 크기는 최대 5MB까지 허용합니다.');
+      const payload=JSON.parse(await file.text());
+      if(payload?.kind!=='kiwoom_watchlist_local' ||
+         !Array.isArray(payload.groups) || !Array.isArray(payload.stocks) ||
+         payload.groups.length>200 || payload.stocks.length>400)
+        throw Error('키움 로컬 관심종목 내보내기 파일이 아닙니다.');
+      for(const x of payload.stocks){
+        if(!/^\d{6}$/.test(String(x.ticker||'')) || !Array.isArray(x.bars))
+          throw Error('파일의 종목 데이터 형식이 올바르지 않습니다.');
+      }
+      const names=new Map();
+      for(const group of payload.groups){
+        if(!group || !Array.isArray(group.tickers))continue;
+        for(const ticker of group.tickers){
+          if(!names.has(ticker))names.set(ticker,[]);
+          names.get(ticker).push(String(group.name||group.id||'그룹'));
+        }
+      }
+      personalData={...payload,stocks:payload.stocks.map(x=>({
+        ...x,group_names:names.get(x.ticker)||[],
+        first_theme:(names.get(x.ticker)||[]).join(' · ')||'내 관심종목',
+      }))};
+      $('radarWatchGroup').innerHTML='<option value="all">모든 관심그룹</option>'+
+        payload.groups.filter(g=>g && g.id!=null).map(g=>
+          '<option value="'+safe(g.id)+'">'+safe(g.name||g.id)+'</option>').join('');
+      selectedGroup='all';chosen=null;
+      render();
+    }catch(err){
+      personalData=null;chosen=null;
+      $('radarWatchInfo').textContent='가져오기 실패: '+String(err.message||err)+
+        ' · 키움 개인 데이터는 GitHub로 업로드되지 않습니다.';
+      render();
+    }
   });
   function renderEvents() {
     const events = [...(Array.isArray(data.events)?data.events:[])];
@@ -56,9 +117,13 @@
     }).join(''):'<p class="radar-empty">선택한 기간에 기록된 테마가 없습니다.</p>';
   }
   function renderList() {
-    const stocks=Array.isArray(data.tracked)?data.tracked:[];
-    const chosenStocks=stocks.filter(x=>filter==='all'||x.status_key===filter)
-      .sort((a,b)=>(priority[a.status_key]??6)-(priority[b.status_key]??6)||b.first_seen.localeCompare(a.first_seen));
+    const stocks=activeStocks();
+    const groupCodes=currentSource==='kiwoom' && selectedGroup!=='all'?
+      (personalData?.groups.find(g=>String(g.id)===selectedGroup)?.tickers||[]):null;
+    const chosenStocks=stocks.filter(x=>(filter==='all'||x.status_key===filter)&&
+      (!groupCodes||groupCodes.includes(x.ticker)))
+      .sort((a,b)=>(priority[a.status_key]??6)-(priority[b.status_key]??6)||
+        String(b.first_seen||'').localeCompare(String(a.first_seen||'')));
     $('radarCount').textContent=stocks.length+'종목';
     if(!chosenStocks.some(x=>x.ticker===chosen))
       chosen=chosenStocks[0]?.ticker||null;
@@ -66,7 +131,9 @@
       '<button type="button" class="radar-candidate'+(chosen===x.ticker?' selected':'')+
       '" data-radar-ticker="'+safe(x.ticker)+'" aria-pressed="'+(chosen===x.ticker)+'"><span class="radar-candidate-title"><strong>'+
       safe(x.name)+'</strong>'+statusPill(x)+'</span><span class="radar-sub">'+
-      safe(x.ticker)+' · '+safe(x.first_theme)+' ('+fmt(x.first_rank)+'위) · 최초 '+safe(x.first_seen)+
+      safe(x.ticker)+' · '+(currentSource==='kiwoom'
+        ? safe(x.group_names?.join(' / ')||'내 관심종목')+' · 기술적 구간'
+        : safe(x.first_theme)+' ('+fmt(x.first_rank)+'위) · 최초 '+safe(x.first_seen))+
       '</span><span class="radar-sub">종가 '+fmt(x.close)+'원 · MA20 '+fmt(x.ma20)+
       '원 · 피보 0.382 '+fmt(x.fib?.['0.382'])+'원</span></button>').join(''):
       '<p class="radar-empty">조건에 맞는 관심종목이 없습니다.</p>';
@@ -209,26 +276,51 @@
     svg.addEventListener('pointerleave',hide);
   }
   function renderDetail() {
-    const stocks=Array.isArray(data?.tracked)?data.tracked:[];
+    const stocks=activeStocks();
     const s=stocks.find(x=>x.ticker===chosen);
     const target=$('radarDetail');
     if(!s){target.innerHTML='<p class="radar-empty">종목을 선택하면 최초 상승일, 현재 위치, 피보나치 가격이 표시됩니다.</p>';return;}
     const dateList=(s.signals||[]).slice(-6).map(x=>safe(x.date)+' '+safe(x.theme)+' '+fmt(x.rank)+'위').join(' / ');
+    const personal=currentSource==='kiwoom';
+    const info=personal ? ('저장 관심그룹: '+safe((s.group_names||[]).join(' / '))+
+      ' · 기술적 저점 '+safe(s.swing_low_date||'—')+' · 기술적 고점 '+safe(s.swing_high_date||'—')) :
+      ('주도 테마 선정 이력: '+(dateList||'기록 없음'));
     target.innerHTML=
-      '<div class="radar-detail-heading"><div><h3>'+safe(s.name)+'</h3><span>'+safe(s.ticker)+' · '+safe(s.market)+' · 최초 '+safe(s.first_seen)+'</span></div>'+statusPill(s)+'</div>'+
+      '<div class="radar-detail-heading"><div><h3>'+safe(s.name)+'</h3><span>'+safe(s.ticker)+' · '+safe(s.market)+' · '+(personal?'내 키움 관심종목':('최초 '+safe(s.first_seen)))+'</span></div>'+statusPill(s)+'</div>'+
       '<div class="radar-prices">'+
       [['현재 종가',fmt(s.close)+'원'],['20일선',fmt(s.ma20)+'원'],['20일선 이격',pc(s.ma20_gap_pct)],
       ['상승 전 저점',fmt(s.low_anchor)+'원'],['상승 후 최고가',fmt(s.peak_high)+'원'],
       ['피보 0.236',fmt(s.fib?.['0.236'])+'원'],['피보 0.382',fmt(s.fib?.['0.382'])+'원'],
       ['피보 0.5',fmt(s.fib?.['0.5'])+'원'],['피보 0.618',fmt(s.fib?.['0.618'])+'원'],
       ['최고가 대비 되돌림',pc(s.retracement_pct)]].map(k=>'<div class="radar-price"><small>'+safe(k[0])+'</small><strong>'+safe(k[1])+'</strong></div>').join('')+'</div>'+
-      '<div class="radar-history-line">주도 테마 선정 이력: '+(dateList||'기록 없음')+'</div>'+
+      '<div class="radar-history-line">'+info+'</div>'+
       '<div class="radar-chart-legend"><span class="legend-close">종가</span><span class="legend-ma">20일선</span><span class="legend-fib">피보나치</span></div>'+
       svgChart(s.bars,s.fib)+
-      '<p class="radar-footnote">기준 저점은 최초 관심일 이전 최대 20거래일의 최저가, 고점은 그날부터 현재까지 최고가. 0.382 값은 고점에서 상승폭의 38.2%를 되돌린 가격입니다. 관심은 매수 신호가 아니며 지지 여부를 확인해야 합니다.</p>';
+      '<p class="radar-footnote">'+(personal
+        ? '내 관심종목 기술적 분석은 최근 90거래일 안에서 저점 뒤에 나타난 고점을 기준으로 계산합니다. 과거 테마 상승일은 알 수 없으며, 매수 신호가 아닙니다. 개인 JSON은 브라우저 메모리에서만 처리됩니다.'
+        : '기준 저점은 최초 관심일 이전 최대 20거래일의 최저가, 고점은 그날부터 현재까지 최고가. 0.382 값은 고점에서 상승폭의 38.2%를 되돌린 가격입니다. 관심은 매수 신호가 아니며 지지 여부를 확인해야 합니다.')+'</p>';
     bindChartHover(s.bars);
   }
   function render() {
+    if(currentSource==='kiwoom'){
+      const stocks=activeStocks();
+      const groups=personalData?.groups||[];
+      $('radarDateInfo').textContent=personalData?
+        '내 키움 관심종목 · 로컬 가져오기 '+String(personalData.exported_at_kst||'')+
+        ' · 실시간 연동 아님 · 개인 파일은 GitHub 미전송':
+        '내 키움 관심종목 · 개인 파일을 아직 가져오지 않았습니다.';
+      $('radarWatchInfo').textContent=personalData
+        ? '개인 관심그룹 '+groups.length+'개, 일반주 '+stocks.length+
+          '종목. 이 정보는 현재 브라우저에서만 읽으며 새로고침하면 사라집니다.'
+        : '키움 PC에서 windows/export-watchlist.ps1 실행 후, %LOCALAPPDATA%\\MoneyFlowRadar\\watchlist-export.json 파일을 선택하세요. 개인 파일은 GitHub에 업로드하지 않습니다.';
+      $('radarStats').innerHTML=[
+        ['관심그룹',groups.length+'개'],['내 관심종목',stocks.length+'개'],
+        ['중첩 관심',stocks.filter(x=>x.status_key==='confluence').length+'개'],
+        ['20일선 관심',stocks.filter(x=>x.status_key==='ma20').length+'개']
+      ].map(v=>'<div class="radar-stat"><small>'+v[0]+'</small><strong>'+v[1]+'</strong></div>').join('');
+      renderList();
+      return;
+    }
     if(!data)return;
     const events=Array.isArray(data.events)?data.events:[];
     const tracked=Array.isArray(data.tracked)?data.tracked:[];
