@@ -1,3 +1,5 @@
+> **운영 방식 변경 (2026-11-06)**: GitHub 서버의 키움 OAuth 인증 실패(8050)로 인해 원격 데이터 수집을 폐지하고, IP 등록된 집/직장 PC에서 키움 REST API를 직접 호출하는 독립 수집기로 변경했습니다. GitHub Actions는 JSON 업로드 후 웹 배포만 수행합니다. **최신 설치 방법은 [LOCAL-PC-SETUP.md](LOCAL-PC-SETUP.md)**를 따르세요. 아래에 남아 있는 GitHub Secrets 등록/pykrx/Actions 17:30 수집 설명은 과거 버전 참고 기록이며 현재 운영 방식에 적용되지 않습니다.
+
 # Money Flow Radar v2 — AGIP 스타일 독립형 장마감 대시보드
 
 **기존 키움 + 인포스탁 프로그램과 무관한 별도 프로젝트입니다.** 기존 GitHub 저장소를 수정하지 않습니다. 이 ZIP은 새 저장소에만 업로드하세요.
