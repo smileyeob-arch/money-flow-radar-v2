@@ -10,6 +10,11 @@ on:
       - 'scripts/export_kiwoom_watchlist.py'
       - 'scripts/test_watchlist_export.py'
       - 'scripts/test_radar.py'
+      - 'scripts/collect.py'
+      - 'radar-chart.js'
+      - 'radar-chart.css'
+      - 'radar-ui.js'
+      - 'tests/radar-chart.test.cjs'
       - '.github/workflows/test-radar.yml'
   workflow_dispatch:
 permissions:
@@ -28,3 +33,8 @@ jobs:
         run: |
           python -m py_compile scripts/radar.py scripts/collect.py scripts/backfill.py scripts/radar_backfill_core.py scripts/test_radar.py scripts/test_backfill.py scripts/export_kiwoom_watchlist.py scripts/test_watchlist_export.py
           python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Static chart JavaScript and indicator tests
+        run: |
+          node --check radar-chart.js
+          node --check radar-ui.js
+          node tests/radar-chart.test.cjs
