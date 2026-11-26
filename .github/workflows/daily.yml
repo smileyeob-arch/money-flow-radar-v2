@@ -8,6 +8,8 @@ on:
       - 'index.html'
       - 'app.js'
       - 'radar-ui.js'
+      - 'radar-chart.js'
+      - 'radar-chart.css'
       - 'radar.css'
       - 'style.css'
       - '.github/workflows/daily.yml'
