@@ -195,12 +195,13 @@ def build_radar(snapshot_date, stocks, previous, get_bars, record_new=True):
             if latest_bar != expected:
                 quote["status"] = "시세 기준일 불일치"
                 quote["status_key"] = "unknown"
-            # Keep the last 95 trading sessions for a chart and auditability.
+            # Keep up to 200 actual daily observations for MA120 and chart overlays.
+            # Older snapshots lack open/volume; null means unavailable, not zero.
             quote["bars"] = [
-                {"date": b.get("date"),
+                {"date": b.get("date"), "open": _n(b.get("open")),
                  "close": _n(b.get("close")), "high": _n(b.get("high")),
-                 "low": _n(b.get("low"))}
-                for b in sorted(bars, key=lambda x: x["date"])[-95:]
+                 "low": _n(b.get("low")), "volume": _n(b.get("volume"))}
+                for b in sorted(bars, key=lambda x: x["date"])[-200:]
             ]
         report.append({**item, **quote,
                        "currently_500eok": ticker in current})
