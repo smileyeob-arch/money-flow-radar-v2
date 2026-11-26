@@ -193,8 +193,10 @@ def daily_bars(client, code, today):
         amount = positive(r.get("trde_prica"))
         if re.fullmatch(r"\d{8}", dt) and close > 0 and amount > 0:
             bars[dt] = {"date": dt, "close": close, "amount": amount,
+                        "open": positive(r.get("open_pric")) or None,
                         "high": positive(r.get("high_pric")),
                         "low": positive(r.get("low_pric")),
+                        "volume": positive(r.get("trde_qty")) or None,
                         "prev_delta": number(r.get("pred_pre"))}
     return [bars[dt] for dt in sorted(bars, reverse=True)]
 
