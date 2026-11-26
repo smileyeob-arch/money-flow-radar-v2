@@ -8,6 +8,7 @@
   const pc = v => v == null ? '—' : (v>0?'+':'')+fmt(v,2)+'%';
   const koreanDate = v => v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.slice(5).replace('-','/') : (v||'—');
   let data = null, chosen = null, filter = 'all';
+  let chartRange = '66';
   let personalData = null, currentSource = 'theme', selectedGroup = 'all', personalError = null;
   const activeStocks = () => currentSource === 'kiwoom' ? (personalData?.stocks || []) : (data?.tracked || []);
   const priority = {confluence:0,ma20:1,fib:2,fib_watch:3,waiting:4,risk:5,unknown:6};
@@ -25,6 +26,14 @@
   $('radarStatusFilter').addEventListener('change',e=>{filter=e.target.value;render();});
   $('radarRefresh').addEventListener('click',()=>loadRadar());
   $('radarEventOrder').addEventListener('change',()=>renderEvents());
+  $('radarDetail').addEventListener('click',event=>{
+    const control=event.target.closest('button[data-chart-range]');
+    if(!control || !$('radarDetail').contains(control))return;
+    const next=control.dataset.chartRange;
+    if(!['22','66','132','all'].includes(next))return;
+    chartRange=next;
+    renderDetail();
+  });
   // The candidate rows are rebuilt when filters and data change. Delegate the
   // click to their stable parent so every stock always updates the detail.
   $('radarCandidates').addEventListener('click',event=>{
@@ -336,11 +345,15 @@
       ['최고가 대비 되돌림',pc(s.retracement_pct)]].map(k=>'<div class="radar-price"><small>'+safe(k[0])+'</small><strong>'+safe(k[1])+'</strong></div>').join('')+'</div>'+
       '<div class="radar-history-line">'+info+'</div>'+
       '<div class="radar-chart-legend"><span class="legend-close">종가</span><span class="legend-ma">20일선</span><span class="legend-fib">피보나치</span></div>'+
-      svgChart(s.bars,s.fib)+
+      (window.MoneyFlowChart
+        ? window.MoneyFlowChart.render(s.bars,s.fib,{range:chartRange,name:s.name})
+        : svgChart(s.bars,s.fib))+
       '<p class="radar-footnote">'+(personal
         ? '내 관심종목 기술적 분석은 최근 90거래일 안에서 저점 뒤에 나타난 고점을 기준으로 계산합니다. 과거 테마 상승일은 알 수 없으며, 매수 신호가 아닙니다. 개인 JSON은 브라우저 메모리에서만 처리됩니다.'
         : '기준 저점은 최초 관심일 이전 최대 20거래일의 최저가, 고점은 그날부터 현재까지 최고가. 0.382 값은 고점에서 상승폭의 38.2%를 되돌린 가격입니다. 관심은 매수 신호가 아니며 지지 여부를 확인해야 합니다.')+'</p>';
-    bindChartHover(s.bars);
+    if(window.MoneyFlowChart){
+      window.MoneyFlowChart.bind(target,s.bars,{range:chartRange,fib:s.fib});
+    }else bindChartHover(s.bars);
   }
   function render() {
     if(currentSource==='kiwoom'){
