@@ -9,6 +9,8 @@ on:
       - 'app.js'
       - 'radar-ui.js'
       - 'radar-chart.js'
+      - 'radar-tv-chart.js'
+      - 'radar-tv-chart.css'
       - 'radar-chart.css'
       - 'radar.css'
       - 'style.css'
