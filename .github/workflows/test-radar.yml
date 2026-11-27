@@ -12,6 +12,9 @@ on:
       - 'scripts/test_radar.py'
       - 'scripts/collect.py'
       - 'radar-chart.js'
+      - 'radar-tv-chart.js'
+      - 'radar-tv-chart.css'
+      - 'tests/radar-tv-chart.test.cjs'
       - 'radar-chart.css'
       - 'radar-ui.js'
       - 'tests/radar-chart.test.cjs'
@@ -36,5 +39,7 @@ jobs:
       - name: Static chart JavaScript and indicator tests
         run: |
           node --check radar-chart.js
+          node --check radar-tv-chart.js
           node --check radar-ui.js
           node tests/radar-chart.test.cjs
+          node tests/radar-tv-chart.test.cjs
