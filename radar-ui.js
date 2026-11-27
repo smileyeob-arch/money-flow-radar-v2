@@ -8,7 +8,7 @@
   const pc = v => v == null ? '—' : (v>0?'+':'')+fmt(v,2)+'%';
   const koreanDate = v => v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.slice(5).replace('-','/') : (v||'—');
   let data = null, chosen = null, filter = 'all';
-  let chartRange = '66';
+  let chartRange = '252';
   let personalData = null, currentSource = 'theme', selectedGroup = 'all', personalError = null;
   const activeStocks = () => currentSource === 'kiwoom' ? (personalData?.stocks || []) : (data?.tracked || []);
   const priority = {confluence:0,ma20:1,fib:2,fib_watch:3,waiting:4,risk:5,unknown:6};
@@ -30,7 +30,7 @@
     const control=event.target.closest('button[data-chart-range]');
     if(!control || !$('radarDetail').contains(control))return;
     const next=control.dataset.chartRange;
-    if(!['22','66','132','all'].includes(next))return;
+    if(!['22','66','132','252','all'].includes(next))return;
     chartRange=next;
     renderDetail();
   });
@@ -193,6 +193,8 @@
     const stocks=activeStocks();
     const s=stocks.find(x=>x.ticker===chosen);
     const target=$('radarDetail');
+    // Tear down the previous TradingView canvas before changing selected stocks.
+    window.MoneyFlowChart?.destroy?.(target);
     if(!s){target.innerHTML='<p class="radar-empty">종목을 선택하면 최초 상승일, 현재 위치, 피보나치 가격이 표시됩니다.</p>';return;}
     const dateList=(s.signals||[]).slice(-6).map(x=>safe(x.date)+' '+safe(x.theme)+' '+fmt(x.rank)+'위').join(' / ');
     const personal=currentSource==='kiwoom';
@@ -209,7 +211,7 @@
       ['최고가 대비 되돌림',pc(s.retracement_pct)]].map(k=>'<div class="radar-price"><small>'+safe(k[0])+'</small><strong>'+safe(k[1])+'</strong></div>').join('')+'</div>'+
       '<div class="radar-history-line">'+info+'</div>'+
       (window.MoneyFlowChart
-        ? window.MoneyFlowChart.render(s.bars,s.fib,{range:chartRange,name:s.name})
+        ? window.MoneyFlowChart.render(s.bars,s.fib,{range:chartRange,name:s.name,ticker:s.ticker})
         : '<p class="radar-empty">차트 모듈을 불러오지 못했습니다. 새로고침해 주세요.</p>')+
       '<p class="radar-footnote">'+(personal
         ? '내 관심종목 기술적 분석은 최근 90거래일 안에서 저점 뒤에 나타난 고점을 기준으로 계산합니다. 과거 테마 상승일은 알 수 없으며, 매수 신호가 아닙니다. 개인 JSON은 브라우저 메모리에서만 처리됩니다.'
