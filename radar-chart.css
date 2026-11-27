@@ -1,64 +1,62 @@
-/* Money Flow Radar 3.4 — reference-inspired trading terminal chart */
-.mfr-chart{overflow:hidden;border-radius:13px;border:1px solid #203454;background:#09162c;color:#e9f2ff;box-shadow:0 9px 28px rgba(10,27,55,.17);min-width:0}
-.mfr-chart-top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 19px 12px;background:linear-gradient(110deg,#112748,#0c1933);border-bottom:1px solid #263c5b;flex-wrap:wrap}
-.mfr-quote{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
-.mfr-quote-title{font-size:14px;color:#f0f6ff;font-weight:800;margin-right:8px}
-.mfr-quote-title span{font-size:11px;color:#8eabc7;font-weight:500;margin-left:7px}
-.mfr-quote strong{font-size:21px;color:#f9fbff;letter-spacing:-.6px}
-.mfr-change{font-size:12px;font-weight:800;padding:5px 7px;border-radius:7px}
-.mfr-change.positive{color:#ff7b8b;background:#ff617520}
-.mfr-change.negative{color:#7dbaff;background:#4a9ce820}
-.mfr-range-bar{display:flex;align-items:center;gap:3px;padding:3px;background:#0b203b;border-radius:8px;border:1px solid #233c60}
-.mfr-range{border:0;min-width:43px;padding:8px 9px;border-radius:6px;background:transparent;color:#9db8d2;font-weight:650;font-size:11px;cursor:pointer;transition:background .15s,color .15s}
-.mfr-range:hover{color:#fff;background:#213b5a}
-.mfr-range.active{background:#166bbf;color:#fff;box-shadow:0 2px 9px #0003}
-.mfr-range:focus-visible{outline:2px solid #b9d9fa}
-.mfr-key-row{display:flex;flex-wrap:wrap;align-items:center;column-gap:15px;row-gap:8px;padding:10px 18px 0;font-size:10px;color:#b7cde3}
-.mfr-key-row>span{display:inline-flex;gap:5px;align-items:center}
-.mfr-key-row i{display:inline-block;width:10px;height:10px;border-radius:2px}
-.mfr-key-row .mfr-up-dot{background:#ff6175}
-.mfr-key-row .mfr-down-dot{background:#4a9ce8}
-.mfr-legend i{width:15px;height:3px;border-radius:0;background:var(--line-color)}
-.mfr-legend b{font-weight:800;color:#dceafb;font-variant-numeric:tabular-nums}
-.mfr-plot-container{position:relative;min-width:0;margin:4px 7px 0}
-.mfr-svg{display:block;width:100%;height:auto;min-width:0;max-height:none;touch-action:pan-y}
-.mfr-svg .mfr-grid{stroke:#304664;stroke-width:.8;stroke-dasharray:3 6;opacity:.8}
-.mfr-svg .mfr-vertical{stroke:#284362;stroke-width:.75;stroke-dasharray:3 8;opacity:.65}
-.mfr-svg .mfr-guide{stroke:#6c618e;stroke-dasharray:5 7;opacity:.9}
-.mfr-svg .mfr-zero{stroke:#7897b5;stroke-width:1;opacity:.7}
-.mfr-svg .mfr-fib{stroke:#6ac5aa;stroke-width:1.2;stroke-dasharray:7 5;opacity:.75}
-.mfr-svg .mfr-fib-primary{stroke:#68dfaf;stroke-width:1.75;opacity:1}
-.mfr-svg .mfr-fib-label{fill:#a9ead4;font-size:12px;font-weight:750}
-.mfr-svg .mfr-fib-label.primary{fill:#4bf5b1}
-.mfr-svg .mfr-fib-value{fill:#a0cdbd;font-size:10px}
-.mfr-svg .mfr-axis{fill:#8eaac6;font-size:10px;font-variant-numeric:tabular-nums}
-.mfr-svg .mfr-panel-name{fill:#c4d4eb;font-size:12px;font-weight:750;paint-order:stroke;stroke:#11223d;stroke-width:2px}
-.mfr-svg .mfr-close-line{fill:none;stroke:#61bfff;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
-.mfr-svg .mfr-ma-line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
-.mfr-svg .mfr-indicator-line{fill:none;stroke-width:1.8;stroke-linejoin:round}
-.mfr-svg .mfr-no-data{fill:#7188a5;font-size:12px}
-.mfr-svg .mfr-cross{stroke:#edf6ff;stroke-width:1;stroke-dasharray:3 5;opacity:.68;pointer-events:none}
-.mfr-svg .mfr-hover-dot{fill:#fff;stroke:#368ad6;stroke-width:2;pointer-events:none}
-.mfr-tooltip{position:absolute;z-index:5;min-width:146px;pointer-events:none;background:rgba(7,20,40,.96);border:1px solid #4d7296;border-radius:9px;box-shadow:0 12px 32px #0008;padding:9px 12px;color:#dce9f7;font-size:11px;line-height:1.75;transform:translateY(-105%);font-variant-numeric:tabular-nums}
-.mfr-tooltip[hidden]{display:none!important}
-.mfr-tooltip>b{display:block;font-weight:800;color:#fff;font-size:12px;margin-bottom:4px}
-.mfr-tooltip span{display:flex;justify-content:space-between;gap:19px}
-.mfr-tooltip strong{color:#f1f9ff}
-.mfr-data-note{font-size:10px;color:#91aac4;line-height:1.7;padding:5px 19px 14px}
-.mfr-empty{border-radius:12px;padding:40px 20px;background:#101e34;color:#9bb0cd;text-align:center}
-@media(max-width:900px){
- .mfr-chart-top{padding:12px 13px}
- .mfr-quote-title{width:100%}
- .mfr-quote strong{font-size:18px}
- .mfr-range{padding:7px 6px;min-width:36px;font-size:10px}
- .mfr-key-row{gap:8px;padding:9px 12px 0}
- .mfr-data-note{padding:5px 10px 12px}
-}
-@media(max-width:530px){
- .mfr-chart-top{gap:9px}
- .mfr-quote-title span{display:inline-block}
- .mfr-plot-container{overflow-x:auto}
- .mfr-svg{min-width:660px}
- .mfr-range-bar{width:100%;justify-content:space-between}
- .mfr-range{flex:1}
+/* v3.5: K차트스캐너 visual chart — candlesticks, MA5/10/20/60/120 and volume. */
+.kcs-chart{min-width:0;overflow:hidden;border-radius:13px;border:1px solid #1c3653;background:#07172b;color:#e7f0ff;box-shadow:0 9px 22px rgba(0,21,48,.13)}
+.kcs-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:17px 18px 12px;background:linear-gradient(105deg,#0b213a,#081a30);border-bottom:1px solid #1b3550}
+.kcs-price-title{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-variant-numeric:tabular-nums}
+.kcs-price-title>div:first-child{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.kcs-price-title>div:first-child strong{font-size:19px;color:#fff;letter-spacing:-.4px}
+.kcs-price-title>div:first-child span{font-size:11px;color:#93acc9}
+.kcs-price-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.kcs-price-row>b{font-size:20px;font-weight:850;color:#f3f8ff}
+.kcs-price-row>span{font-size:13px;font-weight:800}
+.kcs-price-row>span.up{color:#ff6076}
+.kcs-price-row>span.down{color:#71a7ff}
+.kcs-range-bar{display:flex;gap:4px;padding:3px;border-radius:9px;background:#102b46;border:1px solid #214466}
+.kcs-range{cursor:pointer;border:0;background:transparent;color:#9cbad5;padding:8px 13px;border-radius:6px;font-size:11px;font-weight:750}
+.kcs-range.active{background:linear-gradient(90deg,#079ba1,#076a7b);color:white;box-shadow:0 2px 8px #00a7bb36}
+.kcs-range:hover:not(.active){background:#1b405b;color:#fff}
+.kcs-range:focus-visible{outline:2px solid #65cdd3;outline-offset:1px}
+.kcs-legend{display:flex;align-items:center;flex-wrap:wrap;gap:11px;padding:12px 18px 4px;color:#9eb9ce;font-size:11px;font-variant-numeric:tabular-nums}
+.kcs-legend-title{color:#b7c6d5;font-weight:700;margin-right:1px}
+.kcs-legend-label{display:inline-flex;gap:5px;align-items:center}
+.kcs-legend-label i{display:inline-block;width:12px;height:8px;border-radius:50%;border:1px solid #e2efff33;box-shadow:0 0 2px #fff2}
+.kcs-legend-label b{font-weight:750;color:#d3e6f8;margin-left:2px}
+.kcs-plot{position:relative;margin:0 7px 1px;min-width:0}
+.kcs-svg{display:block;width:100%;height:auto;max-height:none;min-width:0;touch-action:pan-y}
+.kcs-svg .kcs-grid{stroke:#23405c;stroke-width:.8;stroke-dasharray:3 6;opacity:.82}
+.kcs-svg .kcs-vertical{stroke:#1f3956;stroke-width:.7;stroke-dasharray:3 9;opacity:.75}
+.kcs-svg .kcs-axis{fill:#a2b9d0;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+.kcs-svg .kcs-ma-line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.kcs-svg .kcs-close-line{fill:none;stroke:#79bbff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.kcs-svg .kcs-fib-fill{fill:#36c8ad;fill-opacity:.17}
+.kcs-svg .kcs-fib-edge{stroke:#4be2ba;stroke-opacity:.55;stroke-width:1.15;stroke-dasharray:5 6}
+.kcs-svg .kcs-volume-separator{stroke:#35536e;stroke-width:1}
+.kcs-svg .kcs-volume-name{fill:#a7bdd2;font-size:11px;font-weight:650}
+.kcs-svg .kcs-price-badge{fill:#fff;font-size:12px;font-weight:800}
+.kcs-svg .kcs-ma-badge{fill:#07182d;font-size:10px;font-weight:800}
+.kcs-svg .kcs-empty-note{fill:#7c9db9;font-size:12px}
+.kcs-svg .kcs-cross{stroke:#d3e5f5;stroke-width:1;stroke-dasharray:3 5;opacity:.68;pointer-events:none}
+.kcs-svg .kcs-dot{fill:#eaf9ff;stroke:#3386df;stroke-width:2;pointer-events:none}
+.kcs-tooltip{position:absolute;z-index:5;pointer-events:none;min-width:147px;background:#0b1d34f5;border:1px solid #496d8e;border-radius:9px;padding:10px 12px;color:#dbedff;font-size:11px;line-height:1.8;transform:translateY(-105%);font-variant-numeric:tabular-nums;box-shadow:0 14px 28px #0008}
+.kcs-tooltip[hidden]{display:none!important}
+.kcs-tooltip>strong{display:block;color:white;font-size:12px;margin-bottom:4px}
+.kcs-tooltip>span{display:flex;justify-content:space-between;gap:20px}
+.kcs-tooltip b{color:#f2f9ff}
+.kcs-footer{display:flex;justify-content:space-between;gap:11px;flex-wrap:wrap;align-items:center;padding:8px 18px 14px;color:#8eaac6;font-size:10px;line-height:1.6}
+.kcs-candle-key{white-space:nowrap}
+.kcs-candle-key i{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 4px 0 6px}
+.kcs-candle-key i.bull{background:#ff5267}
+.kcs-candle-key i.bear{background:#4387ed}
+.kcs-fib-indicator{display:inline-flex;align-items:center;gap:6px}
+.kcs-fib-indicator i{display:inline-block;width:16px;height:9px;border:1px dashed #4be2ba;background:#36c8ad35}
+.kcs-empty{background:#0b1d35;border-radius:12px;color:#a5bad0;text-align:center;padding:40px 12px}
+@media(max-width:800px){
+ .kcs-header{padding:12px 12px}
+ .kcs-price-title{gap:8px}
+ .kcs-price-title>div:first-child strong{font-size:17px}
+ .kcs-price-row>b{font-size:17px}
+ .kcs-legend{padding:10px 10px 4px;gap:8px}
+ .kcs-plot{overflow-x:auto}
+ .kcs-svg{min-width:680px}
+ .kcs-footer{padding:9px 10px 13px}
+ .kcs-range{padding:7px 9px}
 }
