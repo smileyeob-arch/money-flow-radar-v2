@@ -344,13 +344,12 @@
       ['피보 0.5',fmt(s.fib?.['0.5'])+'원'],['피보 0.618',fmt(s.fib?.['0.618'])+'원'],
       ['최고가 대비 되돌림',pc(s.retracement_pct)]].map(k=>'<div class="radar-price"><small>'+safe(k[0])+'</small><strong>'+safe(k[1])+'</strong></div>').join('')+'</div>'+
       '<div class="radar-history-line">'+info+'</div>'+
-      '<div class="radar-chart-legend"><span class="legend-close">종가</span><span class="legend-ma">20일선</span><span class="legend-fib">피보나치</span></div>'+
       (window.MoneyFlowChart
         ? window.MoneyFlowChart.render(s.bars,s.fib,{range:chartRange,name:s.name})
         : svgChart(s.bars,s.fib))+
       '<p class="radar-footnote">'+(personal
         ? '내 관심종목 기술적 분석은 최근 90거래일 안에서 저점 뒤에 나타난 고점을 기준으로 계산합니다. 과거 테마 상승일은 알 수 없으며, 매수 신호가 아닙니다. 개인 JSON은 브라우저 메모리에서만 처리됩니다.'
-        : '기준 저점은 최초 관심일 이전 최대 20거래일의 최저가, 고점은 그날부터 현재까지 최고가. 0.382 값은 고점에서 상승폭의 38.2%를 되돌린 가격입니다. 관심은 매수 신호가 아니며 지지 여부를 확인해야 합니다.')+'</p>';
+        : '기준 저점은 최초 관심일 이전 최대 20거래일의 최저가, 고점은 그날부터 현재까지 최고가. 피보나치 0.236~0.382는 차트에 반투명 구간으로만 표시하고 숫자는 위 분석표에서 확인하세요. 관심은 매수 신호가 아니며 지지 여부를 확인해야 합니다.')+'</p>';
     if(window.MoneyFlowChart){
       window.MoneyFlowChart.bind(target,s.bars,{range:chartRange,fib:s.fib});
     }else bindChartHover(s.bars);
