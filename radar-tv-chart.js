@@ -99,7 +99,7 @@
       const ten=chart.addSeries(lib.LineSeries,{color:'#7eaeff',lineWidth:2,
         lastValueVisible:false,priceLineVisible:false,crosshairMarkerVisible:false});
       ten.setData(average(all,10));
-      const twenty=chart.addSeries(lib.LineSeries,{color:'#f5c25e',lineWidth:2.5,
+      const twenty=chart.addSeries(lib.LineSeries,{color:'#f5c25e',lineWidth:3,
         lastValueVisible:false,priceLineVisible:false,crosshairMarkerVisible:false});
       twenty.setData(average(all,20));
       const volume=chart.addSeries(lib.HistogramSeries,{
