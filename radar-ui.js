@@ -108,7 +108,7 @@
     const file=e.target.files?.[0];
     if(!file)return;
     try{
-      if(file.size>30*1024*1024)throw Error('파일 크기는 최대 30MB까지 허용합니다.');
+      if(file.size>100*1024*1024)throw Error('파일 크기는 최대 100MB까지 허용합니다.');
       const payload=JSON.parse(await file.text());
       if(payload?.kind!=='kiwoom_watchlist_local' ||
          !Array.isArray(payload.groups) || !Array.isArray(payload.stocks) ||
