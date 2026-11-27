@@ -7,6 +7,7 @@ import gzip
 import json
 import os
 import re
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -172,43 +173,90 @@ def stock_record(code, info, bars):
     }
 
 
+def _fetch_chart_with_retry(client, code, today, attempts=3):
+    """Retry only transient Kiwoom processing/transport failures.
+
+    A permanently rejected request is not retried indefinitely, and no
+    failed/stale OHLCV observations are ever written into the chart cache.
+    """
+    for attempt in range(1, attempts + 1):
+        try:
+            return daily_bars(client, code, today)
+        except Exception as exc:
+            detail = str(exc)
+            transient = ("API error 7" in detail and "[1632]" in detail) or (
+                "transport error" in detail)
+            if not transient or attempt >= attempts:
+                raise
+            print(f"Transient chart error for {code}; retry {attempt}/{attempts - 1}", flush=True)
+            time.sleep(min(4, attempt * 1.5))
+
+
+def unavailable_stock_record(code, info, reason):
+    """Keep a group member visible, but never invent a price or an indicator."""
+    return {
+        "ticker": code, "name": info["name"], "market": info["market"],
+        "status": "일봉 조회 실패", "status_key": "unknown",
+        "bars": [], "session": None, "chart_error": reason,
+    }
+
+
 def collect_watch_charts(client, selected, today, cache_path):
-    """Resume a large watchlist in 25-ticker checkpoints; never publish partial exports."""
+    """Resume personal charts and publish an explicitly marked partial result."""
     cache = load_watchlist_cache(cache_path, today)
     records = cache["records"]
     total = len(selected)
     already = sum(code in records for code in selected)
     print(f"Personal watchlist charts: {already}/{total} cached locally; resume supported", flush=True)
     consecutive_errors = 0
-    failed = 0
+    failed_codes = {}
     processed_since_checkpoint = 0
     for idx, (code, info) in enumerate(sorted(selected.items()), 1):
         if code in records:
             continue
         try:
-            bars = daily_bars(client, code, today)
+            bars = _fetch_chart_with_retry(client, code, today)
             records[code] = stock_record(code, info, bars)
             consecutive_errors = 0
         except Exception as exc:
-            failed += 1
+            # Do not cache failures. On the next run we retry only the
+            # unavailable tickers; previously successful 1544 remain cached.
+            failed_codes[code] = f"{type(exc).__name__}: {str(exc)[:160]}"
             consecutive_errors += 1
-            if failed <= 8:
-                print(f"Watchlist chart error {code}: {type(exc).__name__}: {str(exc)[:100]}", flush=True)
+            if len(failed_codes) <= 8:
+                print(f"Watchlist chart error {code}: {failed_codes[code]}", flush=True)
         processed_since_checkpoint += 1
         if processed_since_checkpoint >= CHECKPOINT_EVERY or idx == total:
             save_watchlist_cache(cache_path, cache)
             processed_since_checkpoint = 0
-            print(f"Watchlist progress {idx}/{total}; cached={sum(c in records for c in selected)}, errors={failed}", flush=True)
+            print(f"Watchlist progress {idx}/{total}; cached={sum(c in records for c in selected)}, errors={len(failed_codes)}", flush=True)
         if consecutive_errors >= 8:
             save_watchlist_cache(cache_path, cache)
             raise RuntimeError("8 consecutive Kiwoom chart errors. Local checkpoint saved; rerun to resume.")
     save_watchlist_cache(cache_path, cache)
-    missing = [code for code in selected if code not in records]
-    if missing:
+    missing = [code for code in sorted(selected) if code not in records]
+    # A handful of bad requests must not prevent all 1544 valid stocks from
+    # being viewed. Stop if too many responses fail: that indicates wider
+    # service trouble rather than one unreliable issue.
+    allowed_missing = max(1, min(20, total // 100))
+    if len(missing) > allowed_missing:
         raise RuntimeError(
-            f"{len(missing)} watchlist chart requests failed; checkpoint saved, export not overwritten. Rerun to retry."
+            f"{len(missing)} watchlist chart requests failed (limit {allowed_missing}); "
+            "checkpoint preserved, export not overwritten. Rerun to retry."
         )
-    return [records[code] for code in sorted(selected)]
+    if missing:
+        print(
+            f"PARTIAL EXPORT WARNING: {len(missing)} chart(s) unavailable: "
+            f"{', '.join(missing)}. All failed shares will be shown as '일봉 조회 실패'; "
+            "remaining successful quotes are preserved.",
+            flush=True
+        )
+    output = [
+        records[code] if code in records else
+        unavailable_stock_record(code, selected[code], failed_codes.get(code, "일봉 데이터 없음"))
+        for code in sorted(selected)
+    ]
+    return output
 
 
 def main():
@@ -245,8 +293,12 @@ def main():
     stocks = collect_watch_charts(client, selected, now.date(), cache_path)
     if not stocks:
         raise RuntimeError("No eligible KOSPI/KOSDAQ ordinary stocks; existing file unchanged")
+    failed_stocks = [x["ticker"] for x in stocks if x.get("status_key") == "unknown" and
+                     x.get("chart_error")]
     data = {
         "kind": "kiwoom_watchlist_local",
+        "failed_chart_count": len(failed_stocks),
+        "failed_chart_tickers": failed_stocks,
         "exported_at_kst": now.strftime("%Y-%m-%d %H:%M KST"),
         "source": "Kiwoom REST ka01300 / ka01301 / ka10099 / ka10081",
         "privacy": "local_only_do_not_upload_to_public_github",
@@ -257,7 +309,8 @@ def main():
     temp = target.with_suffix(".tmp")
     temp.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     os.replace(temp, target)
-    print(f"EXPORT SUCCESS: {len(stocks)} stocks in {len(groups)} groups.", flush=True)
+    print(f"EXPORT SUCCESS: {len(stocks)} stocks in {len(groups)} groups; "
+          f"chart unavailable={len(failed_stocks)}, valid={len(stocks)-len(failed_stocks)}.", flush=True)
     print(f"LOCAL ONLY: {target}", flush=True)
     print("No personal watchlist data uploaded to GitHub.",flush=True)
 
