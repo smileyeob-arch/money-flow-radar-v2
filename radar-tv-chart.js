@@ -48,7 +48,7 @@
         '<div class="ksr-need"><strong>이 종목은 실제 캔들용 시가 데이터가 없습니다.</strong>'+
         '<p>파일 기준 '+safe(dstr(last?.date))+' · 캔들 구성 가능 '+complete+'/'+selected.length+'개 일봉</p>'+
         '<p>키움 등록 PC에서 아래 명령으로 관심종목 JSON을 재수집한 다음 파일을 다시 불러와 주세요.</p>'+
-        '<code>powershell -NoProfile -ExecutionPolicy Bypass -File .\windows\export-watchlist.ps1</code>'+
+        '<code>powershell -NoProfile -ExecutionPolicy Bypass -File .\\windows\\export-watchlist.ps1</code>'+
         '<p>종가선으로 대체하거나 가짜 캔들을 생성하지 않습니다.</p></div></section>';
     }
     if(!L()?.createChart){
