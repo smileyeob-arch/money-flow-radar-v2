@@ -1,0 +1,41 @@
+/* Match the supplied K Chart Scanner reference: understated dark TradingView candles. */
+.ksr-chart{background:#111c2d;border:1px solid #243550;border-radius:10px;color:#dbe7f7;min-width:0;overflow:hidden;margin:8px 0 12px;box-shadow:0 5px 18px rgba(8,25,46,.12)}
+.ksr-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding:20px 17px 14px}
+.ksr-head small{display:block;color:#5ac5a9;letter-spacing:.16em;font-size:10px;font-weight:750;margin-bottom:10px}
+.ksr-head h3{margin:0;font-size:20px;line-height:1.2;color:#ecf2fc;font-weight:800;letter-spacing:-.35px}
+.ksr-head h3 span{font-size:12px;font-weight:550;color:#8797af;margin-left:6px}
+.ksr-controls{display:flex;gap:4px;padding:4px;background:#19283e;border:1px solid #32435d;border-radius:8px}
+.ksr-range{padding:8px 10px;min-width:43px;background:transparent;border:0;border-radius:5px;color:#a7b8d0;font-size:11px;cursor:pointer}
+.ksr-range:hover{background:#32435f;color:#fff}
+.ksr-range.active{background:#264e82;color:#fff;font-weight:750}
+.ksr-range:focus-visible{outline:2px solid #65bdeb;outline-offset:2px}
+.ksr-key{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:3px 18px 11px;font-size:10px;color:#8da4bf}
+.ksr-key>span{display:inline-flex;align-items:center;gap:5px}
+.ksr-key i{display:inline-block;width:9px;height:9px;border-radius:2px}
+.ksr-up{background:#f17181}.ksr-down{background:#5899e8}
+.ksr-key10{color:#7eaeff}.ksr-key20{color:#f5c25e}
+.ksr-shell{position:relative;margin:0 10px;min-height:540px;background:#131d30;overflow:hidden}
+.ksr-canvas{width:100%;height:540px}
+.ksr-tooltip{position:absolute;z-index:8;pointer-events:none;border:1px solid #536e8c;border-radius:7px;padding:8px 10px;min-width:150px;font-size:11px;line-height:1.75;color:#d7e7f4;background:#09152aef;box-shadow:0 8px 22px #0007}
+.ksr-tooltip[hidden]{display:none!important}
+.ksr-tooltip>b{display:block;margin-bottom:3px;color:#fff}
+.ksr-tooltip span{display:flex;justify-content:space-between;gap:12px}
+.ksr-tooltip strong{color:#fff}
+.ksr-no-volume{position:absolute;bottom:7px;left:16px;color:#9aacbf;font-size:10px;background:#111c2ddd;pointer-events:none}
+.ksr-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#8fa4bd;border-top:1px solid #2c405c;padding:12px 17px;font-size:10px}
+.ksr-need{display:flex;flex-direction:column;align-items:flex-start;gap:11px;min-height:260px;margin:10px;padding:30px 24px;background:#101b2e;border:1px dashed #47617e;border-radius:8px}
+.ksr-need>strong{font-size:14px;color:#f2f7fd}
+.ksr-need p{margin:0;line-height:1.8;font-size:12px;color:#afc3da}
+.ksr-need code{max-width:100%;white-space:normal;overflow-wrap:anywhere;background:#203651;border-radius:5px;padding:10px 12px;color:#dcf2ff;font-size:12px}
+.ksr-note,.ksr-error{padding:12px 16px;background:#fff1d8;border:1px solid #f5d39e;color:#765122;font-size:12px}
+.ksr-error{color:#a23c38;background:#fff0ee}
+@media(max-width:760px){
+  .ksr-head{padding:14px 12px;gap:12px}
+  .ksr-head h3{font-size:17px}
+  .ksr-controls{width:100%;justify-content:space-between}
+  .ksr-range{flex:1;min-width:0}
+  .ksr-shell{margin:0 4px}
+  .ksr-canvas{height:470px}
+  .ksr-shell{min-height:470px}
+  .ksr-footer{padding:9px 12px}
+}
