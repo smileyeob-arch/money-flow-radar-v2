@@ -230,7 +230,11 @@
         '내 키움 관심종목 · 개인 파일을 아직 가져오지 않았습니다.';
       $('radarWatchInfo').textContent=personalError || (personalData
         ? '개인 관심그룹 '+groups.length+'개, 일반주 '+stocks.length+
-          '종목. 종목 옆 ×로 개별 삭제하거나 선택 그룹을 삭제할 수 있습니다. 이 브라우저 화면에만 적용되며, 파일 재선택 시 복원됩니다.'
+          '종목'+(stocks.some(x=>x.chart_error)
+            ? ' · 일봉 조회 실패 '+stocks.filter(x=>x.chart_error).length+
+              '개(차트·지표 없음, 다음 PC 수집 때 재시도)'
+            : '')+
+          '. 종목 옆 ×로 개별 삭제하거나 선택 그룹을 삭제할 수 있습니다. 이 브라우저 화면에만 적용되며, 파일 재선택 시 복원됩니다.'
         : '키움 PC에서 windows/export-watchlist.ps1 실행 후, %LOCALAPPDATA%\\MoneyFlowRadar\\watchlist-export.json 파일을 선택하세요. 개인 파일은 GitHub에 업로드하지 않습니다.');
       $('radarStats').innerHTML=[
         ['관심그룹',groups.length+'개'],['내 관심종목',stocks.length+'개'],
