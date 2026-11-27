@@ -1,296 +1,255 @@
 'use strict';
-/* Self-contained, read-only SVG stock chart. Never synthesizes OHLCV values. */
+/* K차트스캐너 visual style: daily candlesticks, MA5/10/20/60/120, volume.
+   Fibonacci is a 0.236-0.382 lower-zone highlight only: no numbers on chart.
+   Read-only technical visualization; never invent missing OHLCV observations. */
 (() => {
-  const W=1080, XL=55, XR=952;
-  const panes={price:[32,322],volume:[332,410],rsi:[423,493],macd:[510,580]};
-  const maColors={10:'#facc15',20:'#fb923c',60:'#38bdf8',120:'#b084f9'};
-  const bull='#ff6175',bear='#4a9ce8',neutral='#a9b9d1';
+  const W=1080,H=555,XL=60,XR=966,PT=37,PB=417,VT=428,VB=510;
+  const maSpec=[
+    {period:5,color:'#f2f5ff'},
+    {period:10,color:'#377ff6'},
+    {period:20,color:'#ffd02e'},
+    {period:60,color:'#16bf6e'},
+    {period:120,color:'#a35edd'}
+  ];
+  const UP='#ff5267',DOWN='#4387ed',EVEN='#9ab0c6';
   const ranges=[['22','1개월'],['66','3개월'],['132','6개월'],['all','전체']];
-  const num=v=>{
-    if(v===null||v===undefined||v==='')return null;
-    const n=Number(v);return Number.isFinite(n)?n:null;
+  const n=v=>{
+    if(v==null||v==='')return null;
+    const x=Number(v);return Number.isFinite(x)?x:null;
   };
-  const fmt=(v,max=0)=>num(v)==null?'—':num(v).toLocaleString('ko-KR',{maximumFractionDigits:max});
+  const fmt=(v,d=0)=>n(v)==null?'—':n(v).toLocaleString('ko-KR',{maximumFractionDigits:d});
   const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const round=n=>Number(n.toFixed(2));
-  const xAt=(i,count)=>XL+(count<2?0:i/(count-1)*(XR-XL));
-  const yOn=(n,domain,pane)=>{
-    const [min,max]=domain,[top,bottom]=pane;
-    return bottom-(n-min)/(max-min)*(bottom-top);
+  const R=v=>Math.round(v*100)/100;
+  const dateText=(value,full=false)=>{
+    const raw=String(value??'').replace(/\D/g,'');
+    if(raw.length!==8)return String(value??'');
+    return full?raw.slice(0,4)+'-'+raw.slice(4,6)+'-'+raw.slice(6,8):
+      Number(raw.slice(4,6))+'/'+Number(raw.slice(6,8));
   };
-  const shortDate=v=>{
-    const d=String(v??'').replace(/\D/g,'');
-    return d.length===8?d.slice(4,6)+'.'+d.slice(6,8):String(v??'');
-  };
-  const longDate=v=>{
-    const d=String(v??'').replace(/\D/g,'');
-    return d.length===8?d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8):String(v??'');
-  };
-  function normalize(bars){
-    const byDate=new Map();
-    (Array.isArray(bars)?bars:[]).forEach(b=>{
-      if(!b||!/^\d{8}$/.test(String(b.date??'')))return;
-      const close=num(b.close),open=num(b.open),high=num(b.high),low=num(b.low),volume=num(b.volume);
-      if(close==null||close<=0)return;
-      byDate.set(String(b.date),{
+  function normalize(source){
+    const dates=new Map();
+    for(const b of (Array.isArray(source)?source:[])){
+      if(!b||!/^\d{8}$/.test(String(b.date??'')))continue;
+      const close=n(b.close),open=n(b.open),high=n(b.high),low=n(b.low),volume=n(b.volume);
+      if(close==null||close<=0)continue;
+      dates.set(String(b.date),{
         date:String(b.date),close,
         open:open!=null&&open>0?open:null,
         high:high!=null&&high>0?high:null,
         low:low!=null&&low>0?low:null,
         volume:volume!=null&&volume>=0?volume:null
       });
-    });
-    return [...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));
+    }
+    return [...dates.values()].sort((a,b)=>a.date.localeCompare(b.date));
   }
-  function sma(values,p){
+  function sma(values,period){
     const result=Array(values.length).fill(null);
     let sum=0;
     for(let i=0;i<values.length;i++){
       sum+=values[i];
-      if(i>=p)sum-=values[i-p];
-      if(i>=p-1)result[i]=sum/p;
+      if(i>=period)sum-=values[i-period];
+      if(i>=period-1)result[i]=sum/period;
     }
     return result;
   }
-  function ema(values,p){
-    const result=Array(values.length).fill(null);
-    if(values.length<p)return result;
-    const k=2/(p+1);
-    result[p-1]=values.slice(0,p).reduce((a,b)=>a+b,0)/p;
-    for(let i=p;i<values.length;i++)result[i]=values[i]*k+result[i-1]*(1-k);
-    return result;
+  function rangeData(bars,range){
+    const all=normalize(bars);
+    const size=range==='all'?all.length:Math.min(all.length,Number(range)||66);
+    const offset=all.length-size;
+    const selected=all.slice(offset);
+    const ma={};
+    const closes=all.map(b=>b.close);
+    for(const spec of maSpec)ma[spec.period]=sma(closes,spec.period).slice(offset);
+    return {all,selected,ma};
   }
-  function rsi(values,p=14){
-    const out=Array(values.length).fill(null);
-    if(values.length<=p)return out;
-    let gains=0,losses=0;
-    for(let i=1;i<=p;i++){
-      const d=values[i]-values[i-1];
-      gains+=Math.max(0,d);losses+=Math.max(0,-d);
+  const xPos=(i,count)=>XL+i/(Math.max(1,count-1))*(XR-XL);
+  const yPos=(v,lo,hi)=>PB-(v-lo)/(hi-lo)*(PB-PT);
+  function priceDomain(selected,ma,fib){
+    const values=[];
+    for(const b of selected){values.push(b.close);if(b.high!=null)values.push(b.high);if(b.low!=null)values.push(b.low);}
+    for(const spec of maSpec)for(const v of ma[spec.period]||[])if(v!=null)values.push(v);
+    const f236=n(fib?.['0.236']),f382=n(fib?.['0.382']);
+    // Keep the reference-zone visible only when prices are in the visible vicinity;
+    // never flatten a chart around a distant obsolete Fibonacci anchor.
+    const realMin=Math.min(...values),realMax=Math.max(...values);
+    if(f236>0&&f382>0){
+      const span=Math.max(1,realMax-realMin);
+      if(f236>=realMin-span*.20&&f236<=realMax+span*.20)values.push(f236);
+      if(f382>=realMin-span*.20&&f382<=realMax+span*.20)values.push(f382);
     }
-    gains/=p;losses/=p;
-    const indexValue=()=>gains===0&&losses===0?50:losses===0?100:100-100/(1+gains/losses);
-    out[p]=indexValue();
-    for(let i=p+1;i<values.length;i++){
-      const d=values[i]-values[i-1];
-      gains=(gains*(p-1)+Math.max(0,d))/p;
-      losses=(losses*(p-1)+Math.max(0,-d))/p;
-      out[i]=indexValue();
-    }
-    return out;
+    const min=Math.min(...values),max=Math.max(...values);
+    const pad=Math.max(1,(max-min)*.07);
+    return [min-pad,max+pad];
   }
-  function macd(values){
-    const a=ema(values,12),b=ema(values,26),line=Array(values.length).fill(null);
-    for(let i=0;i<values.length;i++)if(a[i]!=null&&b[i]!=null)line[i]=a[i]-b[i];
-    const tail=line.filter(x=>x!=null),signalTail=ema(tail,9);
-    const signal=Array(values.length).fill(null),hist=Array(values.length).fill(null);
-    let ptr=0;
-    for(let i=0;i<line.length;i++)if(line[i]!=null){
-      signal[i]=signalTail[ptr++];
-      if(signal[i]!=null)hist[i]=line[i]-signal[i];
-    }
-    return {line,signal,hist};
-  }
-  const path=(series,domain,pane)=>{
-    let s='',drawing=false;
-    series.forEach((v,i)=>{
-      if(v==null||!Number.isFinite(v)){drawing=false;return;}
-      s+=(drawing?' L ':' M ')+round(xAt(i,series.length))+' '+round(yOn(v,domain,pane));
-      drawing=true;
+  function seriesPath(items,min,max){
+    let d='',active=false;
+    items.forEach((v,i)=>{
+      if(v==null){active=false;return;}
+      d+=(active?' L ':' M ')+R(xPos(i,items.length))+' '+R(yPos(v,min,max));
+      active=true;
     });
-    return s.trim();
-  };
-  const line=(x1,y1,x2,y2,cls)=>'<line class="'+cls+'" x1="'+round(x1)+'" y1="'+round(y1)+
-    '" x2="'+round(x2)+'" y2="'+round(y2)+'"/>';
-  function render(sourceBars, fib, opts={}){
-    const all=normalize(sourceBars);
+    return d.trim();
+  }
+  const line=(x1,y1,x2,y2,cls)=>'<line class="'+cls+'" x1="'+R(x1)+'" y1="'+R(y1)+
+    '" x2="'+R(x2)+'" y2="'+R(y2)+'"/>';
+  function render(sourceBars,fib,opts={}){
     const range=String(opts.range??'66');
-    const count=range==='all'?all.length:Math.min(all.length,Number(range)||66);
-    const start=all.length-count,selected=all.slice(start);
-    if(selected.length<2)return '<div class="mfr-empty">일봉 데이터가 부족해 차트를 표시할 수 없습니다.</div>';
-    const fullClose=all.map(x=>x.close);
-    const ma={},periods=[10,20,60,120];
-    periods.forEach(p=>ma[p]=sma(fullClose,p).slice(start));
-    const rsiData=rsi(fullClose).slice(start),m=macd(fullClose);
-    const macdValues={line:m.line.slice(start),signal:m.signal.slice(start),hist:m.hist.slice(start)};
-    const candleReady=selected.some(b=>
-      b.open!=null&&b.high!=null&&b.low!=null&&
+    const {all,selected,ma}=rangeData(sourceBars,range);
+    if(selected.length<2)return '<div class="kcs-empty">조회 가능한 일봉이 부족합니다.</div>';
+    const [min,max]=priceDomain(selected,ma,fib);
+    const y=v=>yPos(v,min,max),xx=i=>xPos(i,selected.length);
+    const step=(XR-XL)/Math.max(1,selected.length-1),bodyWidth=Math.max(2,Math.min(12,step*.66));
+    const candles=selected.some(b=>b.open!=null&&b.high!=null&&b.low!=null&&
       b.high>=Math.max(b.open,b.close)&&b.low<=Math.min(b.open,b.close));
-    const volumeReady=selected.some(b=>b.volume!=null);
-    const levels=['0.236','0.382','0.5','0.618'].map(key=>({key,price:num(fib?.[key])})).filter(x=>x.price>0);
-    const values=[...selected.flatMap(b=>[b.low,b.high,b.close].filter(v=>v!=null)),...levels.map(x=>x.price)];
-    const min=Math.min(...values),max=Math.max(...values),padding=Math.max(1,(max-min)*.07);
-    const priceDomain=[min-padding,max+padding],priceY=v=>yOn(v,priceDomain,panes.price);
-    const maxVolume=Math.max(1,...selected.map(b=>b.volume||0));
-    const allMacd=[...macdValues.line,...macdValues.signal,...macdValues.hist].filter(x=>x!=null);
-    const extent=Math.max(1,...allMacd.map(Math.abs))*1.2,macdDomain=[-extent,extent];
-    const [pt,pb]=panes.price,[vt,vb]=panes.volume,[rt,rb]=panes.rsi,[mt,mb]=panes.macd;
-    const xstep=(XR-XL)/(selected.length-1),barWidth=Math.max(2,Math.min(11,xstep*.62));
-    let svg='<svg id="mfrAdvancedSvg" class="mfr-svg" viewBox="0 0 '+W+' 626" role="img" '+
-      'aria-label="실제 일봉 시세의 캔들 또는 종가 그래프, 이동평균선, 피보나치, 거래량, RSI 및 MACD">'+
-      '<defs><linearGradient id="mfrBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#142644"/>'+
-      '<stop offset="1" stop-color="#07142a"/></linearGradient>'+
-      '<linearGradient id="mfrArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45b3e2" stop-opacity=".32"/>'+
-      '<stop offset="1" stop-color="#45b3e2" stop-opacity=".02"/></linearGradient></defs>'+
-      '<rect x="0" y="0" width="'+W+'" height="626" rx="13" fill="url(#mfrBg)"/>';
-    for(const [name,[a,b]] of Object.entries(panes)){
-      svg+='<rect x="'+XL+'" y="'+a+'" width="'+(XR-XL)+'" height="'+(b-a)+
-        '" fill="#11223d" opacity="'+(name==='price'?'.65':'.5')+'"/>';
+    const volumeExists=selected.some(b=>b.volume!=null);
+    const maximumVolume=Math.max(1,...selected.map(b=>b.volume||0));
+    const grad='<defs><linearGradient id="kcsChartBg" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#0b1e36"/><stop offset="100%" stop-color="#061528"/></linearGradient>'+
+      '<linearGradient id="kcsLineArea" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#3f89f5" stop-opacity=".3"/>'+
+      '<stop offset="100%" stop-color="#3f89f5" stop-opacity=".02"/></linearGradient>'+
+      '<clipPath id="kcsPriceClip"><rect x="'+XL+'" y="'+PT+'" width="'+(XR-XL)+
+      '" height="'+(PB-PT)+'"/></clipPath></defs>';
+    let svg='<svg class="kcs-svg" id="kcsPriceSvg" viewBox="0 0 '+W+' '+H+
+      '" role="img" aria-label="K차트스캐너형 가격 캔들, 5 10 20 60 120일 이동평균선과 거래량, 0.236에서 0.382까지 피보나치 하단 구간">'+grad+
+      '<rect width="'+W+'" height="'+H+'" rx="13" fill="url(#kcsChartBg)"/>'+
+      '<rect x="'+XL+'" y="'+PT+'" width="'+(XR-XL)+'" height="'+(PB-PT)+
+      '" fill="#07182d" opacity=".64"/>';
+    for(let j=0;j<=6;j++){
+      const p=max-(max-min)*j/6,yp=y(p);
+      svg+=line(XL,yp,XR,yp,'kcs-grid')+
+        '<text class="kcs-axis" x="'+(XR+13)+'" y="'+R(yp+4)+'">'+fmt(p)+'</text>';
     }
-    const tickValues=Array.from({length:6},(_,i)=>priceDomain[1]-i*(priceDomain[1]-priceDomain[0])/5);
-    for(const v of tickValues){
-      const y=priceY(v);
-      svg+=line(XL,y,XR,y,'mfr-grid')+'<text class="mfr-axis" x="'+(XR+11)+'" y="'+round(y+4)+'">'+fmt(v)+'</text>';
+    const tickCount=Math.min(7,selected.length);
+    for(let j=0;j<tickCount;j++){
+      const i=Math.round(j*(selected.length-1)/Math.max(1,tickCount-1));
+      const xpos=xx(i);
+      svg+=line(xpos,PT,xpos,VB,'kcs-vertical')+
+        '<text class="kcs-axis" text-anchor="middle" x="'+R(xpos)+
+        '" y="542">'+safe(dateText(selected[i].date))+'</text>';
     }
-    const xTickCount=Math.min(6,selected.length),tickIndices=new Set(Array.from({length:xTickCount},(_,i)=>
-      Math.round(i*(selected.length-1)/Math.max(1,xTickCount-1))));
-    for(const i of tickIndices){
-      const x=xAt(i,selected.length);
-      svg+=line(x,pt,x,mb,'mfr-vertical')+'<text class="mfr-axis" text-anchor="middle" x="'+
-        round(x)+'" y="610">'+safe(shortDate(selected[i].date))+'</text>';
+    // K차트스캐너 rule: shade only the 0.236-0.382 Fibonacci interval.
+    const f236=n(fib?.['0.236']),f382=n(fib?.['0.382']);
+    if(f236>0&&f382>0&&Math.abs(f236-f382)>0.001){
+      const y1=y(f236),y2=y(f382),top=Math.min(y1,y2),bottom=Math.max(y1,y2);
+      svg+='<g clip-path="url(#kcsPriceClip)"><rect class="kcs-fib-fill" x="'+XL+
+        '" y="'+R(top)+'" width="'+(XR-XL)+'" height="'+R(bottom-top)+'"/>'+
+        line(XL,y1,XR,y1,'kcs-fib-edge')+line(XL,y2,XR,y2,'kcs-fib-edge')+'</g>';
     }
-    if(levels.length){
-      const hi=levels.find(x=>x.key==='0.236'),lo=levels.find(x=>x.key==='0.382');
-      if(hi&&lo){const y1=priceY(hi.price),y2=priceY(lo.price);
-        svg+='<rect x="'+XL+'" y="'+round(Math.min(y1,y2))+'" width="'+(XR-XL)+
-          '" height="'+round(Math.abs(y1-y2))+'" fill="#2ee2b9" opacity=".065"/>';
-      }
-      for(const l of levels){
-        const y=priceY(l.price);
-        svg+=line(XL,y,XR,y,'mfr-fib'+(l.key==='0.382'?' mfr-fib-primary':''))+
-          '<text class="mfr-fib-label'+(l.key==='0.382'?' primary':'')+
-          '" x="'+(XR+10)+'" y="'+round(y-6)+'">F'+l.key+'</text>'+
-          '<text class="mfr-fib-value" x="'+(XR+10)+'" y="'+round(y+8)+'">'+fmt(l.price)+'</text>';
-      }
-    }
-    if(candleReady){
+    if(candles){
       selected.forEach((b,i)=>{
         if(b.open==null||b.high==null||b.low==null||
           b.high<Math.max(b.open,b.close)||b.low>Math.min(b.open,b.close))return;
-        const x=xAt(i,selected.length);
-        const color=b.close>b.open?bull:b.close<b.open?bear:neutral;
-        const top=priceY(Math.max(b.open,b.close)),bottom=priceY(Math.min(b.open,b.close));
-        svg+='<line x1="'+round(x)+'" y1="'+round(priceY(b.high))+
-          '" x2="'+round(x)+'" y2="'+round(priceY(b.low))+
-          '" stroke="'+color+'" stroke-width="1.4"/>'+
-          '<rect x="'+round(x-barWidth/2)+'" y="'+round(top)+'" width="'+round(barWidth)+
-          '" height="'+round(Math.max(1.5,bottom-top))+'" fill="'+color+'" rx=".6"/>';
+        const color=b.close>b.open?UP:b.close<b.open?DOWN:EVEN;
+        const xp=xx(i),yt=y(Math.max(b.open,b.close)),yb=y(Math.min(b.open,b.close));
+        svg+='<line x1="'+R(xp)+'" y1="'+R(y(b.high))+'" x2="'+R(xp)+
+          '" y2="'+R(y(b.low))+'" stroke="'+color+'" stroke-width="1.3"/>'+
+          '<rect x="'+R(xp-bodyWidth/2)+'" y="'+R(yt)+'" width="'+R(bodyWidth)+
+          '" height="'+R(Math.max(1.5,yb-yt))+'" fill="'+color+'" rx=".5"/>';
       });
     }else{
-      const closePath=path(selected.map(x=>x.close),priceDomain,panes.price);
-      const firstX=xAt(0,selected.length),lastX=xAt(selected.length-1,selected.length);
-      svg+='<path d="'+closePath+' L '+round(lastX)+' '+pb+' L '+round(firstX)+' '+pb+
-        ' Z" fill="url(#mfrArea)"/><path d="'+closePath+'" class="mfr-close-line"/>';
+      const d=seriesPath(selected.map(b=>b.close),min,max);
+      svg+='<path d="'+d+' L '+R(xx(selected.length-1))+' '+PB+' L '+XL+' '+PB+
+        ' Z" fill="url(#kcsLineArea)"/><path d="'+d+'" class="kcs-close-line"/>';
     }
-    for(const p of periods){
-      const d=path(ma[p],priceDomain,panes.price);
-      if(d)svg+='<path class="mfr-ma-line" d="'+d+'" stroke="'+maColors[p]+'"/>';
+    // Moving averages always reflect the full source history, including bars
+    // preceding the selected range; unavailable MAs are not synthesized.
+    for(const spec of maSpec){
+      const d=seriesPath(ma[spec.period],min,max);
+      if(d)svg+='<path class="kcs-ma-line" d="'+d+'" stroke="'+spec.color+'"/>';
     }
-    if(volumeReady){
+    // Right-side current price and key MA10/MA20 badges as in K차트스캐너.
+    const last=selected.at(-1),previous=selected.at(-2);
+    const lastColor=last.open!=null?(last.close>=last.open?UP:DOWN):
+      (last.close>=previous.close?UP:DOWN);
+    const lastY=Math.min(PB-11,Math.max(PT+11,y(last.close)));
+    svg+='<rect x="'+(XR+7)+'" y="'+R(lastY-11)+'" width="95" height="21" rx="4" fill="'+lastColor+'"/>'+
+      '<text class="kcs-price-badge" x="'+(XR+54)+'" y="'+R(lastY+4)+'" text-anchor="middle">'+fmt(last.close)+'</text>';
+    // Hide MA badges if they overlap the latest close label; the colored
+    // moving-average legend still shows their exact values.
+    for(const spec of maSpec.filter(x=>x.period===10||x.period===20)){
+      const value=ma[spec.period].at(-1);
+      if(value==null)continue;
+      const yy=y(value);
+      if(yy<PT+12||yy>PB-12||Math.abs(yy-lastY)<25)continue;
+      svg+='<rect x="'+(XR+7)+'" y="'+R(yy-9)+'" width="95" height="18" rx="4" fill="'+spec.color+'"/>'+
+        '<text class="kcs-ma-badge" x="'+(XR+54)+'" y="'+R(yy+4)+'" text-anchor="middle">'+
+        spec.period+'일 '+fmt(value)+'</text>';
+    }
+    svg+=line(XL,VT-2,XR,VT-2,'kcs-volume-separator');
+    if(volumeExists){
       selected.forEach((b,i)=>{
         if(b.volume==null)return;
-        const x=xAt(i,selected.length),height=(b.volume/maxVolume)*(vb-vt-5);
-        const color=b.open!=null?(b.close>=b.open?bull:bear):
-          (i>0&&b.close>=selected[i-1].close?bull:bear);
-        svg+='<rect x="'+round(x-barWidth/2)+'" y="'+round(vb-height)+'" width="'+
-          round(barWidth)+'" height="'+round(Math.max(1,height))+'" fill="'+color+'" opacity=".72"/>';
+        const xp=xx(i),vHeight=(b.volume/maximumVolume)*(VB-VT-8);
+        const clr=b.open!=null?(b.close>=b.open?UP:DOWN):
+          (i>0&&b.close>=selected[i-1].close?UP:DOWN);
+        svg+='<rect x="'+R(xp-bodyWidth/2)+'" y="'+R(VB-vHeight)+'" width="'+
+          R(bodyWidth)+'" height="'+R(Math.max(1,vHeight))+'" fill="'+clr+'" opacity=".88"/>';
       });
-      svg+='<text class="mfr-axis" x="'+(XR+11)+'" y="'+(vt+11)+'">'+fmt(maxVolume)+'</text>';
-    }else{
-      svg+='<text class="mfr-no-data" x="'+(XL+30)+'" y="'+((vt+vb)/2)+'">거래량 미수집 · 일봉 재수집 필요</text>';
-    }
-    for(const v of [30,50,70]){
-      const y=yOn(v,[0,100],panes.rsi);
-      svg+=line(XL,y,XR,y,'mfr-grid'+(v===50?'': ' mfr-guide'))+
-        '<text class="mfr-axis" x="'+(XR+11)+'" y="'+round(y+4)+'">'+v+'</text>';
-    }
-    const rsiPath=path(rsiData,[0,100],panes.rsi);
-    if(rsiPath)svg+='<path d="'+rsiPath+'" stroke="#d69dff" class="mfr-indicator-line"/>';
-    svg+=line(XL,yOn(0,macdDomain,panes.macd),XR,yOn(0,macdDomain,panes.macd),'mfr-zero');
-    const zero=yOn(0,macdDomain,panes.macd);
-    macdValues.hist.forEach((v,i)=>{
-      if(v==null)return;
-      const y=yOn(v,macdDomain,panes.macd);
-      svg+='<rect x="'+round(xAt(i,selected.length)-barWidth/2)+'" y="'+round(Math.min(y,zero))+
-        '" width="'+round(barWidth)+'" height="'+round(Math.max(1,Math.abs(zero-y)))+
-        '" fill="'+(v>=0?'#45dac7':'#ff6175')+'" opacity=".75"/>';
-    });
-    const mline=path(macdValues.line,macdDomain,panes.macd),
-      sline=path(macdValues.signal,macdDomain,panes.macd);
-    if(mline)svg+='<path class="mfr-indicator-line" d="'+mline+'" stroke="#3ab4ff"/>';
-    if(sline)svg+='<path class="mfr-indicator-line" d="'+sline+'" stroke="#fca45a"/>';
-    for(const [name,y] of [['거래량',vt+11],['RSI (14)',rt+11],['MACD',mt+11]])
-      svg+='<text class="mfr-panel-name" x="'+(XL+7)+'" y="'+y+'">'+safe(name)+'</text>';
-    svg+='<g id="mfrCross" visibility="hidden">'+line(XL,pt,XL,mb,'mfr-cross')+
-      '<line id="mfrHoverVertical" class="mfr-cross" x1="'+XL+'" x2="'+XL+'" y1="'+pt+'" y2="'+mb+'"/>'+
-      '<line id="mfrHoverHorizontal" class="mfr-cross" x1="'+XL+'" x2="'+XR+'" y1="'+pt+'" y2="'+pt+'"/>'+
-      '<circle id="mfrHoverDot" cx="'+XL+'" cy="'+pt+'" r="4.8" class="mfr-hover-dot"/></g></svg>';
-    const last=selected.at(-1),prev=all[start+selected.length-2];
-    const change=prev?(last.close/prev.close-1)*100:null;
-    const status=candleReady?'실제 시가·고가·저가·종가':'종가선 (시가 정보 없음)';
-    const volLegend=volumeReady?'실제 거래량':'거래량 데이터 없음';
-    const legend=['MA10','MA20','MA60','MA120'].map((v,i)=>'<span class="mfr-legend"><i style="--line-color:'+
-      maColors[periods[i]]+'"></i>'+v+' <b>'+fmt(ma[periods[i]].at(-1))+'</b></span>').join('');
-    const tools=ranges.map(([k,label])=>'<button type="button" data-chart-range="'+k+
-      '" class="mfr-range'+(k===range?' active':'')+'" aria-pressed="'+(k===range)+
-      '">'+label+'</button>').join('');
-    return '<div id="mfrChart" class="mfr-chart">'+
-      '<div class="mfr-chart-top"><div class="mfr-quote"><div class="mfr-quote-title">'+
-      safe(opts.name||'종목')+' <span>일봉 · '+safe(longDate(last.date))+'</span></div>'+
-      '<strong>'+fmt(last.close)+'원</strong><span class="mfr-change '+(change>=0?'positive':'negative')+
-      '">'+(change==null?'':(change>=0?'+':'')+fmt(change,2)+'%')+'</span></div>'+
-      '<div class="mfr-range-bar" role="group" aria-label="가격 차트 기간">'+tools+'</div></div>'+
-      '<div class="mfr-key-row"><span><i class="mfr-up-dot"></i>상승</span>'+
-      '<span><i class="mfr-down-dot"></i>하락</span>'+legend+'</div>'+
-      '<div class="mfr-plot-container">'+svg+
-      '<div id="mfrTooltip" class="mfr-tooltip" hidden></div></div>'+
-      '<div class="mfr-data-note">'+safe(status)+' · '+safe(volLegend)+
-      ' · 최근 '+selected.length+'거래일 · RSI(14)·MACD(12,26,9)'+
-      (!candleReady?' · 캔들을 보려면 새 키움 관심종목 파일을 수집하세요.':'')+
-      '</div></div>';
+    }else svg+='<text x="'+(XL+20)+'" y="'+(VT+40)+'" class="kcs-empty-note">거래량 미수집 · 새 관심종목 파일로 갱신 가능</text>';
+    svg+='<text x="'+(XL+6)+'" y="'+(VT+13)+'" class="kcs-volume-name">거래량</text>'+
+      '<g id="kcsHoverCross" visibility="hidden">'+
+      '<line id="kcsCrossVertical" class="kcs-cross" x1="'+XL+'" x2="'+XL+'" y1="'+PT+'" y2="'+VB+'"/>'+
+      '<line id="kcsCrossHorizontal" class="kcs-cross" x1="'+XL+'" x2="'+XR+'" y1="'+PT+'" y2="'+PT+'"/>'+
+      '<circle id="kcsCrossDot" class="kcs-dot" cx="'+XL+'" cy="'+PT+'" r="4.5"/></g></svg>';
+    const diff=last.close-previous.close,change=previous.close?(last.close/previous.close-1)*100:null;
+    const maLegend=maSpec.map(spec=>'<span class="kcs-legend-label"><i style="background:'+
+      spec.color+'"></i>'+spec.period+' <b>'+fmt(ma[spec.period].at(-1))+'</b></span>').join('');
+    const controls=ranges.map(([id,label])=>'<button type="button" class="kcs-range'+
+      (id===range?' active':'')+'" data-chart-range="'+id+'" aria-pressed="'+(id===range)+'">'+label+'</button>').join('');
+    return '<section class="kcs-chart" id="kcsChart">'+
+      '<div class="kcs-header"><div class="kcs-price-title"><div><strong>'+
+      safe(opts.name||'종목')+'</strong> <span>일봉 · '+safe(dateText(last.date,true))+'</span></div>'+
+      '<div class="kcs-price-row"><b>'+fmt(last.close)+'</b><span class="'+
+      (change!=null&&change>=0?'up':'down')+'">'+(diff>=0?'+':'')+fmt(diff)+
+      ' ('+(change!=null&&change>=0?'+':'')+fmt(change,2)+'%)</span></div></div>'+
+      '<div class="kcs-range-bar" role="group" aria-label="차트 기간 선택">'+controls+'</div></div>'+
+      '<div class="kcs-legend"><span class="kcs-legend-title">이동평균선</span>'+
+      maLegend+'</div><div class="kcs-plot">'+svg+
+      '<div class="kcs-tooltip" id="kcsTooltip" hidden></div></div>'+
+      '<div class="kcs-footer"><span class="kcs-candle-key"><i class="bull"></i>상승 <i class="bear"></i>하락</span>'+
+      '<span class="kcs-fib-indicator"><i></i>피보나치 0.236~0.382 관심구간</span>'+
+      '<span>'+selected.length+'거래일 · '+(candles?'실제 캔들':'구형 시세: 종가선')+
+      ' · '+(volumeExists?'거래량':'거래량 없음')+'</span></div></section>';
   }
   function bind(root,sourceBars,opts={}){
-    const shell=root?.querySelector('#mfrChart'),svg=shell?.querySelector('#mfrAdvancedSvg');
-    if(!shell||!svg)return;
-    const all=normalize(sourceBars),range=String(opts.range??'66');
-    const selected=all.slice(range==='all'?0:-Math.min(all.length,Number(range)||66));
+    const host=root?.querySelector('#kcsChart'),svg=host?.querySelector('#kcsPriceSvg');
+    if(!host||!svg)return;
+    const range=String(opts.range??'66');
+    const {selected,ma}=rangeData(sourceBars,range);
     if(selected.length<2)return;
-    const vals=selected.map(x=>x.close),top=panes.price[0],bottom=panes.price[1];
-    const levels=['0.236','0.382','0.5','0.618'].map(k=>num(opts.fib?.[k])).filter(x=>x>0);
-    const highs=selected.flatMap(x=>[x.high,x.low,x.close].filter(x=>x!=null));
-    const min=Math.min(...highs,...levels),max=Math.max(...highs,...levels),padding=Math.max(1,(max-min)*.07);
-    const domain=[min-padding,max+padding],priceY=v=>yOn(v,domain,panes.price);
-    const cursor=shell.querySelector('#mfrCross'),crossV=shell.querySelector('#mfrHoverVertical'),
-      crossH=shell.querySelector('#mfrHoverHorizontal'),dot=shell.querySelector('#mfrHoverDot'),
-      tip=shell.querySelector('#mfrTooltip');
-    const rsiValues=rsi(all.map(x=>x.close)).slice(-selected.length);
-    const hide=()=>{cursor?.setAttribute('visibility','hidden');if(tip)tip.hidden=true;};
-    const handle=e=>{
-      const rect=svg.getBoundingClientRect();
-      if(!rect.width)return;
-      const pos=(e.clientX-rect.left)/rect.width*W;
-      if(pos<XL||pos>XR){hide();return;}
-      const ix=Math.max(0,Math.min(selected.length-1,Math.round((pos-XL)/(XR-XL)*(selected.length-1))));
-      const b=selected[ix],x=xAt(ix,selected.length),y=priceY(b.close);
-      cursor?.setAttribute('visibility','visible');
-      crossV?.setAttribute('x1',round(x));crossV?.setAttribute('x2',round(x));
-      crossH?.setAttribute('y1',round(y));crossH?.setAttribute('y2',round(y));
-      dot?.setAttribute('cx',round(x));dot?.setAttribute('cy',round(y));
-      const vol=b.volume==null?'—':fmt(b.volume)+'주';
-      tip.innerHTML='<b>'+safe(longDate(b.date))+'</b>'+
-        '<span>시가 <strong>'+fmt(b.open)+'</strong></span>'+
-        '<span>고가 <strong>'+fmt(b.high)+'</strong></span>'+
-        '<span>저가 <strong>'+fmt(b.low)+'</strong></span>'+
-        '<span>종가 <strong>'+fmt(b.close)+'</strong></span>'+
-        '<span>거래량 <strong>'+vol+'</strong></span>'+
-        '<span>RSI(14) <strong>'+fmt(rsiValues[ix],1)+'</strong></span>';
+    const [min,max]=priceDomain(selected,ma,opts.fib);
+    const cross=host.querySelector('#kcsHoverCross'),crossV=host.querySelector('#kcsCrossVertical'),
+      crossH=host.querySelector('#kcsCrossHorizontal'),dot=host.querySelector('#kcsCrossDot'),
+      tip=host.querySelector('#kcsTooltip');
+    const close=()=>{cross?.setAttribute('visibility','hidden');if(tip)tip.hidden=true;};
+    function move(event){
+      const bounds=svg.getBoundingClientRect();
+      if(!bounds.width)return;
+      const x=(event.clientX-bounds.left)/bounds.width*W;
+      if(x<XL||x>XR){close();return;}
+      const i=Math.max(0,Math.min(selected.length-1,Math.round((x-XL)/(XR-XL)*(selected.length-1))));
+      const b=selected[i],px=xPos(i,selected.length),py=yPos(b.close,min,max);
+      cross?.setAttribute('visibility','visible');
+      crossV?.setAttribute('x1',R(px));crossV?.setAttribute('x2',R(px));
+      crossH?.setAttribute('y1',R(py));crossH?.setAttribute('y2',R(py));
+      dot?.setAttribute('cx',R(px));dot?.setAttribute('cy',R(py));
+      if(!tip)return;
+      tip.innerHTML='<strong>'+safe(dateText(b.date,true))+'</strong>'+
+        '<span>시가 <b>'+fmt(b.open)+'</b></span>'+
+        '<span>고가 <b>'+fmt(b.high)+'</b></span>'+
+        '<span>저가 <b>'+fmt(b.low)+'</b></span>'+
+        '<span>종가 <b>'+fmt(b.close)+'</b></span>'+
+        '<span>거래량 <b>'+ (b.volume==null?'—':fmt(b.volume)+'주')+'</b></span>'+
+        '<span>10일선 <b>'+fmt(ma[10][i])+'</b></span>'+
+        '<span>20일선 <b>'+fmt(ma[20][i])+'</b></span>';
       tip.hidden=false;
-      tip.style.left=Math.max(8,Math.min(shell.clientWidth-165,x/W*rect.width+10))+'px';
-      tip.style.top=Math.max(20,Math.min(rect.height-20,y/626*rect.height+10))+'px';
-    };
-    svg.addEventListener('pointermove',handle);
-    svg.addEventListener('pointerdown',handle);
-    svg.addEventListener('pointerleave',hide);
+      tip.style.left=Math.max(8,Math.min(host.clientWidth-168,px/W*bounds.width+12))+'px';
+      tip.style.top=Math.max(24,Math.min(bounds.height-20,py/H*bounds.height+6))+'px';
+    }
+    svg.addEventListener('pointermove',move);
+    svg.addEventListener('pointerdown',move);
+    svg.addEventListener('pointerleave',close);
   }
-  window.MoneyFlowChart={render,bind,normalize,indicators:{sma,rsi,macd},version:'3.4'};
+  window.MoneyFlowChart={render,bind,normalize,indicators:{sma},version:'3.5-kcs'};
 })();
