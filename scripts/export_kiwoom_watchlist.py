@@ -124,7 +124,7 @@ def historical_technical(bars):
 
 
 
-CACHE_VERSION = 2
+CACHE_VERSION = 3
 CHECKPOINT_EVERY = 25
 
 
@@ -132,7 +132,7 @@ def watchlist_checkpoint_path(asof, base):
     """Private, date-scoped cache. Never committed to the GitHub repository."""
     directory = Path(base) / "watchlist-chart-cache"
     directory.mkdir(parents=True, exist_ok=True)
-    return directory / ("watchlist-bars-" + asof.strftime("%Y%m%d") + "-v2.json.gz")
+    return directory / ("watchlist-bars-" + asof.strftime("%Y%m%d") + "-v3.json.gz")
 
 
 def load_watchlist_cache(path, asof):
@@ -165,7 +165,7 @@ def stock_record(code, info, bars):
             {"date": b["date"], "open": b.get("open"), "close": b["close"],
              "high": b.get("high"), "low": b.get("low"),
              "volume": b.get("volume")}
-            for b in bars[:200]
+            for b in bars[:260]
         ],
         "session": bars[0]["date"] if bars else None,
         **technical
